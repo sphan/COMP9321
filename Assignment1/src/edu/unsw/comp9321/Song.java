@@ -2,12 +2,12 @@ package edu.unsw.comp9321;
 
 public class Song {
 	
-	public Song(String title, float price, String songID) {
+	public Song(String title) {
 		this.title = title;
 		this.artist = "";
 		this.albumID = "";
-		this.price = price;
-		this.songID = songID;
+		this.price = 0;
+		this.songID = "";
 	}
 	
 	public String getArtist() {

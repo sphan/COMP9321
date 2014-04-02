@@ -4,11 +4,11 @@ import java.util.LinkedList;
 
 public class Album {
 	
-	public Album(String title, float price, String id) {
+	public Album(String title) {
 		this.artist = "";
 		this.title = title;
-		this.albumID = id;
-		this.price = price;
+		this.albumID = "";
+		this.price = 0;
 		this.publisher = "";
 		this.year = 1920;
 		this.genre = "";
