@@ -1,0 +1,2473 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<musicDB xmlns="http://www.unsw.edu.au/comp9321/SongLibrary">
+    <albumList>
+        <artist>Art Pepper</artist>
+        <title>Art Pepper Meets The Rhythm Section</title>
+        <ID>b273cf49-6b14-4a2f-8cb3-1c87be4eaf71</ID>
+        <genre>Jazz</genre>
+        <publisher>Contemporary/OJC</publisher>
+        <year>1957</year>
+        <songList>
+            <artist>Art Pepper</artist>
+            <title>Youd Be So Nice To Come Home To</title>
+            <albumID>b273cf49-6b14-4a2f-8cb3-1c87be4eaf71</albumID>
+            <price>0.99</price>
+            <songID>5a182d19-d184-4329-9641-4ed3aa8f8a52</songID>
+        </songList>
+        <songList>
+            <artist>Art Pepper</artist>
+            <title>Red Pepper Blues</title>
+            <albumID>b273cf49-6b14-4a2f-8cb3-1c87be4eaf71</albumID>
+            <price>0.99</price>
+            <songID>81ff4e0e-e56d-48b0-bc16-87bdd2a40556</songID>
+        </songList>
+        <songList>
+            <artist>Art Pepper</artist>
+            <title>Imagination</title>
+            <albumID>b273cf49-6b14-4a2f-8cb3-1c87be4eaf71</albumID>
+            <price>0.99</price>
+            <songID>b0b5f010-8358-45ea-837b-59b4b05a2519</songID>
+        </songList>
+        <songList>
+            <artist>Art Pepper</artist>
+            <title>Waltz Me Blues</title>
+            <albumID>b273cf49-6b14-4a2f-8cb3-1c87be4eaf71</albumID>
+            <price>0.99</price>
+            <songID>62a0a901-94a3-4739-bb12-e5c81577e860</songID>
+        </songList>
+        <songList>
+            <artist>Art Pepper</artist>
+            <title>Straight Life</title>
+            <albumID>b273cf49-6b14-4a2f-8cb3-1c87be4eaf71</albumID>
+            <price>0.99</price>
+            <songID>6b1f60e1-0e3a-44e3-9054-bc20820587d6</songID>
+        </songList>
+        <songList>
+            <artist>Art Pepper</artist>
+            <title>Jazz Me Blues</title>
+            <albumID>b273cf49-6b14-4a2f-8cb3-1c87be4eaf71</albumID>
+            <price>0.99</price>
+            <songID>9d1b2589-2db9-4f6c-bc56-5403391979aa</songID>
+        </songList>
+        <songList>
+            <artist>Art Pepper</artist>
+            <title>Tin Tin Deo</title>
+            <albumID>b273cf49-6b14-4a2f-8cb3-1c87be4eaf71</albumID>
+            <price>0.99</price>
+            <songID>e35a014a-4d3a-4b19-b0ad-d86e4b3f3f69</songID>
+        </songList>
+        <songList>
+            <artist>Art Pepper</artist>
+            <title>Star Eyes</title>
+            <albumID>b273cf49-6b14-4a2f-8cb3-1c87be4eaf71</albumID>
+            <price>0.99</price>
+            <songID>f9a2781f-587f-4b12-b220-1312c4af0516</songID>
+        </songList>
+        <songList>
+            <artist>Art Pepper</artist>
+            <title>Birks Works</title>
+            <albumID>b273cf49-6b14-4a2f-8cb3-1c87be4eaf71</albumID>
+            <price>0.99</price>
+            <songID>a18d1798-1efb-4402-9a27-30566a9ce0af</songID>
+        </songList>
+        <songList>
+            <artist>Art Pepper</artist>
+            <title>The Man I Love</title>
+            <albumID>b273cf49-6b14-4a2f-8cb3-1c87be4eaf71</albumID>
+            <price>0.99</price>
+            <songID>62675340-9a6b-40ce-b7fb-de0c0ce7756f</songID>
+        </songList>
+        <price>6.0</price>
+    </albumList>
+    <albumList>
+        <artist>RZA</artist>
+        <title>Batman Forever</title>
+        <ID>17bfb614-f226-4371-be53-007ef2ef3d8b</ID>
+        <genre>Soundtrack</genre>
+        <publisher>Atlantic</publisher>
+        <year>1995</year>
+        <songList>
+            <artist>U2</artist>
+            <title>Hold Me Thrill Me Kiss Me Kill Me</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>2cafb37a-e696-4351-b624-d9ad1d7867a5</songID>
+        </songList>
+        <songList>
+            <artist>PJ Harvey</artist>
+            <title>One Time Too Many</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>92a08ead-6d76-4ebf-a63e-c615d46f8f4d</songID>
+        </songList>
+        <songList>
+            <artist>Brandy</artist>
+            <title>Where Are You Now</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>726fc755-42e5-429b-a658-44d7669ee504</songID>
+        </songList>
+        <songList>
+            <artist>Seal</artist>
+            <title>Kiss from a Rose</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>02d44627-35f5-4b9d-ad11-4ecbd6cce8cc</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack / Tracey Thorn</artist>
+            <title>The Hunter Gets Captured by the Game</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>65068892-742a-4c4a-a9f6-c994672ac2cb</songID>
+        </songList>
+        <songList>
+            <artist>Eddi Reader</artist>
+            <title>Nobody Lives Without Love</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>410ec6ec-76ab-4fe7-a28c-777035702c5f</songID>
+        </songList>
+        <songList>
+            <artist>Mazzy Star</artist>
+            <title>Tell Me Now</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>f432e2b7-8900-4b53-b0e1-cf27ad470404</songID>
+        </songList>
+        <songList>
+            <artist>The Offspring</artist>
+            <title>Smash It Up</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>4078677a-b955-4e75-8601-e7b5ce9a168e</songID>
+        </songList>
+        <songList>
+            <artist>Nick Cave</artist>
+            <title>There Is a Light</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>0c69778c-11ab-43de-86b3-fb81ef9750bd</songID>
+        </songList>
+        <songList>
+            <artist>Method Man</artist>
+            <title>The Riddler</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>09ed7be4-22eb-4613-bc9d-3e539130af46</songID>
+        </songList>
+        <songList>
+            <artist>Michael Hutchence</artist>
+            <title>The Passenger</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>10bf50b4-085d-456e-a06c-ef70eb55eecc</songID>
+        </songList>
+        <songList>
+            <artist>The Devlins</artist>
+            <title>Crossing the River</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>4151b596-4be7-4677-9590-e8d329d789f4</songID>
+        </songList>
+        <songList>
+            <artist>Sunny Day Real Estate</artist>
+            <title>8</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>9bad7792-83d5-430f-9072-225b167fc3cb</songID>
+        </songList>
+        <songList>
+            <artist>The Flaming Lips</artist>
+            <title>Bad Days</title>
+            <albumID>17bfb614-f226-4371-be53-007ef2ef3d8b</albumID>
+            <price>1.99</price>
+            <songID>b6d264bc-97b2-40d8-ba5b-f69c43ffd120</songID>
+        </songList>
+        <price>5.0</price>
+    </albumList>
+    <albumList>
+        <artist>Frank Farian</artist>
+        <title>Best Of Boney M.</title>
+        <ID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</ID>
+        <genre>Disco</genre>
+        <publisher>BMG</publisher>
+        <year>1997</year>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Rivers Of Babylon</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>2109c61d-2fc4-4462-a115-fbcf93aa9cb6</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Ma Baker</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>f4eb8bd2-cd11-4ff9-ba0a-e93ca8f756a0</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Rasputin</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>d0895518-3bff-42ad-a7f3-c2eb755d984d</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>He Was A Steppenwolf</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>8f170f73-f025-4b37-8a06-5c5a1b6ab1b9</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Daddy Cool</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>be8dfa4c-a6d5-4b2d-858c-7d4871cb758b</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Motherless Child</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>79d3af66-36e9-46eb-8070-d7cbab6b66c3</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Brown Girl In The Ring</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>697cea00-ddd4-46f5-8c73-a851619cfae9</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Sunny</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>09cabbae-0445-49f0-b420-8e5e70de41de</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>No Woman No Cry</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>4e33dda4-6691-4a55-9111-c72215df6482</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Mary's Boy Child</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>645a7210-9502-484d-8cbe-03e0041d598a</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Hooray! Hooray! It's A Holi-Holiday</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>7f62ffd3-6a0b-470d-bfa5-3c1e53027ed5</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Never Change Lovers In The Middle Of The Night</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>2ded61eb-5c2b-4145-8c0d-2e5806a7b623</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Voodoonight</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>38b8e286-8325-49c6-92b6-60477e6a3c2f</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Still I'm Sad</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>9b7207f8-11a0-4556-a439-dd685b10a87d</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Nightflight To Venus</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>3a94fe0a-9aac-413e-9eb3-7df838f22038</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Heart Of Gold</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>4eaca8fd-8c92-468d-bc47-de36ecb1ab72</songID>
+        </songList>
+        <songList>
+            <artist>Boney M.</artist>
+            <title>Gotta Go Home</title>
+            <albumID>da2bb0bf-3ad9-4814-a2a1-f91c1464196b</albumID>
+            <price>0.49</price>
+            <songID>db84ef38-8dc0-45a8-87de-0509dccdd86f</songID>
+        </songList>
+        <price>4.0</price>
+    </albumList>
+    <albumList>
+        <artist>Sade</artist>
+        <title>The Best Of Sade</title>
+        <ID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</ID>
+        <genre>Jazz</genre>
+        <publisher>Epic</publisher>
+        <year>1994</year>
+        <songList>
+            <artist>Sade</artist>
+            <title>Your Love Is King</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>37d31e7f-5639-481f-8f46-24611c22a3b3</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Hang On To Your Love</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>89abc73d-d998-4aee-a4c3-7e975d7eafdc</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Smooth Operator</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>d3f87b35-5e78-46a0-b741-0c287240e037</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Jezebel</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>f260c310-c52a-4bc9-8ad7-665c922829cd</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>The Sweetest Taboo</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>381d3af3-c113-46c1-b9d0-2c46cf445e22</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Is It a Crime</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>76daeb9e-4ba5-41dc-a422-97a4a85337cc</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Never As Good as the First Time</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>c92e7680-147f-4eab-af7b-a8ebac762f07</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Love is Stronger than Pride</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>93e0fcfa-b945-40a2-be58-11515888f378</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Paradise</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>696b485f-1411-4fc9-afa6-961042ab06fc</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Nothing Can Come Between Us</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>3913ac54-0c03-4025-8279-5cfad2fcab5f</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>No Ordinary Love</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>7816ddf7-8478-4696-914b-521971051121</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Like a Tattoo</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>c86c3993-1b7c-4567-98d4-3dc345909a17</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Kiss of Life</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>7b8535af-12f8-429b-894a-349bb1593cca</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Please Send Me Someone to Love</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>f49f7896-215c-4d13-a915-90111c12b2d6</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Cherish the Day</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>9fd4faad-ce28-4fa5-bebd-0fdd01accfb1</songID>
+        </songList>
+        <songList>
+            <artist>Sade</artist>
+            <title>Pearls</title>
+            <albumID>f67d1490-ca97-4977-8f79-d7f78ceda8b7</albumID>
+            <price>1.29</price>
+            <songID>51d1c62f-5beb-4ed7-a5d3-35efa7d9045c</songID>
+        </songList>
+        <price>8.0</price>
+    </albumList>
+    <albumList>
+        <artist>Shaggy</artist>
+        <title>The Best Of Shaggy</title>
+        <ID>632778bf-a46b-45a8-bc23-436c70460550</ID>
+        <genre>Reggae</genre>
+        <publisher>EMI</publisher>
+        <year>2008</year>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>Boombastic</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>4bb5ee25-858d-4649-9b6f-2c332df0f4a6</songID>
+        </songList>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>In The Summertime</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>b8d5b0a7-2e30-4924-92bf-4c09cf0b8d66</songID>
+        </songList>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>Oh Carolina</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>81842426-2bdb-4941-beb7-810b3451cd12</songID>
+        </songList>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>That Girl (Feat. Maxi Priest)</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>f362e3a8-dfb5-4abb-bd33-dc81f0850d7e</songID>
+        </songList>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>Peice Of My Heart</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>aebc25b1-6dde-4924-a235-57b0bc60d5e1</songID>
+        </songList>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>Sexy Body Girls</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>0d8023fc-a42e-42d4-8a4c-d5c116b7224c</songID>
+        </songList>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>Why You Treat Me So Bad (Clean Version)</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>29880fc2-f1c8-4265-b200-1f2ffc338929</songID>
+        </songList>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>Big Up</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>4a96046a-e1e9-458b-9aee-cb8e725f5979</songID>
+        </songList>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>Soon Be Done</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>4272ca8b-3f1c-44aa-aafb-e137617d217a</songID>
+        </songList>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>Woman A Pressure Me</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>9dcc3b0c-189b-48a5-ac11-1f5b65012cfa</songID>
+        </songList>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>The Train Is Coming</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>354c70bc-859c-4e3a-a017-93fe2bb9f35e</songID>
+        </songList>
+        <songList>
+            <artist>Shaggy</artist>
+            <title>Geenie</title>
+            <albumID>632778bf-a46b-45a8-bc23-436c70460550</albumID>
+            <price>0.99</price>
+            <songID>b22377fd-7d4e-4201-b10d-2881c58eba93</songID>
+        </songList>
+        <price>11.0</price>
+    </albumList>
+    <albumList>
+        <artist>Miles Davis</artist>
+        <title>Birth Of The Cool</title>
+        <ID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</ID>
+        <genre>Jazz</genre>
+        <publisher>Capitol</publisher>
+        <year>1957</year>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Move</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>9bea1bb4-2250-4259-8a31-3148a8b92eba</songID>
+        </songList>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Jeru</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>59a4c094-fcf0-46b8-b1f3-2edba28378f1</songID>
+        </songList>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Moon Dreams</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>fbd022bd-52ec-4d38-b2df-139260750e75</songID>
+        </songList>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Venus De Milo</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>cb3c48c3-2dd1-4421-b392-d8c2b06b0908</songID>
+        </songList>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Budo</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>b9070b85-e8e5-4f15-8b0f-6d153d049929</songID>
+        </songList>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Deception</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>e2abf491-d285-4f7b-a279-88608b830eea</songID>
+        </songList>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Godchild</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>fea9f61e-1498-47c8-80d1-465ab9c9f993</songID>
+        </songList>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Boplicity</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>c30cc0f2-c53f-4d01-b2ef-1ef0bd934380</songID>
+        </songList>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Rocker</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>810174a6-aaf9-4271-96b1-d2bcd4e86049</songID>
+        </songList>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Israel</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>9585a61f-344e-4c74-9265-1fe44f4413b4</songID>
+        </songList>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Rouge</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>07499bff-21c1-4f8a-a1ad-0bd91e4d5975</songID>
+        </songList>
+        <songList>
+            <artist>Miles Davis</artist>
+            <title>Darn That Dream</title>
+            <albumID>12bf5878-5885-4c9f-9bae-f11145ecd3d6</albumID>
+            <price>1.99</price>
+            <songID>a9fdbcb1-8017-464e-9470-7fb75a84c67b</songID>
+        </songList>
+        <price>10.0</price>
+    </albumList>
+    <albumList>
+        <artist>Massive Attack</artist>
+        <title>Blue Lines</title>
+        <ID>c8dce7e5-f5e2-4fc8-86fb-a20c55c8a5f3</ID>
+        <genre>Electronica</genre>
+        <publisher>Virgin Records</publisher>
+        <year>1991</year>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Safe from Harm</title>
+            <albumID>c8dce7e5-f5e2-4fc8-86fb-a20c55c8a5f3</albumID>
+            <price>0.69</price>
+            <songID>b824d75d-684b-4d94-bd94-850d9ed084ba</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>One Love</title>
+            <albumID>c8dce7e5-f5e2-4fc8-86fb-a20c55c8a5f3</albumID>
+            <price>0.69</price>
+            <songID>1b94340f-8904-4bc4-916e-81043134c2a3</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Blue Lines</title>
+            <albumID>c8dce7e5-f5e2-4fc8-86fb-a20c55c8a5f3</albumID>
+            <price>0.69</price>
+            <songID>a2aeb1fc-4418-434b-9c8c-d82dac746f9d</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Be Thankful for What You Got</title>
+            <albumID>c8dce7e5-f5e2-4fc8-86fb-a20c55c8a5f3</albumID>
+            <price>0.69</price>
+            <songID>dd16edd0-7447-4e72-9a12-4ce8c6ba7f77</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Five Man Army</title>
+            <albumID>c8dce7e5-f5e2-4fc8-86fb-a20c55c8a5f3</albumID>
+            <price>0.69</price>
+            <songID>56b4808f-c785-4c75-84da-b3040e682fb1</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Unfinished Sympathy</title>
+            <albumID>c8dce7e5-f5e2-4fc8-86fb-a20c55c8a5f3</albumID>
+            <price>0.69</price>
+            <songID>e59977d5-50db-4209-a76d-9a44cba9db8f</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Daydreaming</title>
+            <albumID>c8dce7e5-f5e2-4fc8-86fb-a20c55c8a5f3</albumID>
+            <price>0.69</price>
+            <songID>9cab7157-3196-47fb-834e-3ff4e4454e8c</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Lately</title>
+            <albumID>c8dce7e5-f5e2-4fc8-86fb-a20c55c8a5f3</albumID>
+            <price>0.69</price>
+            <songID>b362a758-d081-424c-bcbe-63efc1075b80</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Hymn of the Big Wheel</title>
+            <albumID>c8dce7e5-f5e2-4fc8-86fb-a20c55c8a5f3</albumID>
+            <price>0.69</price>
+            <songID>6f7c91a1-053a-42f4-bdd5-4e700c696ade</songID>
+        </songList>
+        <price>4.0</price>
+    </albumList>
+    <albumList>
+        <artist>Creed Taylor</artist>
+        <title>The Blues And The Abstract Truth</title>
+        <ID>36aa85ee-75b6-4932-9942-6e7902afc5cf</ID>
+        <genre>Jazz</genre>
+        <publisher>Impulse</publisher>
+        <year>1961</year>
+        <songList>
+            <artist>Oliver Nelson</artist>
+            <title>Stolen Moments</title>
+            <albumID>36aa85ee-75b6-4932-9942-6e7902afc5cf</albumID>
+            <price>1.49</price>
+            <songID>118673d0-2845-4689-8300-b89d672974b7</songID>
+        </songList>
+        <songList>
+            <artist>Oliver Nelson</artist>
+            <title>Hoe Down</title>
+            <albumID>36aa85ee-75b6-4932-9942-6e7902afc5cf</albumID>
+            <price>1.49</price>
+            <songID>b3deed1d-1b4c-49a1-96e0-943913e4362e</songID>
+        </songList>
+        <songList>
+            <artist>Oliver Nelson</artist>
+            <title>Cascades</title>
+            <albumID>36aa85ee-75b6-4932-9942-6e7902afc5cf</albumID>
+            <price>1.49</price>
+            <songID>622492ec-6971-49e3-87a2-35b75ed035a9</songID>
+        </songList>
+        <songList>
+            <artist>Oliver Nelson</artist>
+            <title>Yearnin</title>
+            <albumID>36aa85ee-75b6-4932-9942-6e7902afc5cf</albumID>
+            <price>1.49</price>
+            <songID>8fab2734-a433-4288-9c6d-ba761aaf36be</songID>
+        </songList>
+        <songList>
+            <artist>Oliver Nelson</artist>
+            <title>Butch And Butch</title>
+            <albumID>36aa85ee-75b6-4932-9942-6e7902afc5cf</albumID>
+            <price>1.49</price>
+            <songID>7039fb46-5904-4fd9-b8af-d5a9222fb578</songID>
+        </songList>
+        <songList>
+            <artist>Oliver Nelson</artist>
+            <title>Teenies Blues</title>
+            <albumID>36aa85ee-75b6-4932-9942-6e7902afc5cf</albumID>
+            <price>1.49</price>
+            <songID>3d3a938e-35fe-41f7-b69b-0bb3413e30d4</songID>
+        </songList>
+        <price>7.0</price>
+    </albumList>
+    <albumList>
+        <artist>The Chemical Brothers</artist>
+        <title>Brotherhood</title>
+        <ID>8991431d-a173-4728-9989-49a00129dfb9</ID>
+        <genre>Electronica</genre>
+        <publisher>Virgin Records</publisher>
+        <year>2008</year>
+        <songList>
+            <artist>The Chemical Brothers</artist>
+            <title>Hey Boy Hey Girl (2003 Digital Remaster)</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>ad068b48-257a-43be-9f6d-66fc6cefd3bf</songID>
+        </songList>
+        <songList>
+            <artist>The Chemical Brothers</artist>
+            <title>Block Rockin' Beats (2003 Digital Remaster)</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>0c29107d-9e71-40c8-8b2a-205c78a67f73</songID>
+        </songList>
+        <songList>
+            <artist>Ali Love/The Chemical Brothers</artist>
+            <title>Do It Again (Edit)</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>c817aab7-7476-46c8-bd34-df0e404469a7</songID>
+        </songList>
+        <songList>
+            <artist>Kele Okereke/The Chemical Brothers</artist>
+            <title>Believe</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>12c90aaa-3a46-49ce-9a2b-c973c169c7c7</songID>
+        </songList>
+        <songList>
+            <artist>The Chemical Brothers</artist>
+            <title>Star Guitar (2003 Digital Remaster)</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>ba97834b-6e73-4a6f-bac7-ffdb6a288d71</songID>
+        </songList>
+        <songList>
+            <artist>Noel Gallagher/The Chemical Brothers</artist>
+            <title>Let Forever Be (2003 Digital Remaster)</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>ce24d13e-bc19-40de-8fbe-70231d41c4ec</songID>
+        </songList>
+        <songList>
+            <artist>The Chemical Brothers</artist>
+            <title>Leave Home (2003 Digital Remaster)</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>a58a18cd-5658-4ed2-97d8-43fcb691bdd9</songID>
+        </songList>
+        <songList>
+            <artist>Spank Rock/The Chemical Brothers</artist>
+            <title>Keep My Composure</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>23607b4d-62d1-4be0-af68-8ca3bc3b80ea</songID>
+        </songList>
+        <songList>
+            <artist>The Chemical Brothers</artist>
+            <title>Saturate</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>c57e1d05-4366-4306-a64a-f5e11b691d96</songID>
+        </songList>
+        <songList>
+            <artist>Bernard Sumner/The Chemical Brothers</artist>
+            <title>Out Of Control (2003 Digital Remaster)</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>41874f4e-5994-469d-a87e-2dda0efb4e21</songID>
+        </songList>
+        <songList>
+            <artist>The Chemical Brothers</artist>
+            <title>Midnight Madness</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>c7a2a83b-23f3-4a5e-9554-3696ee4b6173</songID>
+        </songList>
+        <songList>
+            <artist>Steven Drozd/The Chemical Brothers/The Flaming Lips/Wayne Coyne</artist>
+            <title>The Golden Path</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>1281ea4b-8e8b-4f65-a563-6d2f5bb369f4</songID>
+        </songList>
+        <songList>
+            <artist>Noel Gallagher/The Chemical Brothers</artist>
+            <title>Setting Sun (2003 Digital Remaster) (Feat. Noel Gallagher)</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>3331755c-87a0-4aba-8555-ea6e6efc8909</songID>
+        </songList>
+        <songList>
+            <artist>The Chemical Brothers</artist>
+            <title>Chemical Beats (2003 Digital Remaster)</title>
+            <albumID>8991431d-a173-4728-9989-49a00129dfb9</albumID>
+            <price>1.99</price>
+            <songID>5f2fbd3f-5187-46a5-a105-9793e97479f5</songID>
+        </songList>
+        <price>8.0</price>
+    </albumList>
+    <albumList>
+        <artist>Robin Alciatore</artist>
+        <title>Classical Collection</title>
+        <ID>a9ba183b-2556-48c1-bc89-a4de660dde0f</ID>
+        <genre>Classical</genre>
+        <publisher>EMI</publisher>
+        <year>2001</year>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Clair De Lune</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>e451e15b-8f83-4126-b258-37e301fbca2e</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Danny Boy</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>54b1d721-ffd0-4258-8496-1894dbf12411</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Greensleeves</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>9924de86-66c6-4f92-84a9-97932494fa18</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Gymnopedie No. 1</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>559a3f7f-f940-4ae1-88ef-6cf2f8812e4e</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Humoresque</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>faf29bd8-fa29-4358-b9fd-8b2070e98dcf</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Hungarian Rhapsody</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>e3de9812-54e1-42b0-9190-df6adeb2d43e</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Intermezzo in A Major</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>c03e28b9-0e90-433d-8771-8ac0bab14218</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Liebestraume</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>af834251-dcbf-439a-a608-512fd1a1691f</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Moonlight Sonata</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>13d37011-07ba-4dbd-8641-c476f0e55312</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Morning Mood</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>8cb6d146-64d3-4c9b-b01c-a6120ddc93c5</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Over the Rainbow</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>d8bc3027-aced-4d54-97a3-c42787c135ea</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>The Poet Speaks</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>67f691f9-0238-443d-b95c-a144df578265</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Rage over a Lost Penny</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>729cece8-854b-44c4-a8fa-9ae69dc24d74</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>September's Gone</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>70e5cc97-7887-4d94-a513-4f939994d703</songID>
+        </songList>
+        <songList>
+            <artist>Robin Alciatore</artist>
+            <title>Solace</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>15ab4842-1b68-44e5-9432-8a9c7a0560a0</songID>
+        </songList>
+        <songList>
+            <artist>Rococo Quartet</artist>
+            <title>Symphony No. 25</title>
+            <albumID>a9ba183b-2556-48c1-bc89-a4de660dde0f</albumID>
+            <price>1.29</price>
+            <songID>e162c49f-b7e2-47b2-903e-87b47fa3e30f</songID>
+        </songList>
+        <price>5.0</price>
+    </albumList>
+    <albumList>
+        <artist>Pink Floyd</artist>
+        <title>Dark Side Of The Moon</title>
+        <ID>53215273-5103-4694-8312-b9ede1ee4d1d</ID>
+        <genre>Progressive Rock</genre>
+        <publisher>EMI</publisher>
+        <year>1973</year>
+        <songList>
+            <artist>Pink Floyd</artist>
+            <title>Speak To Me/Breathe</title>
+            <albumID>53215273-5103-4694-8312-b9ede1ee4d1d</albumID>
+            <price>0.99</price>
+            <songID>d031c79b-6c4e-4cc0-8bfe-9a71c6626007</songID>
+        </songList>
+        <songList>
+            <artist>Pink Floyd</artist>
+            <title>On The Run</title>
+            <albumID>53215273-5103-4694-8312-b9ede1ee4d1d</albumID>
+            <price>0.99</price>
+            <songID>7f60f0aa-3a79-4008-8bfd-75124b9cb0f6</songID>
+        </songList>
+        <songList>
+            <artist>Pink Floyd</artist>
+            <title>Time</title>
+            <albumID>53215273-5103-4694-8312-b9ede1ee4d1d</albumID>
+            <price>0.99</price>
+            <songID>39080c69-d962-446d-aebe-153f2b016b44</songID>
+        </songList>
+        <songList>
+            <artist>Pink Floyd</artist>
+            <title>The Great Gig In The Sky</title>
+            <albumID>53215273-5103-4694-8312-b9ede1ee4d1d</albumID>
+            <price>0.99</price>
+            <songID>af792674-a176-48e1-b71c-c119bebab0ce</songID>
+        </songList>
+        <songList>
+            <artist>Pink Floyd</artist>
+            <title>Money</title>
+            <albumID>53215273-5103-4694-8312-b9ede1ee4d1d</albumID>
+            <price>0.99</price>
+            <songID>21f6263d-e042-47b5-b3de-dd5447ef160b</songID>
+        </songList>
+        <songList>
+            <artist>Pink Floyd</artist>
+            <title>Us And Them</title>
+            <albumID>53215273-5103-4694-8312-b9ede1ee4d1d</albumID>
+            <price>0.99</price>
+            <songID>a562a433-8475-43dd-92f4-efc1ea734574</songID>
+        </songList>
+        <songList>
+            <artist>Pink Floyd</artist>
+            <title>Any Colour You Like</title>
+            <albumID>53215273-5103-4694-8312-b9ede1ee4d1d</albumID>
+            <price>0.99</price>
+            <songID>28d85f6a-2cc1-498b-a2c0-34bebd14a24a</songID>
+        </songList>
+        <songList>
+            <artist>Pink Floyd</artist>
+            <title>Brain Damage</title>
+            <albumID>53215273-5103-4694-8312-b9ede1ee4d1d</albumID>
+            <price>0.99</price>
+            <songID>37d84b60-32a9-4ee2-864b-b5eb61a7e7a6</songID>
+        </songList>
+        <songList>
+            <artist>Pink Floyd</artist>
+            <title>Eclipse</title>
+            <albumID>53215273-5103-4694-8312-b9ede1ee4d1d</albumID>
+            <price>0.99</price>
+            <songID>25f59602-42ff-4681-9cd9-2da328176c29</songID>
+        </songList>
+        <price>8.0</price>
+    </albumList>
+    <albumList>
+        <artist>Eurythmics</artist>
+        <title>Eurythmics: Ultimate Collection</title>
+        <ID>ccfc70ee-18e4-4734-aa8f-868903e76095</ID>
+        <genre>Pop</genre>
+        <publisher>RCA Records</publisher>
+        <year>2005</year>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>I've Got a Life</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>cf208fa3-75f9-49ac-88ef-9f0b585c20b3</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>Love Is a Stranger</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>eeb6e316-55d5-479f-96ea-67a4b9c9db4b</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>Sweet Dreams (Are Made of This)</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>50ed6861-f6e2-479b-865c-cbbbc5c27efd</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>Who's That Girl</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>5d373846-8d47-4153-84c9-3b762649b57c</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>Right By Your Side</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>9da72eb3-88e8-461a-a40b-12df2014f8f4</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>Here Comes the Rain Again</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>9e074f0f-4762-40cf-81c7-006c110f603b</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>Would I Lie to You?</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>8cf396b7-5906-4e3c-a857-bc546b499f52</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>There Must Be an Angel (Playing With My Heart)</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>b4375a94-40ae-49dd-8364-d84eff017bfb</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>Sisters Are Doin' It for Themselves</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>9bc69cb1-ea27-4f6f-9f87-423e07aa2331</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>It's Alright (Baby's Coming Back)</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>b7485971-e31f-481a-be8c-8583f5677491</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>When Tomorrow Comes</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>cece4fda-b806-4ad6-9a9a-d6a781a2a116</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>Thorn In My Side</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>db145c2e-527d-40bd-8ba2-9d3d33033fb5</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>Miracle of Love</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>5acfe0e7-2a68-447c-a757-d90b3cad16a6</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>Missionary Man</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>858f607d-d90d-40b9-93fa-8b6118db06c8</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>You Have Placed a Chill In My Heart</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>f176bfb5-71b8-465e-9b56-ebcb002dc706</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>I Need a Man</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>ac363506-9557-4c9c-9552-58fc05695ac2</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>I Saved the World Today</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>479ac67d-47bd-4684-95cf-d75d4b571d91</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>17 Again</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>6e715d40-fa4b-4299-b16d-5cb81617b8f4</songID>
+        </songList>
+        <songList>
+            <artist>Eurythmics</artist>
+            <title>Was It Just Another Love Affair</title>
+            <albumID>ccfc70ee-18e4-4734-aa8f-868903e76095</albumID>
+            <price>0.69</price>
+            <songID>740a6a73-c6f4-4fe1-9cce-fb2d4a48def8</songID>
+        </songList>
+        <price>7.0</price>
+    </albumList>
+    <albumList>
+        <artist>John Coltrane</artist>
+        <title>Giant Steps</title>
+        <ID>dd857f3b-5065-4b29-8375-da25fc9e190a</ID>
+        <genre>Jazz</genre>
+        <publisher>Atlantic</publisher>
+        <year>1960</year>
+        <songList>
+            <artist>John Coltrane</artist>
+            <title>Countdown</title>
+            <albumID>dd857f3b-5065-4b29-8375-da25fc9e190a</albumID>
+            <price>1.29</price>
+            <songID>a56115db-7fa1-4eff-8e75-0e4cb5c656ef</songID>
+        </songList>
+        <songList>
+            <artist>John Coltrane</artist>
+            <title>Cousin Mary</title>
+            <albumID>dd857f3b-5065-4b29-8375-da25fc9e190a</albumID>
+            <price>1.29</price>
+            <songID>e796f12c-693e-4605-ab14-38a09d680e1a</songID>
+        </songList>
+        <songList>
+            <artist>John Coltrane</artist>
+            <title>Giant Steps</title>
+            <albumID>dd857f3b-5065-4b29-8375-da25fc9e190a</albumID>
+            <price>1.29</price>
+            <songID>a286e9e7-0196-4e54-9b70-03666095c7ca</songID>
+        </songList>
+        <songList>
+            <artist>John Coltrane</artist>
+            <title>Mr P C</title>
+            <albumID>dd857f3b-5065-4b29-8375-da25fc9e190a</albumID>
+            <price>1.29</price>
+            <songID>d1c4b12c-d793-4da5-a6de-9a2fab494c00</songID>
+        </songList>
+        <songList>
+            <artist>John Coltrane</artist>
+            <title>Naima</title>
+            <albumID>dd857f3b-5065-4b29-8375-da25fc9e190a</albumID>
+            <price>1.29</price>
+            <songID>3c15d1eb-11d7-4b77-974d-2a89428816ad</songID>
+        </songList>
+        <songList>
+            <artist>John Coltrane</artist>
+            <title>Spiral</title>
+            <albumID>dd857f3b-5065-4b29-8375-da25fc9e190a</albumID>
+            <price>1.29</price>
+            <songID>5593f5a0-1050-4557-a38a-7d398e5c76e7</songID>
+        </songList>
+        <songList>
+            <artist>John Coltrane</artist>
+            <title>Syeeda'S Song Flute</title>
+            <albumID>dd857f3b-5065-4b29-8375-da25fc9e190a</albumID>
+            <price>1.29</price>
+            <songID>2f671c41-1083-446c-afb7-b9e31e4663f4</songID>
+        </songList>
+        <price>6.0</price>
+    </albumList>
+    <albumList>
+        <artist>Groove Armada</artist>
+        <title>Goodbye Country (Hello Nightclub)</title>
+        <ID>f9706ea6-da6a-4a72-802c-63b15165d688</ID>
+        <genre>Electronica</genre>
+        <publisher>Jive Records</publisher>
+        <year>2001</year>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Suntoucher</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>f8b9e883-dff6-4ca4-980c-e66a532f28ab</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Superstylin'</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>dcaac78a-2b23-4982-be64-ed250f26b44e</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Drifted</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>88f00023-c60c-4d93-8e7a-0bb91609e073</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Little By Little</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>4e0329a5-2610-4795-8ad0-f4f924d90a00</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Fogma</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>539a1962-d295-4905-8bf3-34efc28a3e7f</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>My Friend</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>e9fe2b7b-3e24-48fe-bc8f-ce7c6439909c</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Lazy Moon</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>cb9b0ee6-3d9d-4d4a-83a4-18d3a8fd67f0</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Raisin' The Stakes</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>355a2e12-20dd-486b-ad43-da05e90ec3be</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Healing</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>f20b3e82-9b57-41ac-94a3-178eada29240</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Edge Hill</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>5aab6c91-228f-453d-a7f4-728ac83f8b44</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Tuning In (Dub Mix)</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>0339e7e8-fec5-4847-a005-5013f4a688ab</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Join Hands</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>6f0392bb-5ee9-4710-a5d2-8b078be6dc64</songID>
+        </songList>
+        <songList>
+            <artist>Groove Armada</artist>
+            <title>Likwid</title>
+            <albumID>f9706ea6-da6a-4a72-802c-63b15165d688</albumID>
+            <price>0.99</price>
+            <songID>6f33371a-c5ca-41d4-bc3d-1eb82432494f</songID>
+        </songList>
+        <price>5.0</price>
+    </albumList>
+    <albumList>
+        <artist>Daft Punk</artist>
+        <title>Homework</title>
+        <ID>43dabaa3-745a-4a61-9213-b18efd547919</ID>
+        <genre>Dance</genre>
+        <publisher>EMI/Virgin Records</publisher>
+        <year>1997</year>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Daftendirekt</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>ff0baa07-9a5a-4666-9a8b-23b1dc68afc8</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>WDPK 83.7 FM</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>625b29e8-e793-4d0d-9b5f-90c90c14aa35</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Revolution 909</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>d9adca4b-7c69-4f92-922b-9a26f20eca8e</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Da Funk</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>6f7a7d06-e00e-4a5b-8033-0c80427a3522</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Phoenix</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>1eaa5903-53e5-4d59-b03f-d3476133221f</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Fresh</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>29e56a11-8333-4f2f-bf71-fab939f2a452</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Around The World</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>96fd4e34-c865-4205-b986-1f9b8cb6ce89</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Rollin' &amp; Scratchin'</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>fae2fee9-0c58-471b-bf14-283f9bfa36b9</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Teachers</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>447b63d1-8037-4ec5-ba17-e63fa9c99b3c</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>High Fidelity</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>18e40a76-ab4f-4554-ad85-06a3d04702ca</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Rock 'n Roll</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>e653184f-4d87-4f9b-965f-0c06daf10df3</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Oh Yeah</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>8e78c387-da88-421c-93b2-06e44554fc49</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Burnin'</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>3f16d239-ecf0-4ceb-9540-ce612ed66e48</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Indo Silver Club</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>377dd0ba-e1bc-4562-9802-982f981cf11b</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Alive</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>2dcdadec-624e-4392-8f0d-3f7112a6687c</songID>
+        </songList>
+        <songList>
+            <artist>Daft Punk</artist>
+            <title>Funk Ad</title>
+            <albumID>43dabaa3-745a-4a61-9213-b18efd547919</albumID>
+            <price>1.99</price>
+            <songID>d66bc616-c03f-4912-afca-1f2a8610e11c</songID>
+        </songList>
+        <price>9.0</price>
+    </albumList>
+    <albumList>
+        <artist>R. E. M.</artist>
+        <title>In Time: The Best of R.E.M. 1988-2003</title>
+        <ID>44eef124-4545-40b4-a73f-edf8b4b465d5</ID>
+        <genre>Alternative</genre>
+        <publisher>Warner Bros.</publisher>
+        <year>2003</year>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>Man on the Moon</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>290b4d1f-e6a7-4f17-9eff-d0efc76265e6</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>The Great Beyond</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>f06b0201-6452-47ba-852d-c1a33a0ce81e</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>Bad Day</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>834507b6-441a-4f48-bf91-5c9defafa23e</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>What's the Frequency Kenneth?</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>75fd6790-de8f-4a30-9b6c-fa217b92f180</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>All the Way to Reno (You're Gonna Be a Star)</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>9964cd1c-e4ec-4bbe-868f-8df495808bad</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>Losing My Religion</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>982e2ad8-5657-4c2e-974e-a4bfc7113550</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>E-Bow the Letter</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>131b9ee3-d33d-4609-bb89-cd461a1fd194</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>Orange Crush</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>b9b14b33-8d1c-487c-9bd4-8bdb4064ae13</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>Imitation of Life</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>d6b403a9-9f3f-4ccc-824c-3f8c8d5538fe</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>Daysleeper</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>41639034-e9df-4672-b80d-9681991ab010</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>Animal</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>9c78713b-9561-4ecc-8fd0-d20f7e594fe4</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>The Sidewinder Sleeps Tonite</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>838ea4de-c66c-464d-9966-4cf1500c26e3</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>Stand</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>047a1bbe-198b-4d06-b1b7-66defb44b28f</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>Electrolite</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>aa0a2f7f-4c2e-41d1-9622-e07884cfcc9a</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>All the Right Friends</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>904fa33e-252c-4eea-bbe1-7347db5cb8c9</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>Everybody Hurts</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>5728f172-918a-4011-8581-3cf111fb3507</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>At My Most Beautiful</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>945e6bbe-63fc-4a56-b7d6-b4983c0206b4</songID>
+        </songList>
+        <songList>
+            <artist>R.E.M.</artist>
+            <title>Nightswimming</title>
+            <albumID>44eef124-4545-40b4-a73f-edf8b4b465d5</albumID>
+            <price>0.79</price>
+            <songID>e8133c9a-0ed0-4956-b9b4-8d3529443a8b</songID>
+        </songList>
+        <price>7.0</price>
+    </albumList>
+    <albumList>
+        <artist>Bob Marley &amp; The Wailers</artist>
+        <title>Legend</title>
+        <ID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</ID>
+        <genre>Reggae</genre>
+        <publisher>Nippon Phonogram</publisher>
+        <year>1984</year>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>Is This Love</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>acf4e8ff-3877-463a-bcf0-cb4c651da5f8</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>No Woman No Cry (Live)</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>a1ef31d3-131c-4a8b-baa5-76e65fa8ef25</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>Could You Be Loved</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>3255b9ad-f898-4937-a4a6-1fef44f9e986</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>Three Little Birds</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>aaf2f86c-e06a-4d70-9813-80560fda94c2</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>Buffalo Soldier</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>4e61dbe2-2812-4e06-9d5d-23d59ec6f27a</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>Get Up Stand Up</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>bf97fc3e-2947-4bef-888d-2b79485edb85</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>Stir It Up</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>1843ccd4-8dce-4318-866f-4ac7fe4b25bb</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>One Love/People Get Ready</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>7f5676ff-24f7-498f-b27f-a5e7d5d6e207</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>I Shot The Sheriff</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>6d496980-6252-4622-b93c-7c0efa68deef</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>Waiting In Vain</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>59d1c8f2-59e4-4f57-ac4b-6e0adeb6bf7d</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>Redemption Song</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>d8615a8d-8bfb-4db0-ac29-fe0c48e85057</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>Satisfy My Soul</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>f90d1c88-f8fa-4b7e-8316-7c2dc1ccdde5</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>Exodus</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>08c5180d-390d-4334-b2b6-21cc5c02d227</songID>
+        </songList>
+        <songList>
+            <artist>Bob Marley &amp; The Wailers</artist>
+            <title>Jamming</title>
+            <albumID>c71d58fb-d52c-4a9d-b6cd-eb1e289a52c4</albumID>
+            <price>1.49</price>
+            <songID>789f2c5a-f004-40d7-b9d7-1e93787a3410</songID>
+        </songList>
+        <price>9.0</price>
+    </albumList>
+    <albumList>
+        <artist>Tryad</artist>
+        <title>Listen</title>
+        <ID>5545dfe9-6bfc-4f12-a212-786a39e09325</ID>
+        <genre>Electronic</genre>
+        <publisher>Trybe Recordings</publisher>
+        <year>2006</year>
+        <songList>
+            <artist>Tryad</artist>
+            <title>Struttin'</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>0b155eec-b654-4b4a-8f0a-c90408966ce5</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>Breathe</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>4588521b-15fa-492c-a5f2-939e39aa62da</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>Alone</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>7bb7f375-9369-412d-a103-663180251276</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>Listen</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>8ef149d4-db45-40bd-868c-0a22390151a6</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>You Are God</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>1e19c48e-48bf-4af6-a540-5230d5457d99</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>Lovely</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>a98e7d47-f61b-45b7-b34f-562e7be05f6d</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>Beauty</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>63670ee9-3f70-4189-8b43-b5746d0c145e</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>Empty</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>e520c848-b7ba-4c29-a3a7-ea7271c8cb68</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>Mesmerize</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>009442f2-8f77-4941-874b-a0f94a12ad46</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>All the Same</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>8a1895b5-d19c-4190-beb7-f3b424eb1fbb</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>This</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>cedba798-32af-4e51-9bcc-9ab8f496d902</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>Waltz Into the Moonlight</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>c7c4844a-7674-4b9e-932d-6b559b324782</songID>
+        </songList>
+        <songList>
+            <artist>Tryad</artist>
+            <title>Far and Away</title>
+            <albumID>5545dfe9-6bfc-4f12-a212-786a39e09325</albumID>
+            <price>0.99</price>
+            <songID>fef35786-072f-4f5f-a652-f1663ab92059</songID>
+        </songList>
+        <price>10.0</price>
+    </albumList>
+    <albumList>
+        <artist>Massive Attack</artist>
+        <title>Mezzanine</title>
+        <ID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</ID>
+        <genre>Pop</genre>
+        <publisher>Virgin Records</publisher>
+        <year>1988</year>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Angel</title>
+            <albumID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</albumID>
+            <price>0.29</price>
+            <songID>30a18ddf-3fa1-402f-b6a3-7a619cb9a738</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Risingson</title>
+            <albumID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</albumID>
+            <price>0.29</price>
+            <songID>92d6d661-e2fc-40ee-9629-d48b5eec00d9</songID>
+        </songList>
+        <songList>
+            <artist>Liz Fraser/Massive Attack</artist>
+            <title>Teardrop</title>
+            <albumID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</albumID>
+            <price>0.29</price>
+            <songID>10afb0d6-9039-49bd-91d0-3e70fb88ff66</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Inertia Creeps</title>
+            <albumID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</albumID>
+            <price>0.29</price>
+            <songID>17b48320-2c7d-4af3-8b3c-50428fe6882a</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Exchange</title>
+            <albumID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</albumID>
+            <price>0.29</price>
+            <songID>7a61f4b3-eab9-4bf5-961c-fb804b1df380</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Dissolved Girl</title>
+            <albumID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</albumID>
+            <price>0.29</price>
+            <songID>32e93e9c-3327-4a86-b1dc-9d9c553d9754</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Man Next Door</title>
+            <albumID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</albumID>
+            <price>0.29</price>
+            <songID>d79e03af-d180-4be1-8944-ffab8a5b00c5</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Black Milk</title>
+            <albumID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</albumID>
+            <price>0.29</price>
+            <songID>6a62b5ba-c729-4480-aa43-b4cb3e33c2ca</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Mezzanine</title>
+            <albumID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</albumID>
+            <price>0.29</price>
+            <songID>e512c5a2-ab89-45e4-b24f-9de9bb707f40</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>Group Four</title>
+            <albumID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</albumID>
+            <price>0.29</price>
+            <songID>c0a4dac1-417d-40ae-87a3-067e5f9bcc32</songID>
+        </songList>
+        <songList>
+            <artist>Massive Attack</artist>
+            <title>(Exchange)</title>
+            <albumID>45d28d1e-a8f5-472e-9480-15b4cd1d63c4</albumID>
+            <price>0.29</price>
+            <songID>c352a1cc-e2ca-4f5d-bea3-189f1d4c34d3</songID>
+        </songList>
+        <price>2.0</price>
+    </albumList>
+    <albumList>
+        <artist>Led Zeppelin</artist>
+        <title>Mothership</title>
+        <ID>cec29534-e052-4517-9fd5-5225b2ea84fb</ID>
+        <genre>Rock</genre>
+        <publisher>Atlantic Records</publisher>
+        <year>2007</year>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Good Times Bad Times</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>32f14e27-fae0-4f17-bc89-c5d4820e7252</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Communication Breakdown</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>7bfd2dc8-b63b-468b-ad71-d6ba98cf280d</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Dazed And Confused</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>9fbc8176-74da-4d96-9fbf-2caec57aeddf</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Babe I'm Gonna Leave You</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>c7c36b53-452e-4595-9a87-2669be252096</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Whole Lotta Love</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>5f3b4577-21ff-41fc-ba2c-32bc96cc1599</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Ramble On</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>be8598e5-ea69-4f19-9e23-a25ee19b34d8</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Heartbreaker</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>17a8da55-5e2d-45db-86dc-ece73abfe92d</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Immigrant Song</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>e793bff1-8b71-4635-8433-50de5c92d5ab</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Since I've Been Loving You</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>5fac5ef7-fa91-44d4-aae8-d8b2e333855a</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Rock And Roll</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>14a618de-2f63-414d-8446-1a4dfa0e51d4</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Black Dog</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>1b2a9614-50a3-4cfe-a2be-fdabd472447d</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>When The Levee Breaks</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>da3f4cdc-593e-4c43-b135-390acd0a9d1c</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Stairway To Heaven</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>ada6fb91-ef0c-49d6-be24-9355c96e143c</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>The Song Remains The Same</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>dd2f2227-035e-4503-a631-239b7fbaec32</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Over The Hills And Far Away</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>d2366133-3879-46f2-ad27-09e71c0e762f</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>D'Yer Mak'er</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>8af78d0e-1366-4041-8570-516eeb60c9e7</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>No Quarter</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>a0bca561-33ec-450b-91e0-963428b5a6db</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Trampled Under Foot</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>b7fe69d6-4a63-4a4a-b369-74b52b551f39</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Houses Of The Holy</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>3116fc31-e27d-4580-b941-c2bca9b301fd</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Kashmir</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>bb8ceb2d-5f5e-4269-9805-3719972347c2</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Nobody's Fault But Mine</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>86b51b7c-256b-4dfc-ab2d-5f98cdf3c96b</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>Achilles Last Stand</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>0d90f459-182f-45bb-b155-e785c7683324</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>In The Evening</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>ddbc5acc-5945-405e-a9b0-1a230e7cfa1c</songID>
+        </songList>
+        <songList>
+            <artist>Led Zeppelin</artist>
+            <title>All My Love</title>
+            <albumID>cec29534-e052-4517-9fd5-5225b2ea84fb</albumID>
+            <price>0.99</price>
+            <songID>4b2e4317-c2ce-4025-8757-d4e8231fa817</songID>
+        </songList>
+        <price>8.0</price>
+    </albumList>
+    <albumList>
+        <artist>Coldplay</artist>
+        <title>Parachutes</title>
+        <ID>52e0c8ca-557c-4e44-a29f-41057463de1d</ID>
+        <genre>Alternative &amp; Punk</genre>
+        <publisher>Capitol</publisher>
+        <year>2000</year>
+        <songList>
+            <artist>Coldplay</artist>
+            <title>Don't Panic</title>
+            <albumID>52e0c8ca-557c-4e44-a29f-41057463de1d</albumID>
+            <price>0.59</price>
+            <songID>550f3bdc-89c6-490b-ad55-357a94f53ea8</songID>
+        </songList>
+        <songList>
+            <artist>Coldplay</artist>
+            <title>Shiver</title>
+            <albumID>52e0c8ca-557c-4e44-a29f-41057463de1d</albumID>
+            <price>0.59</price>
+            <songID>619710e9-3788-42c3-a979-73f2230f3460</songID>
+        </songList>
+        <songList>
+            <artist>Coldplay</artist>
+            <title>Spies</title>
+            <albumID>52e0c8ca-557c-4e44-a29f-41057463de1d</albumID>
+            <price>0.59</price>
+            <songID>c1ac1095-11cd-4b45-bb3c-6c1c1b3e2d55</songID>
+        </songList>
+        <songList>
+            <artist>Coldplay</artist>
+            <title>Sparks</title>
+            <albumID>52e0c8ca-557c-4e44-a29f-41057463de1d</albumID>
+            <price>0.59</price>
+            <songID>64c8e245-c8d6-4189-9512-e964dc5238ab</songID>
+        </songList>
+        <songList>
+            <artist>Coldplay</artist>
+            <title>Yellow</title>
+            <albumID>52e0c8ca-557c-4e44-a29f-41057463de1d</albumID>
+            <price>0.59</price>
+            <songID>fef7d220-b247-498a-a61e-8b427319efc3</songID>
+        </songList>
+        <songList>
+            <artist>Coldplay</artist>
+            <title>Trouble</title>
+            <albumID>52e0c8ca-557c-4e44-a29f-41057463de1d</albumID>
+            <price>0.59</price>
+            <songID>175310cc-d73d-4243-98eb-4daa577c48c5</songID>
+        </songList>
+        <songList>
+            <artist>Coldplay</artist>
+            <title>Parachutes</title>
+            <albumID>52e0c8ca-557c-4e44-a29f-41057463de1d</albumID>
+            <price>0.59</price>
+            <songID>56cbbecc-d0c3-47b0-8d1a-55fda53639b8</songID>
+        </songList>
+        <songList>
+            <artist>Coldplay</artist>
+            <title>High Speed</title>
+            <albumID>52e0c8ca-557c-4e44-a29f-41057463de1d</albumID>
+            <price>0.59</price>
+            <songID>fc26663d-0ecc-412d-9a25-4efab0e76292</songID>
+        </songList>
+        <songList>
+            <artist>Coldplay</artist>
+            <title>We Never Change</title>
+            <albumID>52e0c8ca-557c-4e44-a29f-41057463de1d</albumID>
+            <price>0.59</price>
+            <songID>eb9b29d6-d93e-4cd8-8d7a-7fe26ff6c05d</songID>
+        </songList>
+        <songList>
+            <artist>Coldplay</artist>
+            <title>Everything's Not Lost</title>
+            <albumID>52e0c8ca-557c-4e44-a29f-41057463de1d</albumID>
+            <price>0.59</price>
+            <songID>e117e0ac-c12c-4103-a393-b1b63f622969</songID>
+        </songList>
+        <price>4.0</price>
+    </albumList>
+    <albumList>
+        <artist>Morcheeba</artist>
+        <title>Parts Of The Process</title>
+        <ID>02a73f50-4769-41dd-ae38-657c1528b5e3</ID>
+        <genre>Electronica/Dance</genre>
+        <publisher>Warner Bros.</publisher>
+        <year>2003</year>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>The Sea</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>9ea42297-7e3c-46d6-9bd9-fa909a184dc8</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Tape Loop</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>9ced5ee9-a9dd-4dba-97c5-cf710aced428</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Otherwise</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>907909a2-19a4-494f-b8d5-33ff5a648ff2</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Blindfold</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>05ca0c06-e675-4468-9567-980b689a78e1</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Be Yourself</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>ee167e96-1dbb-42f3-a6cf-1a7764ae6b00</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Part Of The Process</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>b1261a37-35fa-4d36-a569-cafb3cf49dda</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Let Me See</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>8fa55879-d4ec-4a3a-8d3e-f64e92a9ee8b</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Undress Me Now</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>89d1b099-8ded-4ab8-bf64-e9e3460096af</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba Feat. Big Daddy Kane</artist>
+            <title>What's Your Name</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>ece3844f-9262-49ba-91f6-0f9dfee8b7ee</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Trigger Hippie</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>5e9976bf-455a-4afd-9e03-92355e6ab25b</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Rome Wasn't Built In A Day</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>8b385c25-cc0f-4ef8-88b2-185c0a554fe1</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Over And Over</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>982d9552-89af-477e-ad33-8cb3bb6eaa62</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba Feat. Kurt Wagner</artist>
+            <title>What New York Couples Fight About</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>eecea491-195d-4f11-91cd-6b61927d17e9</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>World Looking In</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>50d2c49b-61a6-4c23-97b4-b05ad246462c</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Moog Island</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>474927d6-0c27-45c3-a41d-834134cb7abd</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Way Beyond</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>1923a9c7-408b-4270-b031-f2627545ab79</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Never An Easy Way</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>18ee6d54-4ed1-4b70-a3dd-cf0456dd621f</songID>
+        </songList>
+        <songList>
+            <artist>Morcheeba</artist>
+            <title>Can't Stand It</title>
+            <albumID>02a73f50-4769-41dd-ae38-657c1528b5e3</albumID>
+            <price>0.99</price>
+            <songID>e3a605b7-6e92-469a-87e1-067087edf9a0</songID>
+        </songList>
+        <price>7.0</price>
+    </albumList>
+    <albumList>
+        <artist>Air</artist>
+        <title>Talkie Walkie</title>
+        <ID>624e8432-a82a-4261-ac24-dbfdd5770a92</ID>
+        <genre>Electronic</genre>
+        <publisher>Virgin Records</publisher>
+        <year>2004</year>
+        <songList>
+            <artist>Air</artist>
+            <title>Venus</title>
+            <albumID>624e8432-a82a-4261-ac24-dbfdd5770a92</albumID>
+            <price>1.29</price>
+            <songID>ef2ba9a5-55f6-4e22-b518-093900ebcca5</songID>
+        </songList>
+        <songList>
+            <artist>Air</artist>
+            <title>Cherry Blossom Girl</title>
+            <albumID>624e8432-a82a-4261-ac24-dbfdd5770a92</albumID>
+            <price>1.29</price>
+            <songID>41e55c74-3b0f-4d53-aacd-e2254995b832</songID>
+        </songList>
+        <songList>
+            <artist>Air</artist>
+            <title>Run</title>
+            <albumID>624e8432-a82a-4261-ac24-dbfdd5770a92</albumID>
+            <price>1.29</price>
+            <songID>00b5ce3c-b61a-4362-90af-ba22a9c55138</songID>
+        </songList>
+        <songList>
+            <artist>Air</artist>
+            <title>Universal Traveller</title>
+            <albumID>624e8432-a82a-4261-ac24-dbfdd5770a92</albumID>
+            <price>1.29</price>
+            <songID>c3de3be1-7d63-49b0-a86a-9020cc887c85</songID>
+        </songList>
+        <songList>
+            <artist>Air</artist>
+            <title>Mike Mills</title>
+            <albumID>624e8432-a82a-4261-ac24-dbfdd5770a92</albumID>
+            <price>1.29</price>
+            <songID>11ad39a8-20e7-4f37-a4a2-6ad92008285f</songID>
+        </songList>
+        <songList>
+            <artist>Air</artist>
+            <title>surfin on a rock</title>
+            <albumID>624e8432-a82a-4261-ac24-dbfdd5770a92</albumID>
+            <price>1.29</price>
+            <songID>adc63211-86ac-4c2a-bb08-3c052c20188d</songID>
+        </songList>
+        <songList>
+            <artist>Air</artist>
+            <title>another day</title>
+            <albumID>624e8432-a82a-4261-ac24-dbfdd5770a92</albumID>
+            <price>1.29</price>
+            <songID>70893f85-45f9-49fa-9636-3c858a198ba7</songID>
+        </songList>
+        <songList>
+            <artist>Air</artist>
+            <title>alpha beta gaga</title>
+            <albumID>624e8432-a82a-4261-ac24-dbfdd5770a92</albumID>
+            <price>1.29</price>
+            <songID>9dd707ab-c740-465a-8b2d-f42b8fbba377</songID>
+        </songList>
+        <songList>
+            <artist>Air</artist>
+            <title>biological</title>
+            <albumID>624e8432-a82a-4261-ac24-dbfdd5770a92</albumID>
+            <price>1.29</price>
+            <songID>bbc5d3e4-9cf9-44b4-91a2-40480575350f</songID>
+        </songList>
+        <songList>
+            <artist>Air</artist>
+            <title>alone in kyoto</title>
+            <albumID>624e8432-a82a-4261-ac24-dbfdd5770a92</albumID>
+            <price>1.29</price>
+            <songID>07b66fa9-d48a-4b43-a1b4-f1b2ac32c98c</songID>
+        </songList>
+        <price>10.0</price>
+    </albumList>
+    <albumList>
+        <artist>Plaid</artist>
+        <title>Tekkonkinkreet</title>
+        <ID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</ID>
+        <genre>Electronic</genre>
+        <publisher>Sony Japan</publisher>
+        <year>2007</year>
+        <songList>
+            <artist>Plaid</artist>
+            <title>This City</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>57f29238-f822-40fb-ae98-1292df522993</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>Rat's Stop</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>ba75a629-5d52-4c1d-a0be-141411e2f0c7</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>This City Is Hell</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>eb5d2fa0-01b3-4866-9ccf-bf8afd10c0ca</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>Brothers Chase</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>a794ceae-df03-4cce-b7ec-1bbee342ed7b</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>Butterfly</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>92b41e0e-c65f-4d42-89eb-3f432af06fa5</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>Oasis</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>7e2b7d56-bcab-47be-a2b1-b3c68750fc3a</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>Beginnings</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>e73eb56d-0451-44d1-af2b-b9b46e0e2a85</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>Snakeing</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>dfb2f22f-5425-4afe-b8e6-0291fb676326</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>Open Kastle</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>81454c66-2483-4aa2-adee-280ec4586ee2</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>Assassouts</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>1ba79ff3-0824-4fd7-99df-c6c8369bc434</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>Safety In Solitude</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>7d29386a-4fd9-4d79-b852-1e775f3797c2</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>Where</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>94fb4632-4aef-44b8-8f32-3afc4cad08f0</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>White's Dream</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>b0f32e98-5bf7-4f6e-94db-449315b11249</songID>
+        </songList>
+        <songList>
+            <artist>Plaid</artist>
+            <title>Aru Machi no Gunjo - Asian Kung Fu Generation</title>
+            <albumID>5cd67f3d-e5a3-40ee-9c64-abbaeb6e9645</albumID>
+            <price>0.99</price>
+            <songID>5aa76af4-6e4b-4436-9569-2da845b97f78</songID>
+        </songList>
+        <price>5.0</price>
+    </albumList>
+</musicDB>
