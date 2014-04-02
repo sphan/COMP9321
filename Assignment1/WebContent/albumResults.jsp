@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="edu.unsw.comp9321.*, java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,6 +12,33 @@
 <body>
 <%@ include file="Header.html"%>
 <%@ include file="SearchBar.html"%>
-
+<form action="control" method="POST">
+<center>
+	<div>
+	<table border="1" cellpadding="5">
+		<tr>
+			<td>Album Title</td>
+			<td>Album Artist</td>
+			<td>Genre</td>
+			<td>Publisher</td>
+			<td>Year</td>
+			<td>Price</td>
+			<td>Select ?</td>
+		</tr>
+		<c:forEach var="album" items="${albumsFound}">
+			<tr>
+				<td><c:out value="${album.title}" /></td>
+				<td><c:out value="${album.artist}" /></td>
+				<td><c:out value="${album.genre}" /></td>
+				<td><c:out value="${album.publisher}" /></td>
+				<td><c:out value="${album.year}" /></td>
+				<td><fmt:formatNumber value="${album.price}" type="currency" /></td>
+				<td><input type="checkbox" name="album" value="${albums.title}"></td>
+			</tr>
+		</c:forEach>
+	</table>
+	</div>
+</center>
+</form>
 </body>
 </html>
