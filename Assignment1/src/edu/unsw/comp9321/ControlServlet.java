@@ -3,6 +3,7 @@ package edu.unsw.comp9321;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,6 +42,27 @@ public class ControlServlet extends HttpServlet {
 	}
 	
 	/**
+	 * 
+	 * @param searchString
+	 * @return
+	 */
+	public LinkedList<Song> searchForSong(String searchString) {
+		LinkedList<Song> results = new LinkedList<Song>();
+		
+		// Traverse the database, inside each album, looks for the song
+		// that contains the search string.
+		for (Album a : musicDb) {
+			for (Song s : a.getSongs()) {
+				if (s.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
+					results.add(s);
+				}
+			}
+		}
+		
+		return results;
+	}
+	
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -66,6 +88,10 @@ public class ControlServlet extends HttpServlet {
 				
 			}
 		}
+		
+		// Go to whatever has been selected as the next page.
+		RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
+		rd.forward(request, response);
 	}
 
 	private LinkedList<Album> musicDb;
