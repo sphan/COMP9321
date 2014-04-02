@@ -1,6 +1,7 @@
 package edu.unsw.comp9321;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
@@ -46,17 +47,19 @@ public class ControlServlet extends HttpServlet {
 	 * @param searchString
 	 * @return
 	 */
-	public LinkedList<Song> searchForSong(String searchString) {
-		LinkedList<Song> results = new LinkedList<Song>();
+	public HashMap<Album, LinkedList<Song>> searchForSong(String searchString) {
+		HashMap<Album, LinkedList<Song>> results = new HashMap<Album, LinkedList<Song>>();
 		
 		// Traverse the database, inside each album, looks for the song
 		// that contains the search string.
 		for (Album a : musicDb) {
+			LinkedList<Song> songs = new LinkedList<Song>();
 			for (Song s : a.getSongs()) {
 				if (s.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
-					results.add(s);
+					songs.add(s);
 				}
 			}
+			results.put(a, songs);
 		}
 		
 		return results;
@@ -77,15 +80,27 @@ public class ControlServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		// Always direct back to home page.
 		String nextPage = "welcome.jsp";
-		musicDb = (LinkedList<Album>) request.getAttribute("musicDb");
+		musicDb = (LinkedList<Album>) System.getProperties().get("musicDb");
 		
 		if (action.equals("search")) {
 			String searchType = request.getParameter("searchType");
 			String searchString = request.getParameter("searchString");
 			if (searchType.equals("Album")) {
-				LinkedList<Album> results = searchForAlbum(searchString);
+				LinkedList<Album> albumsFound = searchForAlbum(searchString);
+				if (albumsFound.size() == 0) {
+					nextPage = "noResults.jsp";
+				} else {
+					request.setAttribute("albumsFound", albumsFound);
+					nextPage = "albumResults.jsp";
+				}
 			} else if (searchType.equals("Song")) {
-				
+				HashMap<Album, LinkedList<Song>> songsFound = searchForSong(searchString);
+				if (songsFound.size() == 0) {
+					nextPage = "noResults.jsp";
+				} else {
+					request.setAttribute("songsFound", songsFound);
+					nextPage = "songResults.jsp";
+				}
 			}
 		}
 		
