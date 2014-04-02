@@ -7,17 +7,7 @@
 <title>The Music Store</title>
 </head>
 <body>
-<h2>Welcome to The Music Store</h2>
-<center>
-<form action="control" method="POST">
-<select name="searchType">
-	<option>Album</option>
-	<option>Song</option>
-</select>
-<input type="text" name="searchString" />
-<input type="hidden" name="action" value="search" />
-<input type="submit" value="Search" />
-</form>
-</center>
+<%@ include file="Header.html"%>
+<%@ include file="SearchBar.html"%>
 </body>
 </html>

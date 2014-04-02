@@ -4,4 +4,14 @@
   <welcome-file-list>
     <welcome-file>welcome.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>ControlServlet</display-name>
+    <servlet-name>ControlServlet</servlet-name>
+    <servlet-class>edu.unsw.comp9321.ControlServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ControlServlet</servlet-name>
+    <url-pattern>/ControlServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
