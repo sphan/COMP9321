@@ -11,6 +11,7 @@ public class Album {
 		this.price = price;
 		this.publisher = "";
 		this.year = 1920;
+		this.genre = "";
 		this.songs = new LinkedList<Song>();
 	}
 
@@ -62,6 +63,14 @@ public class Album {
 		this.price = price;
 	}
 	
+	public String getGenre() {
+		return genre;
+	}
+	
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+	
 	public LinkedList<Song> getSongs() {
 		return songs;
 	}
@@ -76,5 +85,6 @@ public class Album {
 	private String publisher;
 	private int year;
 	private float price;
+	private String genre;
 	private LinkedList<Song> songs;
 }
