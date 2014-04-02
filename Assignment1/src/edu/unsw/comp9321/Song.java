@@ -1,6 +1,7 @@
 package edu.unsw.comp9321;
 
-public class Song {
+public class Song implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	public Song(String title) {
 		this.title = title;

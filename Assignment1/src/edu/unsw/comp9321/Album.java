@@ -2,7 +2,8 @@ package edu.unsw.comp9321;
 
 import java.util.LinkedList;
 
-public class Album {
+public class Album implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	public Album(String title) {
 		this.artist = "";
