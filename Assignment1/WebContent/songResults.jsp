@@ -44,6 +44,6 @@
 	</div>
 </center>
 </form>
-<%@ include file="footerButtons.html"%>
+<%@ include file="searchFooter.html"%>
 </body>
 </html>
