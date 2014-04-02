@@ -13,5 +13,6 @@
 <center>
 <div>No results were found.</div>
 </center>
+<%@ include file="footerButtons.html"%>
 </body>
 </html>
