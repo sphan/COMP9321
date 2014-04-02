@@ -49,8 +49,6 @@ public class WelcomeServlet extends HttpServlet {
 			// in the HTML tags.
 			doc.getDocumentElement().normalize();
 			
-			// For debugging
-			// TODO: to be deleted.
 			NodeList nList = doc.getElementsByTagName("albumList");
 			
 			// Loop through the list of album list and add the albums
@@ -121,17 +119,8 @@ public class WelcomeServlet extends HttpServlet {
     	// Read the albums from the XML file and store it as a DB that is going
     	// to be passed around the servlets.
     	LinkedList<Album> musicDb = getMusicDB();
-//    	System.out.println(musicDb);
     	
-    	// DB is forwarded to the next servlet.
-    	request.setAttribute("musicDb", musicDb);
-    	
-    	// DB will be available for all servlets while the session
-    	// is still available.
-    	request.getSession().setAttribute("musicDb", musicDb);
-    	
-    	// DB will be available while the application is running.
-    	this.getServletConfig().getServletContext().setAttribute("musicDb", musicDb);
+    	System.getProperties().put("musicDb", musicDb);
     	
     	// Go to welcome page.
 		RequestDispatcher rd = request.getRequestDispatcher("/welcome.jsp");
