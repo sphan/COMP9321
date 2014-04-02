@@ -43,7 +43,7 @@ public class WelcomeServlet extends HttpServlet {
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(new File("musicDb.xml"));
+			Document doc = dBuilder.parse(new File("C:\\Users\\San\\git\\COMP9321\\Assignment1\\src\\edu\\unsw\\comp9321\\musicDb.xml"));
 			
 			// Removes unnecessary spaces and new lines in the text
 			// in the HTML tags.
@@ -51,16 +51,12 @@ public class WelcomeServlet extends HttpServlet {
 			
 			// For debugging
 			// TODO: to be deleted.
-			System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
-			
 			NodeList nList = doc.getElementsByTagName("albumList");
 			
 			// Loop through the list of album list and add the albums
 			// from XML into musicDb.
 			for (int temp = 0; temp < nList.getLength(); ++temp) {
 				Node nNode = nList.item(temp);
-				
-				System.out.println("\nCurrent Element :" + nNode.getNodeName());
 				
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element element = (Element) nNode;
@@ -80,13 +76,15 @@ public class WelcomeServlet extends HttpServlet {
 	 * @param element
 	 */
 	public void addAlbumToDB(LinkedList<Album> db, Element element) {
-		Album album = new Album(element.getAttribute("title"));
-		album.setAlbumID(element.getAttribute("ID"));
-		album.setArtist(element.getAttribute("artist"));
-		album.setGenre(element.getAttribute("genre"));
-		album.setPrice(Float.parseFloat(element.getAttribute("price")));
-		album.setPublisher(element.getAttribute("publisher"));
-		album.setYear(Integer.parseInt(element.getAttribute("year")));
+		Album album = new Album(element.getElementsByTagName("title").item(0).getTextContent());
+		album.setAlbumID(element.getElementsByTagName("ID").item(0).getTextContent());
+		album.setArtist(element.getElementsByTagName("artist").item(0).getTextContent());
+		album.setGenre(element.getElementsByTagName("genre").item(0).getTextContent());
+		album.setPublisher(element.getElementsByTagName("publisher").item(0).getTextContent());		
+		addSongsToAlbum(album, element);
+		
+		album.setYear(Integer.parseInt(element.getElementsByTagName("year").item(0).getTextContent()));
+		album.setPrice(Float.parseFloat(element.getElementsByTagName("price").item(0).getTextContent()));
 		
 		db.add(album);
 	}
@@ -105,11 +103,11 @@ public class WelcomeServlet extends HttpServlet {
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 				Element songElm = (Element) node;
 				
-				Song song = new Song(songElm.getAttribute("title"));
-				song.setArtist(songElm.getAttribute("artist"));
-				song.setAlbumID(songElm.getAttribute("albumID"));
-				song.setPrice(Float.parseFloat(songElm.getAttribute("price")));
-				song.setSongID(songElm.getAttribute("songID"));
+				Song song = new Song(songElm.getElementsByTagName("title").item(0).getTextContent());
+				song.setArtist(songElm.getElementsByTagName("artist").item(0).getTextContent());
+				song.setAlbumID(songElm.getElementsByTagName("albumID").item(0).getTextContent());
+				song.setPrice(Float.parseFloat(songElm.getElementsByTagName("price").item(0).getTextContent()));
+				song.setSongID(songElm.getElementsByTagName("songID").item(0).getTextContent());
 				
 				album.addSong(song);
 			}
@@ -123,6 +121,7 @@ public class WelcomeServlet extends HttpServlet {
     	// Read the albums from the XML file and store it as a DB that is going
     	// to be passed around the servlets.
     	LinkedList<Album> musicDb = getMusicDB();
+//    	System.out.println(musicDb);
     	
     	// DB is forwarded to the next servlet.
     	request.setAttribute("musicDb", musicDb);
