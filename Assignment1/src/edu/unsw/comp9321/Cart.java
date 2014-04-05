@@ -5,24 +5,24 @@ import java.util.LinkedList;
 public class Cart {
 	
 	public Cart() {
-		stocks = new LinkedList<Stock>();
+		items = new LinkedList<Stock>();
 	}
 	
 	public void addToCart(Stock item) {
-		stocks.add(item);
+		items.add(item);
 	}
 	
-	public LinkedList<Stock> getStocks() {
-		return this.stocks;
+	public LinkedList<Stock> getItems() {
+		return this.items;
 	}
 	
 	public int getCartSize() {
-		return stocks.size();
+		return items.size();
 	}
 	
 	public void removeItem(Stock item) {
-		stocks.remove(item);
+		items.remove(item);
 	}
 
-	private LinkedList<Stock> stocks;
+	private LinkedList<Stock> items;
 }
