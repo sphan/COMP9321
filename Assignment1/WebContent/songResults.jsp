@@ -36,7 +36,7 @@
 				<td><c:out value="${map.key.publisher}" /></td>
 				<td><c:out value="${map.key.year}" /></td>
 				<td><fmt:formatNumber value="${song.price}" type="currency" /></td>
-				<td><input type="checkbox" name="album" value="${song.title}"></td>
+				<td><input type="checkbox" name="addToCart" value="${song.title}"></td>
 			</tr>
 			</c:forEach>
 		</c:forEach>

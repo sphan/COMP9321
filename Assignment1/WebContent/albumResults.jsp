@@ -33,7 +33,7 @@
 				<td><c:out value="${album.publisher}" /></td>
 				<td><c:out value="${album.year}" /></td>
 				<td><fmt:formatNumber value="${album.price}" type="currency" /></td>
-				<td><input type="checkbox" name="album" value="${albums.title}"></td>
+				<td><input type="checkbox" name="addToCart" value="${albums.title}"></td>
 			</tr>
 		</c:forEach>
 	</table>
