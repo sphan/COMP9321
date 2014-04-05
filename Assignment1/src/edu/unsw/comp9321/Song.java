@@ -1,6 +1,6 @@
 package edu.unsw.comp9321;
 
-public class Song implements java.io.Serializable {
+public class Song implements java.io.Serializable, Stock {
 	private static final long serialVersionUID = 1L;
 	
 	public Song(String title) {
@@ -51,9 +51,16 @@ public class Song implements java.io.Serializable {
 		this.songID = songID;
 	}
 
+	@Override
+	public StockType getType() {
+		return type;
+	}
+
 	private String artist;
 	private String title;
 	private String albumID;
 	private float price;
-	private String songID;	
+	private String songID;
+	private final StockType type = StockType.SONG;
+
 }

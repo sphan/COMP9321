@@ -2,7 +2,7 @@ package edu.unsw.comp9321;
 
 import java.util.LinkedList;
 
-public class Album implements java.io.Serializable {
+public class Album implements java.io.Serializable, Stock {
 	private static final long serialVersionUID = 1L;
 	
 	public Album(String title) {
@@ -75,6 +75,11 @@ public class Album implements java.io.Serializable {
 	public LinkedList<Song> getSongs() {
 		return songs;
 	}
+
+	@Override
+	public StockType getType() {
+		return type;
+	}
 	
 	public void addSong(Song song) {
 		this.songs.add(song);
@@ -87,5 +92,7 @@ public class Album implements java.io.Serializable {
 	private int year;
 	private float price;
 	private String genre;
+	private final StockType type = StockType.ALBUM;
 	private LinkedList<Song> songs;
+
 }
