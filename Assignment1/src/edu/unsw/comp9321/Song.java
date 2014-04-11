@@ -27,6 +27,14 @@ public class Song implements java.io.Serializable, Stock {
 		this.title = title;
 	}
 	
+	public String getPublisher() {
+		return publisher;
+	}
+	
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+	
 	public String getAlbumID() {
 		return albumID;
 	}
@@ -58,6 +66,7 @@ public class Song implements java.io.Serializable, Stock {
 
 	private String artist;
 	private String title;
+	private String publisher;
 	private String albumID;
 	private float price;
 	private String songID;
