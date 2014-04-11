@@ -5,4 +5,5 @@ public interface Stock {
 	public String getArtist();
 	public float getPrice();
 	public StockType getType();
+	public String getPublisher();
 }
