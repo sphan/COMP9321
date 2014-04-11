@@ -10,8 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,19 +36,39 @@ public class WelcomeServlet extends HttpServlet {
 		super();
 	}
 	
+	public boolean validateXMLSchema(String xsdPath, String xmlPath) {
+		try {
+            SchemaFactory factory = 
+                    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = factory.newSchema(new File(xsdPath));
+            Validator validator = schema.newValidator();
+            validator.validate(new StreamSource(new File(xmlPath)));
+        } catch (Exception e) {
+            System.out.println("Exception: "+ ((Throwable) e).getMessage());
+            return false;
+        }
+        return true;
+	}
+	
 	/**
 	 * Creates a music database using a linked list to store
 	 * all the albums read from the XML file.
 	 * @return The music database.
 	 */
 	public LinkedList<Album> getMusicDB() {
+		if (validateXMLSchema("C:\\Users\\San\\git\\COMP9321\\Assignment1\\WebContent\\WEB-INF\\musicDb.xsd",
+				"C:\\Users\\San\\git\\COMP9321\\Assignment1\\WebContent\\WEB-INF\\musicDb.xml") == false) {
+			System.out.println("XML file is not valid.");
+			return null;
+		}
+		
 		LinkedList<Album> musicDb = new LinkedList<Album>();
 		
 		// DOM XML Parser tutorial from http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(new File("C:\\Users\\San\\git\\COMP9321\\Assignment1\\src\\edu\\unsw\\comp9321\\musicDb.xml"));
+			Document doc = dBuilder.parse(new File("C:\\Users\\San\\git\\COMP9321\\Assignment1\\WebContent\\WEB-INF\\musicDb.xml"));
 			
 			// Removes unnecessary spaces and new lines in the text
 			// in the HTML tags.
