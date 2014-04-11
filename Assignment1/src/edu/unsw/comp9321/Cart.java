@@ -2,8 +2,9 @@ package edu.unsw.comp9321;
 
 import java.util.LinkedList;
 
-public class Cart {
-	
+public class Cart implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
+
 	public Cart() {
 		items = new LinkedList<Stock>();
 	}
