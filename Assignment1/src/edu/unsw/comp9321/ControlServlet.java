@@ -42,6 +42,55 @@ public class ControlServlet extends HttpServlet {
 		return results;
 	}
 	
+	public String search(HttpServletRequest request) {
+		String searchType = request.getParameter("searchType");
+		String searchString = request.getParameter("searchString");
+		
+		// Only look up for albums with similar names if user chose
+		// to only look for albums.
+		if (searchType.equals("Album")) {
+			LinkedList<Album> albumsFound = searchForAlbum(searchString);
+			
+			// Display 'No result' message.
+			if (albumsFound.size() == 0) {
+				return "noResults.jsp";
+			} else {
+				request.setAttribute("albumsFound", albumsFound);
+				return "albumResults.jsp";
+			}
+			
+		// Look up for songs and the album that it belongs to.
+		} else if (searchType.equals("Song")) {
+			HashMap<Album, LinkedList<Song>> songsFound = searchForSong(searchString);
+			
+			// Display 'No result' message.
+			if (songsFound.size() == 0) {
+				return "noResults.jsp";
+			} else {
+				request.setAttribute("songsFound", songsFound);
+				return "songResults.jsp";
+			}
+		}
+		return null;
+	}
+	
+	public String add(HttpServletRequest request) {
+		Cart myCart = (Cart) request.getSession().getAttribute("cart");
+		LinkedList<Stock> itemsInCart = myCart.getItems();
+		
+		String[] itemsToAdd = request.getParameterValues("addToCart");
+		
+		for (String item : itemsToAdd) {
+			// if item is not in cart.
+			if (!itemIsInCart(item, itemsInCart)) {
+				myCart.addToCart(getItem(item));
+				System.out.println(item + " added to cart.");
+			}
+		}
+		System.out.println(myCart.getCartSize());
+		return "cart";
+	}
+	
 	/**
 	 * 
 	 * @param searchString
@@ -66,6 +115,96 @@ public class ControlServlet extends HttpServlet {
 	}
 	
 	/**
+	 * Check if a given song belongs to the given album.
+	 * @param song The name of the song.
+	 * @param album The title of the album.
+	 * @return True if the song belongs to the album. False otherwise.
+	 */
+	public boolean songBelongsToAlbum(String song, String album) {
+		for (Album a : musicDb) {
+			if (a.getTitle().equalsIgnoreCase(album)) {
+				for (Song s : a.getSongs()) {
+					if (s.getTitle().equalsIgnoreCase(song))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param item
+	 * @return
+	 */
+	public Stock getItem(String item) {
+		for (Album a : musicDb) {
+			if (a.getTitle().equalsIgnoreCase(item))
+				return a;
+			for (Song s : a.getSongs()) {
+				if (s.getTitle().equalsIgnoreCase(item))
+					return s;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Find the album in which the song belongs to.
+	 * @param song The song.
+	 * @return Return the album which the song belongs to. Or
+	 * return null if no album is found.
+	 */
+	public Album getSongAlbum(Song song) {
+		for (Album album :musicDb) {
+			if (album.getAlbumID() == song.getAlbumID())
+				return album;
+		}
+		return null;
+	}
+	
+	/**
+	 * Determine if the item given is already in cart. An item is in
+	 * the cart if there appears to have an item with the same name or
+	 * item is a song and the album which the song belongs to is already
+	 * in the card, or the album about to be added already have a song added
+	 * in the cart.
+	 * @param item The item to be added to the cart.
+	 * @param cart The user's cart.
+	 * @return True if the item is already in the cart. False otherwise.
+	 */
+	public boolean itemIsInCart(String item, LinkedList<Stock> cart) {
+		if (cart.size() == 0)
+			return false;
+		
+		for (Stock s : cart) {
+			// If the same song is found in cart.
+			if (item.equalsIgnoreCase(s.getTitle()))
+				return true;
+			
+			// Find in cart to see if the songs in this album
+			// is already added.
+			else if (s.getType() == StockType.ALBUM) {
+				Album album = (Album) getItem(item);
+				for (Song song : album.getSongs()) {
+					// A song in the album is already added to cart.
+					if (song.getTitle() == s.getTitle())
+						return true;
+				}
+				
+			// Find if the album in which the item (song) belongs to
+			// is already added into cart.
+			} else {
+				Song song = (Song) getItem(item);
+				Album myAlbum = getSongAlbum(song);
+				if (myAlbum.getTitle() == s.getTitle())
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -79,29 +218,18 @@ public class ControlServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		// Always direct back to home page.
-		String nextPage = "welcome.jsp";
+		String nextPage = "";
 		musicDb = (LinkedList<Album>) System.getProperties().get("musicDb");
 		
-		if (action.equals("search")) {
-			String searchType = request.getParameter("searchType");
-			String searchString = request.getParameter("searchString");
-			if (searchType.equals("Album")) {
-				LinkedList<Album> albumsFound = searchForAlbum(searchString);
-				if (albumsFound.size() == 0) {
-					nextPage = "noResults.jsp";
-				} else {
-					request.setAttribute("albumsFound", albumsFound);
-					nextPage = "albumResults.jsp";
-				}
-			} else if (searchType.equals("Song")) {
-				HashMap<Album, LinkedList<Song>> songsFound = searchForSong(searchString);
-				if (songsFound.size() == 0) {
-					nextPage = "noResults.jsp";
-				} else {
-					request.setAttribute("songsFound", songsFound);
-					nextPage = "songResults.jsp";
-				}
-			}
+		// Display the result pages if the user wants to searched for
+		// something.
+		if (action.equals("search")) {			
+			nextPage = search(request);
+		} else if (action.equals("add")) {
+			nextPage = add(request);
+		} else {
+			response.sendRedirect("/Assignment1/welcome");
+			return;
 		}
 		
 		// Go to whatever has been selected as the next page.
