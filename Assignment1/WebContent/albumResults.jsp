@@ -33,13 +33,18 @@
 				<td><c:out value="${album.publisher}" /></td>
 				<td><c:out value="${album.year}" /></td>
 				<td><fmt:formatNumber value="${album.price}" type="currency" /></td>
-				<td><input type="checkbox" name="addToCart" value="${albums.title}"></td>
+				<td><input type="checkbox" name="addToCart" value="<c:out value="${album.title}" />"></td>
 			</tr>
 		</c:forEach>
 	</table>
+	<input type="submit" value="Add To Cart" />
+	<input type="hidden" name="action" value="add" />
 	</div>
 </center>
 </form>
-<%@ include file="searchFooter.html"%>
+<form action="control" method="POST">
+	<input type="submit" value="Back to Search" />
+	<input type="hidden" name="action" value="welcome" />
+</form>
 </body>
 </html>

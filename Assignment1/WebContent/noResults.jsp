@@ -13,6 +13,6 @@
 <center>
 <div>No results were found.</div>
 </center>
-<%@ include file="footerButtons.html"%>
+<%@ include file="searchFooter.html"%>
 </body>
 </html>
