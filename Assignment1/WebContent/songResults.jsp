@@ -11,7 +11,6 @@
 </head>
 <body>
 <%@ include file="Header.html"%>
-<%@ include file="SearchBar.html"%>
 <form action="control" method="POST">
 <center>
 	<div>

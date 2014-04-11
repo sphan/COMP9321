@@ -9,7 +9,6 @@
 </head>
 <body>
 <%@ include file="Header.html"%>
-<%@ include file="SearchBar.html"%>
 <center>
 <div>No results were found.</div>
 </center>
