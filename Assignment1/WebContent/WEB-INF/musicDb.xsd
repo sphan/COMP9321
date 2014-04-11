@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="http://www.unsw.edu.au/comp9321/SongLibrary" 
+		xmlns:tns="http://www.unsw.edu.au/comp9321/SongLibrary" 
+		elementFormDefault="qualified">
+		
+	<simpleType name="YearType">
+    	<restriction base="integer">
+    		<minInclusive value="1920"/> 
+    		<maxInclusive value="3000"/>
+    	</restriction>
+    </simpleType>
+    
+    <complexType name="SongType">
+    	<sequence>
+    		<element name="artist" type="string"></element>
+    		<element name="title" type="string"></element>
+    		<element name="albumID" type="tns:IDType"></element>
+    		<element name="price" type="float"></element>
+    		<element name="songID" type="tns:IDType"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="AlbumType">
+    	<sequence>
+    		<element name="artist" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="title" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="ID" type="tns:IDType" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="genre" type="tns:GenreType"></element>
+    		<element name="publisher" type="string"></element>
+    		<element name="year" type="tns:YearType"></element>
+    		<element name="songList" type="tns:SongType"
+    			maxOccurs="unbounded" minOccurs="1">
+    		</element>
+    		<element name="price" type="float"></element>
+    	</sequence>
+    </complexType>
+
+    <simpleType name="GenreType">
+    	<restriction base="string">
+    		<enumeration value="Undefined"></enumeration>
+    		<enumeration value="Jazz"></enumeration>
+    		<enumeration value="Soundtrack"></enumeration>
+    		<enumeration value="Disco"></enumeration>
+    		<enumeration value="Reggae"></enumeration>
+    		<enumeration value="Electronica"></enumeration>
+    		<enumeration value="Classical"></enumeration>
+    		<enumeration value="Ballad"></enumeration>
+    		<enumeration value="Instrumental"></enumeration>
+    		<enumeration value="Progressive Rock"></enumeration>
+    		<enumeration value="Pop"></enumeration>
+    		<enumeration value="Dance"></enumeration>
+    		<enumeration value="Alternative"></enumeration>
+    		<enumeration value="Electronic"></enumeration>
+    		<enumeration value="Rock"></enumeration>
+    		<enumeration value="Electronica/Dance"></enumeration>
+    		<enumeration value="Alternative &amp; Punk"></enumeration>
+    	</restriction>
+    </simpleType>
+    
+    <simpleType name="IDType">
+    	<restriction base="string"></restriction>
+    </simpleType>
+
+
+
+    <complexType name="MusicDbType">
+    	<sequence>
+    		<element name="albumList" type="tns:AlbumType" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <element name="musicDB" type="tns:MusicDbType"></element>
+</schema>
