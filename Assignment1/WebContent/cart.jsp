@@ -11,9 +11,19 @@
 </head>
 <body>
 <%@ include file="Header.html"%>
-
-<form action="control" method="POST">
 <center>
+<c:choose>
+
+<c:when test="${cartSize eq 0}">
+	<h4>Cart is empty!</h4>
+	<form action="control" method="POST">
+	<input type="submit" value="Back to Search" />
+	<input type="hidden" name="action" value="welcome" />
+</form>
+</c:when>
+<c:when test="${cartSize ne 0}">
+<form action="control" method="POST">
+
 	<div>
 	<table border="1" cellpadding="5">
 		<tr>
@@ -31,12 +41,28 @@
 				<td><c:out value="${item.type}" /></td>
 				<td><c:out value="${item.publisher}" /></td>
 				<td><fmt:formatNumber value="${item.price}" type="currency" /></td>
-				<td><input type="checkbox" name="addToCart" value="<c:out value="${item.title}" />"></td>
+				<td><input type="checkbox" name="removeFromCart" value="<c:out value="${item.title}" />"></td>
 			</tr>
 		</c:forEach>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Total</td>
+			<td><fmt:formatNumber value="${totalCost}" type="currency" /></td>
+		</tr>
 	</table>
+	<input type="submit" value="Remove From Cart" />
+	<input type="hidden" name="action" value="remove" />
+	
+	<input type="submit" value="Back to Search" />
+	<input type="hidden" name="action" value="welcome" />
 	</div>
-</center>
+
 </form>
+</c:when>
+</c:choose>
+</center>
 </body>
 </html>
