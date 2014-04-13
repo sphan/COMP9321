@@ -23,7 +23,14 @@
 </c:when>
 <c:when test="${cartSize ne 0}">
 <form action="control" method="POST">
-
+	<c:if test="${alreadyInCartSize > 0}">
+		<div>
+		<div>The following items are duplicated in your cart.</div>
+		<c:forEach var="item" items="${alreadyInCart}">
+			<div><c:out value="${item}" /></div>
+		</c:forEach>
+		</div>
+	</c:if>
 	<div>
 	<table border="1" cellpadding="5">
 		<tr>
@@ -55,11 +62,15 @@
 	</table>
 	<input type="submit" value="Remove From Cart" />
 	<input type="hidden" name="action" value="remove" />
-	
-	<input type="submit" value="Back to Search" />
-	<input type="hidden" name="action" value="welcome" />
 	</div>
-
+</form>
+<form>
+<input type="submit" value="Back to Search" />
+<input type="hidden" name="action" value="welcome" />
+</form>
+<form>
+<input type="submit" value="Go to Checkout" />
+<input type="hidden" name="action" value="checkout" />
 </form>
 </c:when>
 </c:choose>
