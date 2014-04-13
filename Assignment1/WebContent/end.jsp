@@ -11,6 +11,7 @@
 </head>
 <body>
 <%@ include file="Header.html"%>
+<center>
 <c:choose>
 <c:when test="${action eq 'buy'}">
 	<div><h3>Thank you for purchasing!!</h3></div>
@@ -19,5 +20,6 @@
 	<div><h3>Thank you for shopping!!</h3></div>
 </c:when>
 </c:choose>
+</center>
 </body>
 </html>
