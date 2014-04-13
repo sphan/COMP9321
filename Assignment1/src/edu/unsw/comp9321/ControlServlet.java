@@ -77,18 +77,72 @@ public class ControlServlet extends HttpServlet {
 	public String add(HttpServletRequest request) {
 		Cart myCart = (Cart) request.getSession().getAttribute("cart");
 		LinkedList<Stock> itemsInCart = myCart.getItems();
+		LinkedList<String> itemsAlreadyInCart = new LinkedList<String>();
 		
 		String[] itemsToAdd = request.getParameterValues("addToCart");
+		if (itemsToAdd == null) {
+			request.setAttribute("cartSize", myCart.getCartSize());
+			return "cart.jsp";
+		}
 		
 		for (String item : itemsToAdd) {
 			// if item is not in cart.
 			if (!itemIsInCart(item, itemsInCart)) {
 				myCart.addToCart(getItem(item));
-				System.out.println(item + " added to cart.");
+			} else {
+				itemsAlreadyInCart.add(item);
 			}
 		}
-		System.out.println(myCart.getCartSize());
-		return "cart";
+		request.setAttribute("cartSize", myCart.getCartSize());
+		request.setAttribute("totalCost", getTotal(myCart));
+		request.setAttribute("alreadyInCartSize", itemsAlreadyInCart.size());
+		request.setAttribute("alreadyInCart", itemsAlreadyInCart);
+		return "cart.jsp";
+	}
+	
+	public String remove(HttpServletRequest request) {
+		Cart myCart = (Cart) request.getSession().getAttribute("cart");
+		LinkedList<Stock> itemsInCart = myCart.getItems();
+		
+		String[] itemsToRemove = request.getParameterValues("removeFromCart");
+		if (itemsToRemove == null)
+			return "cart.jsp";
+		
+		for (String item : itemsToRemove) {
+			itemsInCart.remove(getItem(item));
+		}
+		
+		return "cart.jsp";
+	}
+	
+	public String checkout(HttpServletRequest request) {
+		Cart myCart = (Cart) request.getSession().getAttribute("cart");
+		float totalPrice = 0;
+		
+		for (Stock s : myCart.getItems()) {
+			totalPrice += s.getPrice();
+		}
+		request.setAttribute("totalCost", totalPrice);
+		return "confirm.jsp";
+	}
+	
+	public String leave(HttpServletRequest request, String action) {
+		request.setAttribute("action", action);
+		request.getSession().invalidate();
+		return "end.jsp";
+	}
+	
+	/**
+	 * Get total cost of purchase in cart.
+	 * @param myCart The cart.
+	 * @return The total cost.
+	 */
+	public float getTotal(Cart myCart) {
+		float total = 0;
+		for (Stock s : myCart.getItems()) {
+			total += s.getPrice();
+		}
+		return total;
 	}
 	
 	/**
@@ -156,9 +210,12 @@ public class ControlServlet extends HttpServlet {
 	 * return null if no album is found.
 	 */
 	public Album getSongAlbum(Song song) {
-		for (Album album :musicDb) {
-			if (album.getAlbumID() == song.getAlbumID())
+		System.out.println(song.getTitle());
+		for (Album album : musicDb) {
+			if (album.getAlbumID().equalsIgnoreCase(song.getAlbumID())) {
+				System.out.println(album.getTitle());
 				return album;
+			}
 		}
 		return null;
 	}
@@ -185,19 +242,14 @@ public class ControlServlet extends HttpServlet {
 			// Find in cart to see if the songs in this album
 			// is already added.
 			else if (s.getType() == StockType.ALBUM) {
-				Album album = (Album) getItem(item);
+				Album album = (Album) s;
 				for (Song song : album.getSongs()) {
-					// A song in the album is already added to cart.
-					if (song.getTitle() == s.getTitle())
-						return true;
+					if (song.getTitle().equalsIgnoreCase(item))
+						return true;						
 				}
-				
-			// Find if the album in which the item (song) belongs to
-			// is already added into cart.
-			} else {
-				Song song = (Song) getItem(item);
-				Album myAlbum = getSongAlbum(song);
-				if (myAlbum.getTitle() == s.getTitle())
+			} else if (s.getType() == StockType.SONG) {
+				Song song = (Song) s;
+				if (getSongAlbum(song) != null)
 					return true;
 			}
 		}
@@ -227,6 +279,12 @@ public class ControlServlet extends HttpServlet {
 			nextPage = search(request);
 		} else if (action.equals("add")) {
 			nextPage = add(request);
+		} else if (action.equals("remove")) {
+			nextPage = remove(request);
+		} else if (action.equals("checkout")) {
+			nextPage = checkout(request);
+		} else if (action.equals("buy") || action.equals("leave")) {
+			nextPage = leave(request, action);
 		} else {
 			response.sendRedirect("/Assignment1/welcome");
 			return;

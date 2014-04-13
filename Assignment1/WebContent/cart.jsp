@@ -64,11 +64,11 @@
 	<input type="hidden" name="action" value="remove" />
 	</div>
 </form>
-<form>
+<form action="control" method="POST">
 <input type="submit" value="Back to Search" />
 <input type="hidden" name="action" value="welcome" />
 </form>
-<form>
+<form action="control" method="POST">
 <input type="submit" value="Go to Checkout" />
 <input type="hidden" name="action" value="checkout" />
 </form>

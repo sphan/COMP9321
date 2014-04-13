@@ -7,10 +7,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Checkout Confirmation</title>
 </head>
 <body>
 <%@ include file="Header.html"%>
+<center>
 <form action="control" method="POST">
 	<div>
 	<table border="1" cellpadding="5">
@@ -34,24 +35,22 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<td></td>
 			<td>Total</td>
 			<td><fmt:formatNumber value="${totalCost}" type="currency" /></td>
 		</tr>
 	</table>
-	<input type="submit" value="Buy" />
-	<input type="hidden" name="action" value="buy" />
-	<input type="submit" value="Don't want it anymore" />
-	<input type="hidden" name="action" value="leave" />
 	</div>
 </form>
-<form>
+</center>
+<center>
+<form action="control" method="POST">
 	<input type="submit" value="Buy" />
 	<input type="hidden" name="action" value="buy" />
 </form>
-<form>
+<form action="control" method="POST">
 	<input type="submit" value="Don't want it anymore" />
 	<input type="hidden" name="action" value="leave" />
 </form>
+</center>
 </body>
 </html>
