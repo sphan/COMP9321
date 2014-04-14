@@ -35,13 +35,19 @@ public class ControlServlet extends HttpServlet {
 		// Traverse the database and look for the album that contains
 		// the search string.
 		for (Album a : musicDb) {
-			if (a.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
+			if (a.getTitle().contains(searchString)) {
 				results.add(a);
 			}
 		}
 		return results;
 	}
 	
+	/**
+	 * Search for the requested items from the searching string.
+	 * @param request The HttpServletRequest that contains all the 
+	 *     request in the page.
+	 * @return The name of the JSP page to direct to.
+	 */
 	public String search(HttpServletRequest request) {
 		String searchType = request.getParameter("searchType");
 		String searchString = request.getParameter("searchString");
@@ -74,6 +80,12 @@ public class ControlServlet extends HttpServlet {
 		return null;
 	}
 	
+	/**
+	 * Add the selected items into cart.
+	 * @param request The HttpServletRequest that contains the items to 
+	 *     be added.
+	 * @return The name of the JSP page that is to be directed to.
+	 */
 	public String add(HttpServletRequest request) {
 		Cart myCart = (Cart) request.getSession().getAttribute("cart");
 		LinkedList<Stock> itemsInCart = myCart.getItems();
@@ -100,6 +112,12 @@ public class ControlServlet extends HttpServlet {
 		return "cart.jsp";
 	}
 	
+	/**
+	 * Remove the selected items in cart.
+	 * @param request The HttpServletRequest that contains the items
+	 *     to be removed.
+	 * @return The name of the JSP page to be directed to.
+	 */
 	public String remove(HttpServletRequest request) {
 		Cart myCart = (Cart) request.getSession().getAttribute("cart");
 		LinkedList<Stock> itemsInCart = myCart.getItems();
@@ -146,9 +164,10 @@ public class ControlServlet extends HttpServlet {
 	}
 	
 	/**
-	 * 
-	 * @param searchString
-	 * @return
+	 * Search for the list of songs that matches the searchString.
+	 * @param searchString The searchString that is typed into the
+	 * 	   text box in the page.
+	 * @return The list of songs grouped into Hashtable for easy access.
 	 */
 	public HashMap<Album, LinkedList<Song>> searchForSong(String searchString) {
 		HashMap<Album, LinkedList<Song>> results = new HashMap<Album, LinkedList<Song>>();
@@ -158,7 +177,7 @@ public class ControlServlet extends HttpServlet {
 		for (Album a : musicDb) {
 			LinkedList<Song> songs = new LinkedList<Song>();
 			for (Song s : a.getSongs()) {
-				if (s.getTitle().toLowerCase().contains(searchString.toLowerCase())) {
+				if (s.getTitle().contains(searchString)) {
 					songs.add(s);
 				}
 			}
@@ -187,9 +206,9 @@ public class ControlServlet extends HttpServlet {
 	}
 	
 	/**
-	 * 
-	 * @param item
-	 * @return
+	 * Given the title of the item, get the Stock object of the item.
+	 * @param item The title of the item.
+	 * @return The Stock object of the item.
 	 */
 	public Stock getItem(String item) {
 		for (Album a : musicDb) {
@@ -210,7 +229,6 @@ public class ControlServlet extends HttpServlet {
 	 * return null if no album is found.
 	 */
 	public Album getSongAlbum(Song song) {
-		System.out.println(song.getTitle());
 		for (Album album : musicDb) {
 			if (album.getAlbumID().equalsIgnoreCase(song.getAlbumID())) {
 				System.out.println(album.getTitle());
@@ -273,8 +291,8 @@ public class ControlServlet extends HttpServlet {
 		String nextPage = "";
 		musicDb = (LinkedList<Album>) System.getProperties().get("musicDb");
 		
-		// Display the result pages if the user wants to searched for
-		// something.
+		// Get the pages to be directed to next depending
+		// on the 'action' and what each function returns.
 		if (action.equals("search")) {			
 			nextPage = search(request);
 		} else if (action.equals("add")) {
