@@ -88,8 +88,7 @@ public class ControlServlet extends HttpServlet {
 	 */
 	public String add(HttpServletRequest request) {
 		Cart myCart = (Cart) request.getSession().getAttribute("cart");
-		LinkedList<Stock> itemsInCart = myCart.getItems();
-		LinkedList<String> itemsAlreadyInCart = new LinkedList<String>();
+		HashMap<String, HashMap<StockType, LinkedList<Stock>>> itemsAlreadyInCart = new HashMap<String, HashMap<StockType, LinkedList<Stock>>>();
 		
 		String[] itemsToAdd = request.getParameterValues("addToCart");
 		if (itemsToAdd == null) {
@@ -99,10 +98,14 @@ public class ControlServlet extends HttpServlet {
 		
 		for (String item : itemsToAdd) {
 			// if item is not in cart.
-			if (!itemIsInCart(item, itemsInCart)) {
+			LinkedList<Stock> inCart = itemIsInCart(item, myCart.getItems()); 
+			if (inCart == null) {
+				System.out.println(item);
 				myCart.addToCart(getItem(item));
 			} else {
-				itemsAlreadyInCart.add(item);
+				HashMap<StockType, LinkedList<Stock>> duplicated = new HashMap<StockType, LinkedList<Stock>>();
+				duplicated.put(getItem(item).getType(), inCart);
+				itemsAlreadyInCart.put(item, duplicated);
 			}
 		}
 		request.setAttribute("cartSize", myCart.getCartSize());
@@ -129,10 +132,19 @@ public class ControlServlet extends HttpServlet {
 		for (String item : itemsToRemove) {
 			itemsInCart.remove(getItem(item));
 		}
+		request.setAttribute("cartSize", myCart.getCartSize());
+		request.setAttribute("totalCost", getTotal(myCart));
 		
 		return "cart.jsp";
 	}
 	
+	/**
+	 * Check out the items that the user had added into cart
+	 * and display the list of items without check boxes. Users cannot
+	 * remove items on this page.
+	 * @param request The HttpServletRequest
+	 * @return The next page to be directed to.
+	 */
 	public String checkout(HttpServletRequest request) {
 		Cart myCart = (Cart) request.getSession().getAttribute("cart");
 		float totalPrice = 0;
@@ -144,6 +156,13 @@ public class ControlServlet extends HttpServlet {
 		return "confirm.jsp";
 	}
 	
+	/**
+	 * Leave the website and invalidate sessions.
+	 * @param request The HttpServletRequest.
+	 * @param action The action taken buy the user whether
+	 *     to buy or to leave without buy anything.
+	 * @return The next page that is to be directed to.
+	 */
 	public String leave(HttpServletRequest request, String action) {
 		request.setAttribute("action", action);
 		request.getSession().invalidate();
@@ -167,7 +186,7 @@ public class ControlServlet extends HttpServlet {
 	 * Search for the list of songs that matches the searchString.
 	 * @param searchString The searchString that is typed into the
 	 * 	   text box in the page.
-	 * @return The list of songs grouped into Hashtable for easy access.
+	 * @return The list of songs grouped into Hash Table for easy access.
 	 */
 	public HashMap<Album, LinkedList<Song>> searchForSong(String searchString) {
 		HashMap<Album, LinkedList<Song>> results = new HashMap<Album, LinkedList<Song>>();
@@ -231,7 +250,6 @@ public class ControlServlet extends HttpServlet {
 	public Album getSongAlbum(Song song) {
 		for (Album album : musicDb) {
 			if (album.getAlbumID().equalsIgnoreCase(song.getAlbumID())) {
-				System.out.println(album.getTitle());
 				return album;
 			}
 		}
@@ -248,14 +266,17 @@ public class ControlServlet extends HttpServlet {
 	 * @param cart The user's cart.
 	 * @return True if the item is already in the cart. False otherwise.
 	 */
-	public boolean itemIsInCart(String item, LinkedList<Stock> cart) {
-		if (cart.size() == 0)
-			return false;
+	public LinkedList<Stock> itemIsInCart(String item, LinkedList<Stock> cart) {
+		if (cart.size() == 0) {
+			System.out.println("Cart is empty");
+			return null;
+		}
+		LinkedList<Stock> duplicated = new LinkedList<Stock>();
 		
 		for (Stock s : cart) {
 			// If the same song is found in cart.
 			if (item.equalsIgnoreCase(s.getTitle()))
-				return true;
+				duplicated.add(s);
 			
 			// Find in cart to see if the songs in this album
 			// is already added.
@@ -263,15 +284,17 @@ public class ControlServlet extends HttpServlet {
 				Album album = (Album) s;
 				for (Song song : album.getSongs()) {
 					if (song.getTitle().equalsIgnoreCase(item))
-						return true;						
+						duplicated.add(s);						
 				}
 			} else if (s.getType() == StockType.SONG) {
 				Song song = (Song) s;
-				if (getSongAlbum(song) != null)
-					return true;
+				if (getSongAlbum(song).getTitle().equalsIgnoreCase(item)) {
+					System.out.println(item);
+					duplicated.add(s);
+				}
 			}
 		}
-		return false;
+		return duplicated;
 	}
 	
 	/**

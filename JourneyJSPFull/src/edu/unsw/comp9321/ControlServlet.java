@@ -23,7 +23,6 @@ public class ControlServlet extends HttpServlet {
      */
     public ControlServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

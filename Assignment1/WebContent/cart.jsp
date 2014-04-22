@@ -26,8 +26,30 @@
 	<c:if test="${alreadyInCartSize > 0}">
 		<div>
 		<div>The following items are duplicated in your cart.</div>
-		<c:forEach var="item" items="${alreadyInCart}">
-			<div><c:out value="${item}" /></div>
+		<c:forEach var="inCart" items="${alreadyInCart}">
+		  <c:forEach var="duplicated" items="${map.value}">
+		      <c:forEach var="inCartItem" items="${duplicated.value}">
+			      <c:choose>
+			          <c:when test="${duplicated.key eq 'ALBUM'}">
+			             <c:when test="${inCartItem.type eq 'ALBUM'}">
+			                 <div><c:out value="${inCart.key}" /> is duplicated with <c:out value="${inCartItem.type}" />.</div>
+	                      </c:when>
+	                      <c:when test="${inCartItem.type eq 'SONG'}">
+	                         <div><c:out value="${inCart.key}" /> is has song <c:out value="${inCartItem.type}" /> added in cart.</div>
+	                      </c:when>
+			          </c:when>
+			          <c:when test="${duplicated.key eq 'SONG'}">
+			             <c:when test="${inCartItem.type eq 'ALBUM'}">
+			                 <div><c:out value="${inCart.key}" /> is part of album <c:out value="${inCartItem.type}" /> that is added in cart.</div>
+	                      </c:when>
+	                      <c:when test="${inCartItem.type eq 'SONG'}">
+	                           <div><c:out value="${inCart.key}" /> is duplicated with <c:out value="${inCartItem.type}" /></div>
+	                      </c:when>
+			          </c:when>
+			          
+			      </c:choose>
+			  </c:forEach>
+		  </c:forEach>
 		</c:forEach>
 		</div>
 	</c:if>
