@@ -1,4 +1,4 @@
-package edu.unsw.comp9321;
+package edu.unsw.comp9321.logic;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

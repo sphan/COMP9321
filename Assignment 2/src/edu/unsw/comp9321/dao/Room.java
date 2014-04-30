@@ -1,4 +1,4 @@
-package edu.unsw.comp9321;
+package edu.unsw.comp9321.dao;
 
 public class Room {
 	public Room(String name) {
