@@ -1,4 +1,4 @@
--- Run the folloing commands to delete all table and re-initialise database.
+-- Run the following commands to delete all table and re-initialise database.
 -- drop table hotel;
 -- drop table room;
 -- drop table customer;
@@ -14,9 +14,14 @@ create table hotel (
 	primary key (id)
 );
 
+-- For room_type and availability, I want to make it an enum
+-- but don't know how, so currently it is only represent by
+-- an integer.
+-- For room_type, 1 - 5 represents Single, Double, Queen, Executive, Suite.
+-- For availability 1 - 3 represents available, booked, checkedin.
 create table room (
 	id int not null generated always as identity,
-	name varchar(20),
+	room_number smallint,
 	price float(10),
 	discounted_price float(20),
 	room_type smallint,
