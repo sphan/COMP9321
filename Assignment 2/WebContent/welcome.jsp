@@ -5,11 +5,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Hotels</title>
+<link href="hotel.css" rel="stylesheet">
 </head>
 <body>
 <div id="header">
-<h2>Hotels</h2>
+<center><h1>Hotels</h1></center>
 <%@ include file="loginForm.html"%>
+</div>
+<div id="content">
+<%@ include file="searchForm.html"%>
+<div id="main_content">
+	Something should be in here.
+</div>
 </div>
 </body>
 </html>
