@@ -17,8 +17,8 @@ create table hotel (
 -- For room_type and availability, I want to make it an enum
 -- but don't know how, so currently it is only represent by
 -- an integer.
--- For room_type, 1 - 5 represents Single, Double, Queen, Executive, Suite.
--- For availability 1 - 3 represents available, booked, checkedin.
+-- For room_type, 0 - 4 represents Single, Double, Queen, Executive, Suite.
+-- For availability 0 - 2 represents available, booked, checkedin.
 create table room (
 	id int not null generated always as identity,
 	room_number smallint,
