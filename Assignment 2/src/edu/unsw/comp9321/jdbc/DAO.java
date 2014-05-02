@@ -61,7 +61,6 @@ public class DAO {
 				String availability = res.getString("availability");
 				int hotel = res.getInt("hotel");
 				rooms.add(new RoomDTO(id, room_number, price, discounted_price, room_type, availability, hotel));
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,25 +68,51 @@ public class DAO {
 		return rooms;
 	}
 
-	//return all unused rooms, plan to use this for allocating
-	//rooms to bookings
-	public List<RoomDTO> getAllAvailableRooms() {
-		return null;
-	}
-
 	//return all customers, unsure if we need lists of customers
 	public List<CustomerDTO> getAllCustomers() {
-		return null;
-	}
-
-	//return a single customer based on param
-	public CustomerDTO getCustomer(String param) {
-		return null;
+		List<CustomerDTO> customers = new ArrayList<CustomerDTO>(); 
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "SELECT * FROM CUSTOMER";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+res.getFetchSize());
+			
+			while (res.next()) {
+				int id = res.getInt("id");
+				String name = res.getString("name");
+				String userName = res.getString("username");
+				String password = res.getString("password");
+				customers.add(new CustomerDTO(id, name, userName, password));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return customers;
 	}
 
 	//return all staff in hotl
 	public List<StaffDTO> getAllStaff() {
-		return null;
+		List<StaffDTO> staff = new ArrayList<StaffDTO>(); 
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "SELECT * FROM STAFF";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+res.getFetchSize());
+			
+			while (res.next()) {
+				int id = res.getInt("id");
+				String name = res.getString("name");
+				String userName = res.getString("username");
+				String password = res.getString("password");
+				staff.add(new StaffDTO(id, name, userName, password));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return staff;
 	}
 	
 	//returns list of all hotels
