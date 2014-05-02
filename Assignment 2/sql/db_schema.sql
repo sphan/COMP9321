@@ -1,11 +1,11 @@
 -- Run the following commands to delete all table and re-initialise database.
--- drop table hotel;
+-- drop table customer_booking;
+-- drop table booking;
 -- drop table room;
 -- drop table customer;
 -- drop table owner;
--- drop table booking;
 -- drop table staff;
--- drop table customer_booking;
+-- drop table hotel;
 
 create table hotel (
 	id int not null generated always as identity,
@@ -24,8 +24,12 @@ create table room (
 	room_number smallint,
 	price float(10),
 	discounted_price float(20),
-	room_type smallint,
-	availability smallint,
+	room_type character(10),
+	constraint chk_room_type check
+	(room_type='single' or room_type='double' or room_type='queen' or room_type='executive' or room_type='suite'),
+	availability character(10),
+	constraint chk_availability check
+	(availability='available' or availability='booked' or availability='checkedin'),
 	hotel int,
 	foreign key (hotel) references hotel(id),
 	primary key (id)

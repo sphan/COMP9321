@@ -58,8 +58,8 @@ public class DAO {
 				int room_number = res.getInt("room_number");
 				float price = res.getFloat("price");
 				float discounted_price = res.getFloat("discounted_price");
-				int room_type = res.getInt("room_type");
-				int availability = res.getInt("availability");
+				String room_type = res.getString("room_type").toUpperCase();
+				String availability = res.getString("availability");
 				int hotel = res.getInt("hotel");
 				rooms.add(new RoomDTO(id, room_number, price, discounted_price, room_type, availability, hotel));
 
