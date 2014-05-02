@@ -1,9 +1,11 @@
 @CHARSET "ISO-8859-1";
 body {
 	font-family: Arial, Helvetica, sans-serif;
-	margin: 10px;
+	margin: 0 auto;
 	padding: 10px;
-	height: 100%;
+	height: auto;
+	width: auto;
+	overflow: hidden;
 	background-image: -webkit-gradient(
 		linear,
 		right bottom,
@@ -21,18 +23,31 @@ body {
 }
 
 #content {
-	float: left;
-	width: 100%;
+	width: 100%	;
+	height: auto;
+	position: absolute;
+	clear: both;
 }
 
 #searchForm {
+	clear: left;
 	float: left;
 	padding: 20px 20px 20px 5px;
+	height: 30%;
+	width: 28%;
+	font-size: 0.9em;
+	position: relative;
+	display: inline-block;
+	border-right: 1px solid #888;
 }
 
-#main_content {
+#main-content {
 	float: left;
-	margin-left: 30px;
+	position: relative;
+	margin-left: 0 0 0 10px;
+	padding: 20px;
+	width: 65%;
+	display: inline-block;
 }
 
 input[type=text], input[type=password] {
@@ -71,6 +86,21 @@ select {
 }
 
 #searchForm input[type=submit] {
-	width: 100px;
-	height: 40px;
+	width: 80px;
+	height: 30px;
+}
+
+table {
+	border: 1px solid #333;
+	width: 80%;
+}
+
+thead {
+	font-weight: bold;
+	border: 1px solid #333;
+	background-color: #dedede;
+}
+
+#clearing-div {
+	clear: both;
 }

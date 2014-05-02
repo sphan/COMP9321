@@ -8,13 +8,10 @@
 <link href="hotel.css" rel="stylesheet">
 </head>
 <body>
-<div id="header">
-<center><h1>Hotels</h1></center>
-<%@ include file="loginForm.html"%>
-</div>
+<jsp:include page="header.jsp"></jsp:include>
 <div id="content">
 <%@ include file="searchForm.html"%>
-<div id="main_content">
+<div id="main-content">
 	Something should be in here.
 </div>
 </div>
