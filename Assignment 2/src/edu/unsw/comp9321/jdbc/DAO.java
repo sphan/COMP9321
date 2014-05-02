@@ -54,7 +54,6 @@ public class DAO {
 
 			while (res.next()) {
 				int id = res.getInt("id");
-
 				int room_number = res.getInt("room_number");
 				float price = res.getFloat("price");
 				float discounted_price = res.getFloat("discounted_price");
@@ -90,6 +89,29 @@ public class DAO {
 	public List<StaffDTO> getAllStaff() {
 		return null;
 	}
+	
+	//returns list of all hotels
+	public List<HotelDTO>getAllHotels() {
+		List<HotelDTO>hotels = new ArrayList<HotelDTO>();
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "SELECT * FROM HOTEL";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+res.getFetchSize());
+			
+			while (res.next()) {
+				int id = res.getInt("id");
+				String name = res.getString("name");
+				String location = res.getString("location");
+				
+				hotels.add(new HotelDTO(id, name, location));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return hotels;
+	} 
 
 
 
