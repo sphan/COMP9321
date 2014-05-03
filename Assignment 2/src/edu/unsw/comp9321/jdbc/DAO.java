@@ -1,6 +1,7 @@
 package edu.unsw.comp9321.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -90,8 +91,8 @@ public class DAO {
 		}
 		return customers;
 	}
-
-	//return all staff in hotl
+	
+	//return all staff in hotels
 	public List<StaffDTO> getAllStaff() {
 		List<StaffDTO> staff = new ArrayList<StaffDTO>(); 
 		
@@ -112,6 +113,33 @@ public class DAO {
 			e.printStackTrace();
 		}
 		
+		return staff;
+	}
+
+	/**
+	 * Get staff by the given username.
+	 * @param username The staff username.
+	 * @return The staff.
+	 */
+	public StaffDTO getStaffByUsername(String username) {
+		StaffDTO staff = null;
+		try {
+			String query_cast = "SELECT id, name, username, password FROM STAFF WHERE username = ?";
+			PreparedStatement count_stmnt = connection.prepareStatement(query_cast);
+			count_stmnt.setString(1, username);
+			ResultSet res = count_stmnt.executeQuery();
+			res.next();
+			int numRows = res.getInt(1);
+			logger.info("The result set size is " + numRows);
+			
+			int id = res.getInt("id");
+			String name = res.getString("name");
+			String usr = res.getString("username");
+			String pw = res.getString("password");
+			staff = new StaffDTO(id, name, usr, pw);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return staff;
 	}
 	
