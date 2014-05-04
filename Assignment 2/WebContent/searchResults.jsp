@@ -21,6 +21,7 @@
 						<tr id="result-table-header">
 							<td>Room Type</td>
 							<td>Price per night</td>
+							<td>Count</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -28,6 +29,7 @@
 							<tr>
 								<td>${roomType.roomType}</td>
 								<td>${roomType.price}</td>
+								<td>${roomType.count}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

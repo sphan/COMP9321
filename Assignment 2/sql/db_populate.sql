@@ -16,6 +16,11 @@ insert into ROOM values (default, 2,102, 'booked', 1);
 insert into ROOM values (default, 3,103, 'booked', 1);
 insert into ROOM values (default, 4,104, 'booked', 1);
 insert into ROOM values (default, 5,105, 'booked', 1);
+insert into ROOM values (default, 1,106, 'booked', 1);
+insert into ROOM values (default, 2,107, 'booked', 1);
+insert into ROOM values (default, 3,108, 'booked', 1);
+insert into ROOM values (default, 4,109, 'booked', 1);
+insert into ROOM values (default, 5,110, 'booked', 1);
 
 -- Melbourne hotel
 insert into ROOM values (default, 1,101, 'booked', 2);
@@ -58,3 +63,5 @@ insert into CUSTOMER_BOOKING values (default, 2, '2014-05-09', '2014-05-11');
 insert into CUSTOMER_BOOKING values (default, 3, '2014-05-04', '2014-05-04');
 insert into CUSTOMER_BOOKING values (default, 4, '2014-05-03', '2014-05-04');
 insert into CUSTOMER_BOOKING values (default, 5, '2014-05-03', '2014-05-04');
+
+--select rt.room_type, rt.price, count(rt.room_type) as count from room r join room_type rt on (r.room_type_id=rt.id) join hotel h on (h.id=r.hotel_id) where h.location='Sydney' group by rt.room_type, rt.price 

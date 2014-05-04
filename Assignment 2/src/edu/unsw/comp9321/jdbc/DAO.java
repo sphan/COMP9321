@@ -39,7 +39,8 @@ public class DAO {
 			String query_cast = 
 					"select "
 					+ "rt.room_type, "
-					+ "rt.price "
+					+ "rt.price, "
+					+ "count(rt.room_type) as count "
 					+ "from "
 					+ "room r "
 					+ "join "
@@ -51,13 +52,15 @@ public class DAO {
 					+ "on "
 					+ "(h.id=r.hotel_id) "
 					+ "where "
-					+ "h.location='"+location+"'";
+					+ "h.location='"+location+"' "
+					+ "group by rt.room_type, rt.price";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			while (res.next()) {
 				String room_type = res.getString("room_type");
 				int price = res.getInt("price");
-				roomTypeList.add(new RoomTypeSearch(room_type, price));
+				int count = res.getInt("count");
+				roomTypeList.add(new RoomTypeSearch(room_type, price, count));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
