@@ -3,6 +3,7 @@ package edu.unsw.comp9321.logic;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.unsw.comp9321.exception.ServiceLocatorException;
+import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.DBConnectionFactory;
 
 /**
@@ -20,14 +22,14 @@ import edu.unsw.comp9321.jdbc.DBConnectionFactory;
 @WebServlet(urlPatterns="/control",displayName="ControlServlet")
 public class ControlServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ControlServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ControlServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,19 +42,30 @@ public class ControlServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int startDay = Integer.parseInt(request.getParameter("startday"));
-		int startMonth = Integer.parseInt(request.getParameter("startmonth"));
-		int startYear = Integer.parseInt(request.getParameter("startyear"));
-		int endDay = Integer.parseInt(request.getParameter("endday"));
-		int endMonth = Integer.parseInt(request.getParameter("endmonth"));
-		int endYear = Integer.parseInt(request.getParameter("endyear"));
-		String city = request.getParameter("city");
-		int numOfRooms = Integer.parseInt(request.getParameter("numOfRooms"));
-		int maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-		
+		DAO dao;
+		try {
+			dao = new DAO();
+			int startDay = Integer.parseInt(request.getParameter("startday"));
+			int startMonth = Integer.parseInt(request.getParameter("startmonth"));
+			int startYear = Integer.parseInt(request.getParameter("startyear"));
+			int endDay = Integer.parseInt(request.getParameter("endday"));
+			int endMonth = Integer.parseInt(request.getParameter("endmonth"));
+			int endYear = Integer.parseInt(request.getParameter("endyear"));
+			String city = request.getParameter("city");
+			int maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
+			List<String> roomTypeList = dao.getHotelRoomTypes(city);
+			request.setAttribute("roomTypeList", roomTypeList);
+			
+		} catch (ServiceLocatorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		RequestDispatcher rd = request.getRequestDispatcher("/" + "searchResults.jsp");
 		rd.forward(request, response);
-		
-		
+
+
 	}
 }

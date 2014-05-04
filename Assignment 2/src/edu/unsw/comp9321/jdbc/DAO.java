@@ -29,6 +29,34 @@ public class DAO {
 		connection = DBConnectionFactory.getConnection();
 		logger.info("Got connection");
 	}
+	
+	public List<String> getHotelRoomTypes(String location) {
+		List<String> roomTypeList = new ArrayList<String>();
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = 
+					"select "
+					+ "distinct "
+					+ "room_type "
+					+ "from "
+					+ "room r "
+					+ "join "
+					+ "hotel h "
+					+ "on (h.id=r.hotel_id) "
+					+ "where "
+					+ "h.location='"+location+"'";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+res.getFetchSize());
+			while (res.next()) {
+				String room_type = res.getString("room_type");
+				roomTypeList.add(room_type);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return roomTypeList;
+	}
 
 	//return all bookings including past completed ones
 	public List<BookingDTO> getAllBookings() {
