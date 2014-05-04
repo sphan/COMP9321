@@ -3,6 +3,7 @@ package edu.unsw.comp9321.logic;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,46 +22,50 @@ import edu.unsw.comp9321.jdbc.DBConnectionFactory;
 @WebServlet(urlPatterns="/control",displayName="ControlServlet")
 public class ControlServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ControlServlet() {
-        super();
-        try {
-			dao = new DAO();
-		} catch (ServiceLocatorException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-        // TODO Auto-generated constructor stub
-    }
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ControlServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request,response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String action = request.getParameter("action");
-		String nextPage = "";
-		
-		if (action.equalsIgnoreCase("search")) {
+		DAO dao;
+		try {
+			dao = new DAO();
+			int startDay = Integer.parseInt(request.getParameter("startday"));
+			int startMonth = Integer.parseInt(request.getParameter("startmonth"));
+			int startYear = Integer.parseInt(request.getParameter("startyear"));
+			int endDay = Integer.parseInt(request.getParameter("endday"));
+			int endMonth = Integer.parseInt(request.getParameter("endmonth"));
+			int endYear = Integer.parseInt(request.getParameter("endyear"));
+			String city = request.getParameter("city");
+			int maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
+			List<RoomTypeSearch> roomTypeList = dao.getHotelRoomTypes(city);
+			request.setAttribute("roomTypeList", roomTypeList);
 			
+		} catch (ServiceLocatorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		// Go to whatever has been selected as the next page.
-		RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
+		RequestDispatcher rd = request.getRequestDispatcher("/" + "searchResults.jsp");
 		rd.forward(request, response);
-	}
 
-	private DAO dao;
+
+	}
 }

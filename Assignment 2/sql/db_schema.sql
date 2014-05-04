@@ -1,11 +1,11 @@
 -- Run the following commands to delete all table and re-initialise database.
--- drop table customer_booking;
--- drop table booking;
--- drop table room;
--- drop table customer;
--- drop table owner;
--- drop table staff;
--- drop table hotel;
+drop table room_schedule;
+drop table customer_booking;
+drop table room;
+drop table customer;
+drop table staff;
+drop table room_type;
+drop table hotel;
 
 create table hotel (
 	id int not null generated always as identity,
