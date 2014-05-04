@@ -30,30 +30,32 @@ public class DAO {
 		connection = DBConnectionFactory.getConnection();
 		logger.info("Got connection");
 	}
-	
-	public List<RoomTypeSearch> getHotelRoomTypes(String location) {
+
+	public List<RoomTypeSearch> getHotelRoomTypes(String location, int maxPrice) {
 		List<RoomTypeSearch> roomTypeList = new ArrayList<RoomTypeSearch>();
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = 
 					"select "
-					+ "rt.room_type, "
-					+ "rt.price, "
-					+ "count(rt.room_type) as count "
-					+ "from "
-					+ "room r "
-					+ "join "
-					+ "room_type rt "
-					+ "on "
-					+ "(r.room_type_id=rt.id) "
-					+ "join "
-					+ "hotel h "
-					+ "on "
-					+ "(h.id=r.hotel_id) "
-					+ "where "
-					+ "h.location='"+location+"' "
-					+ "group by rt.room_type, rt.price";
+							+ "rt.room_type, "
+							+ "rt.price, "
+							+ "count(rt.room_type) as count "
+							+ "from "
+							+ "room r "
+							+ "join "
+							+ "room_type rt "
+							+ "on "
+							+ "(r.room_type_id=rt.id) "
+							+ "join "
+							+ "hotel h "
+							+ "on "
+							+ "(h.id=r.hotel_id) "
+							+ "where "
+							+ "h.location='"+location+"' "
+							+ "and "
+							+ "rt.price <="+maxPrice+" "
+							+ "group by rt.room_type, rt.price";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			while (res.next()) {
@@ -75,16 +77,16 @@ public class DAO {
 			Statement stmnt = connection.createStatement();
 			String query_cast =
 					"SELECT "
-					+ "cb.id as cbid,"
-					+ "cb.start_date,"
-					+ "cb.end_date,"
-					+ "c.id as cid,"
-					+ "c.name,"
-					+ "c.username,"
-					+ "c.password "
-					+ "FROM CUSTOMER_BOOKING cb "
-					+ "JOIN CUSTOMER c "
-					+ "ON (cb.CUSTOMER_ID=c.ID)";
+							+ "cb.id as cbid,"
+							+ "cb.start_date,"
+							+ "cb.end_date,"
+							+ "c.id as cid,"
+							+ "c.name,"
+							+ "c.username,"
+							+ "c.password "
+							+ "FROM CUSTOMER_BOOKING cb "
+							+ "JOIN CUSTOMER c "
+							+ "ON (cb.CUSTOMER_ID=c.ID)";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			while (res.next()) {
@@ -95,7 +97,7 @@ public class DAO {
 		}
 		return bookings;
 	}
-	
+
 	public BookingDTO addBooking(int custID, int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear) {
 		BookingDTO returnRes = null;
 		if (!isValidDate(startDay, startMonth, startYear) || !isValidDate(endDay, endMonth, endYear)) {
@@ -104,36 +106,37 @@ public class DAO {
 		try {
 			PreparedStatement preppedStmnt = connection.prepareStatement(
 					"INSERT "
-					+ "INTO "
-					+ "CUSTOMER_BOOKING "
-					+ "VALUES(DEFAULT,?,?,?)", 
-					Statement.RETURN_GENERATED_KEYS);
+							+ "INTO "
+							+ "CUSTOMER_BOOKING "
+							+ "VALUES(DEFAULT,?,?,?)", 
+							Statement.RETURN_GENERATED_KEYS);
 			preppedStmnt.setInt(1, custID);
 			preppedStmnt.setString(2, startYear+"-"+startMonth+"-"+startDay);
 			preppedStmnt.setString(3, endYear+"-"+endMonth+"-"+endDay);
 			preppedStmnt.executeUpdate();
-			
+
 			ResultSet res = preppedStmnt.getGeneratedKeys();
 			int last_inserted_id = 0;
 			if (res.next()) {
-                last_inserted_id = res.getInt(1);
-            }
+				last_inserted_id = res.getInt(1);
+			}
 			Statement stmnt = connection.createStatement();
-			String query_cast = "SELECT "
-					+ "cb.id as cbid,"
-					+ "cb.start_date,"
-					+ "cb.end_date,"
-					+ "c.id as cid,"
-					+ "c.name,"
-					+ "c.username,"
-					+ "c.password "
-					+ " FROM CUSTOMER_BOOKING CB "
-					+ "JOIN CUSTOMER C "
-					+ "ON (CB.CUSTOMER_ID=C.ID) "
-					+ "WHERE CB.ID="+last_inserted_id;
+			String query_cast = 
+					"SELECT "
+							+ "cb.id as cbid,"
+							+ "cb.start_date,"
+							+ "cb.end_date,"
+							+ "c.id as cid,"
+							+ "c.name,"
+							+ "c.username,"
+							+ "c.password "
+							+ " FROM CUSTOMER_BOOKING CB "
+							+ "JOIN CUSTOMER C "
+							+ "ON (CB.CUSTOMER_ID=C.ID) "
+							+ "WHERE CB.ID="+last_inserted_id;
 			res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
-			
+
 			while (res.next()) {
 				returnRes = rebuildBooking(res);			}
 		} catch (Exception e) {
@@ -166,7 +169,7 @@ public class DAO {
 		}
 		return rooms;
 	}
-	
+
 	public CustomerDTO addCustomer(String name, String userName, String password) {
 		name = name.toUpperCase();
 		userName = userName.toUpperCase();
@@ -189,7 +192,7 @@ public class DAO {
 				String sqlPpassword = res.getString("password");
 				returnResult = new CustomerDTO(sqlid, sqlName, sqlUserName, sqlPpassword);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -199,13 +202,13 @@ public class DAO {
 	//return all customers, unsure if we need lists of customers
 	public List<CustomerDTO> getAllCustomers() {
 		List<CustomerDTO> customers = new ArrayList<CustomerDTO>(); 
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = "SELECT * FROM CUSTOMER";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
-			
+
 			while (res.next()) {
 				int id = res.getInt("id");
 				String name = res.getString("name");
@@ -219,17 +222,17 @@ public class DAO {
 		return customers;
 	}
 
-	
+
 	//return all staff in hotels
 	public List<StaffDTO> getAllStaff() {
 		List<StaffDTO> staff = new ArrayList<StaffDTO>(); 
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = "SELECT * FROM STAFF";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
-			
+
 			while (res.next()) {
 				int id = res.getInt("id");
 				String name = res.getString("name");
@@ -240,7 +243,7 @@ public class DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return staff;
 	}
 
@@ -259,7 +262,7 @@ public class DAO {
 			res.next();
 			int numRows = res.getInt(1);
 			logger.info("The result set size is " + numRows);
-			
+
 			int id = res.getInt("id");
 			String name = res.getString("name");
 			String usr = res.getString("username");
@@ -270,7 +273,7 @@ public class DAO {
 		}
 		return staff;
 	}
-	
+
 	//returns list of all hotels
 	public List<HotelDTO>getAllHotels() {
 		List<HotelDTO>hotels = new ArrayList<HotelDTO>();
@@ -279,27 +282,27 @@ public class DAO {
 			String query_cast = "SELECT * FROM HOTEL";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
-			
+
 			while (res.next()) {
 				int id = res.getInt("id");
 				String name = res.getString("name");
 				String location = res.getString("location");
-				
+
 				hotels.add(new HotelDTO(id, name, location));
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return hotels;
 	}
-	
+
 	private BookingDTO rebuildBooking(ResultSet res) throws SQLException {
 		int c_id = res.getInt("cid");
 		String c_name = res.getString("name");
 		String c_userName = res.getString("username");
 		String c_password = res.getString("password");
-		
+
 		int cb_id = res.getInt("cbid");
 		Calendar startDate = new GregorianCalendar();
 		startDate.setTime(res.getDate("start_date"));

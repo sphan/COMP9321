@@ -42,6 +42,8 @@ public class ControlServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String message = null;
+		request.setAttribute("message", message);
 		DAO dao;
 		try {
 			dao = new DAO();
@@ -51,10 +53,16 @@ public class ControlServlet extends HttpServlet {
 			int endDay = Integer.parseInt(request.getParameter("endday"));
 			int endMonth = Integer.parseInt(request.getParameter("endmonth"));
 			int endYear = Integer.parseInt(request.getParameter("endyear"));
+			int maxPrice = Integer.MAX_VALUE;	//will display all rooms if nothing is set
+			try {
+			maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
+			} catch (NumberFormatException nfe) {
+				//catch exception and do nothing
+			}
 			String city = request.getParameter("city");
-			int maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-			List<RoomTypeSearch> roomTypeList = dao.getHotelRoomTypes(city);
+			List<RoomTypeSearch> roomTypeList = dao.getHotelRoomTypes(city, maxPrice);
 			request.setAttribute("roomTypeList", roomTypeList);
+			System.out.println(request.getRequestURI());
 			
 		} catch (ServiceLocatorException e) {
 			// TODO Auto-generated catch block
