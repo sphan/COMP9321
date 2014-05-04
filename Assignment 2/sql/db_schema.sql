@@ -4,6 +4,7 @@ drop table customer_booking;
 drop table room;
 drop table customer;
 drop table staff;
+drop table room_type;
 drop table hotel;
 
 create table hotel (
@@ -13,22 +14,29 @@ create table hotel (
 	primary key (id)
 );
 
-create table room (
+create table room_type (
 	id int not null generated always as identity,
-	room_number smallint not null,
-	price float(10) not null,
+	room_type varchar(10) not null unique,
+	constraint chk_room_type check
+	(room_type='SINGLE' or room_type='DOUBLE' or room_type='QUEEN' or room_type='EXECUTIVE' or room_type='SUITE'),
+	price int not null,
 	constraint chk_price check
 	(price>=0),
-	discounted_price float(20) not null,
+	discounted_price int not null,
 	constraint chk_discounted_price check
 	(discounted_price>=0),
-	room_type varchar(10) not null,
-	constraint chk_room_type check
-	(room_type='single' or room_type='double' or room_type='queen' or room_type='executive' or room_type='suite'),
+	primary key (id)
+);
+
+create table room (
+	id int not null generated always as identity,
+	room_type_id int not null,
+	room_number smallint not null,
 	availability varchar(10) not null,
 	constraint chk_availability check
 	(availability='available' or availability='booked' or availability='checkedin'),
 	hotel_id int not null,
+	foreign key (room_type_id) references room_type(id),
 	foreign key (hotel_id) references hotel(id),
 	primary key (id)
 );
