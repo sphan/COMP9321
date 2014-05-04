@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.unsw.comp9321.exception.ServiceLocatorException;
+import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.DBConnectionFactory;
 
 /**
@@ -26,6 +27,13 @@ public class ControlServlet extends HttpServlet {
      */
     public ControlServlet() {
         super();
+        try {
+			dao = new DAO();
+		} catch (ServiceLocatorException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         // TODO Auto-generated constructor stub
     }
 
@@ -34,6 +42,7 @@ public class ControlServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doPost(request,response);
 	}
 
 	/**
@@ -41,6 +50,17 @@ public class ControlServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String action = request.getParameter("action");
+		String nextPage = "";
+		
+		if (action.equalsIgnoreCase("search")) {
+			
+		}
+		
+		// Go to whatever has been selected as the next page.
+		RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
+		rd.forward(request, response);
 	}
 
+	private DAO dao;
 }

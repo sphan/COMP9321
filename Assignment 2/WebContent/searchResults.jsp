@@ -14,13 +14,14 @@
 	<%@ include file="searchForm.html"%>
 	<div id="main-content">
 		<p>Hotels and rooms matching your results:</p>
-		<form name="action" method="POST">
+		<form action="control" method="POST">
 			<table id="result-table">
 				<thead>
 					<tr id="result-table-header">
 						<td>Hotel Name</td>
 						<td>Room Package</td>
 						<td>Price/night</td>
+						<td>Total</td>
 						<td>Book</td>
 					</tr>
 				</thead>
@@ -29,22 +30,26 @@
 						<td>Iris</td>
 						<td>2 Single Bed</td>
 						<td>70</td>
+						<td></td>
 						<td><input type="radio" name="book" /></td>
 					</tr>
 					<tr>
 						<td>Iris</td>
 						<td>2 Single Bed</td>
 						<td>70</td>
+						<td></td>
 						<td><input type="radio" name="book" /></td>
 					</tr>
 					<tr>
 						<td>Iris</td>
 						<td>2 Single Bed</td>
 						<td>70</td>
+						<td></td>
 						<td><input type="radio" name="book" /></td>
 					</tr>
 				</tbody>
 			</table>
+			<input type="submit" name="action" value="Book">
 		</form>
 	</div>
 </div>
