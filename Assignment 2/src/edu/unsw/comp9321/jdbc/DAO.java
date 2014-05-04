@@ -30,11 +30,6 @@ public class DAO {
 		logger.info("Got connection");
 	}
 
-	//return all pending bookings
-	public List<BookingDTO> getAllPendingBookings() {
-		return null;
-	}
-
 	//return all bookings including past completed ones
 	public List<BookingDTO> getAllBookings() {
 		List<BookingDTO> bookings = new ArrayList<BookingDTO>();
@@ -55,29 +50,12 @@ public class DAO {
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			while (res.next()) {
-				int c_id = res.getInt("cid");
-				String c_name = res.getString("name");
-				String c_userName = res.getString("username");
-				String c_password = res.getString("password");
-				
-				int cb_id = res.getInt("cbid");
-				Calendar startDate = new GregorianCalendar();
-				startDate.setTime(res.getDate("start_date"));
-				Calendar endDate = new GregorianCalendar();
-				startDate.setTime(res.getDate("end_date"));
-				
-				bookings.add(new BookingDTO(cb_id, new CustomerDTO(c_id, c_name, c_userName, c_password), startDate, endDate));
+				bookings.add(rebuildBooking(res));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return bookings;
-	}
-
-	//return a single booking from ID, plan to use for
-	//displaying individual booking information
-	public BookingDTO getBooking(String ID) {
-		return null;
 	}
 	
 	public BookingDTO addBooking(int custID, int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear) {
@@ -86,13 +64,18 @@ public class DAO {
 			return returnRes;
 		}
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO CUSTOMER_BOOKING VALUES(DEFAULT,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-			preparedStatement.setInt(1, custID);
-			preparedStatement.setString(2, startYear+"-"+startMonth+"-"+startDay);
-			preparedStatement.setString(3, endYear+"-"+endMonth+"-"+endDay);
-			preparedStatement.executeUpdate();
+			PreparedStatement preppedStmnt = connection.prepareStatement(
+					"INSERT "
+					+ "INTO "
+					+ "CUSTOMER_BOOKING "
+					+ "VALUES(DEFAULT,?,?,?)", 
+					Statement.RETURN_GENERATED_KEYS);
+			preppedStmnt.setInt(1, custID);
+			preppedStmnt.setString(2, startYear+"-"+startMonth+"-"+startDay);
+			preppedStmnt.setString(3, endYear+"-"+endMonth+"-"+endDay);
+			preppedStmnt.executeUpdate();
 			
-			ResultSet res = preparedStatement.getGeneratedKeys();
+			ResultSet res = preppedStmnt.getGeneratedKeys();
 			int last_inserted_id = 0;
 			if (res.next()) {
                 last_inserted_id = res.getInt(1);
@@ -114,24 +97,11 @@ public class DAO {
 			logger.info("The result set size is "+res.getFetchSize());
 			
 			while (res.next()) {
-				int c_id = res.getInt("cid");
-				String c_name = res.getString("name");
-				String c_userName = res.getString("username");
-				String c_password = res.getString("password");
-				
-				int cb_id = res.getInt("cbid");
-				Calendar startDate = new GregorianCalendar();
-				startDate.setTime(res.getDate("start_date"));
-				Calendar endDate = new GregorianCalendar();
-				startDate.setTime(res.getDate("end_date"));
-				returnRes = new BookingDTO(cb_id, new CustomerDTO(c_id, c_name, c_userName, c_password), startDate, endDate);
-			}
-			
+				returnRes = rebuildBooking(res);			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return returnRes;
-		
 	}
 
 	//return every single rooms, plan to use this for room occupancy
@@ -185,7 +155,6 @@ public class DAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return returnResult;
 	}
 
@@ -285,7 +254,21 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return hotels;
-	} 
+	}
+	
+	private BookingDTO rebuildBooking(ResultSet res) throws SQLException {
+		int c_id = res.getInt("cid");
+		String c_name = res.getString("name");
+		String c_userName = res.getString("username");
+		String c_password = res.getString("password");
+		
+		int cb_id = res.getInt("cbid");
+		Calendar startDate = new GregorianCalendar();
+		startDate.setTime(res.getDate("start_date"));
+		Calendar endDate = new GregorianCalendar();
+		startDate.setTime(res.getDate("end_date"));
+		return new BookingDTO(cb_id, new CustomerDTO(c_id, c_name, c_userName, c_password), startDate, endDate);
+	}
 
 	private boolean isValidDate(int day, int month, int year) {
 		if (month==4||month==6||month==9||month==11) {

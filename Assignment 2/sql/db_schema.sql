@@ -28,8 +28,8 @@ create table room (
 	availability varchar(10) not null,
 	constraint chk_availability check
 	(availability='available' or availability='booked' or availability='checkedin'),
-	hotel int not null,
-	foreign key (hotel) references hotel(id),
+	hotel_id int not null,
+	foreign key (hotel_id) references hotel(id),
 	primary key (id)
 );
 

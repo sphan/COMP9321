@@ -40,6 +40,19 @@ public class ControlServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		int startDay = Integer.parseInt(request.getParameter("startday"));
+		int startMonth = Integer.parseInt(request.getParameter("startmonth"));
+		int startYear = Integer.parseInt(request.getParameter("startyear"));
+		int endDay = Integer.parseInt(request.getParameter("endday"));
+		int endMonth = Integer.parseInt(request.getParameter("endmonth"));
+		int endYear = Integer.parseInt(request.getParameter("endyear"));
+		String city = request.getParameter("city");
+		int numOfRooms = Integer.parseInt(request.getParameter("numOfRooms"));
+		int maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/" + "searchResults.jsp");
+		rd.forward(request, response);
+		
+		
 	}
 }
