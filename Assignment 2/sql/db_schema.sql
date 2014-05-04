@@ -7,12 +7,18 @@ drop table staff;
 drop table room_type;
 drop table hotel;
 
+--################################################################################
+--hotel related sql
+
 create table hotel (
 	id int not null generated always as identity,
 	name varchar(20) not null,
 	location varchar(20) not null,
 	primary key (id)
 );
+
+--################################################################################
+--room_type related sql
 
 create table room_type (
 	id int not null generated always as identity,
@@ -28,6 +34,9 @@ create table room_type (
 	primary key (id)
 );
 
+--################################################################################
+--room related sql
+
 create table room (
 	id int not null generated always as identity,
 	room_type_id int not null,
@@ -41,6 +50,9 @@ create table room (
 	primary key (id)
 );
 
+--################################################################################
+--customer related sql
+
 create table customer (
 	id int not null generated always as identity,
 	name varchar(20) not null,
@@ -49,6 +61,8 @@ create table customer (
 	primary key (id)
 );
 
+--################################################################################
+--booking related sql
 --create a booking id to link room schedules onto
 create table customer_booking (
 	id int not null generated always as identity,
@@ -72,6 +86,9 @@ create table room_schedule (
 	foreign key (room_id) references room(id),
 	foreign key (customer_booking_id) references customer_booking(id)
 );
+
+--################################################################################
+--staff related sql
 
 create table staff (
 	id int not null generated always as identity,
