@@ -7,71 +7,96 @@ drop table staff;
 drop table room_type;
 drop table hotel;
 
+--################################################################################
+--hotel related sql
+
 create table hotel (
 	id int not null generated always as identity,
-	name varchar(20),
-	location varchar(20),
+	name varchar(20) not null,
+	location varchar(20) not null,
 	primary key (id)
 );
 
--- For room_type and availability, I want to make it an enum
--- but don't know how, so currently it is only represent by
--- an integer.
--- For room_type, 0 - 4 represents Single, Double, Queen, Executive, Suite.
--- For availability 0 - 2 represents available, booked, checkedin.
-create table room (
+--################################################################################
+--room_type related sql
+
+create table room_type (
 	id int not null generated always as identity,
-	room_number smallint,
-	price float(10),
-	discounted_price float(20),
-	room_type character(10),
+	room_type varchar(10) not null unique,
 	constraint chk_room_type check
-	(room_type='single' or room_type='double' or room_type='queen' or room_type='executive' or room_type='suite'),
-	availability character(10),
-	constraint chk_availability check
-	(availability='available' or availability='booked' or availability='checkedin'),
-	hotel int,
-	foreign key (hotel) references hotel(id),
+	(room_type='SINGLE' or room_type='DOUBLE' or room_type='QUEEN' or room_type='EXECUTIVE' or room_type='SUITE'),
+	price int not null,
+	constraint chk_price check
+	(price>=0),
+	discounted_price int not null,
+	constraint chk_discounted_price check
+	(discounted_price>=0),
 	primary key (id)
 );
+
+--################################################################################
+--room related sql
+
+create table room (
+	id int not null generated always as identity,
+	room_type_id int not null,
+	room_number smallint not null,
+	availability varchar(10) not null,
+	constraint chk_availability check
+	(availability='available' or availability='booked' or availability='checkedin'),
+	hotel_id int not null,
+	foreign key (room_type_id) references room_type(id),
+	foreign key (hotel_id) references hotel(id),
+	primary key (id)
+);
+
+--################################################################################
+--customer related sql
 
 create table customer (
 	id int not null generated always as identity,
-	name varchar(20),
-	username varchar(20),
-	password varchar(20),
+	name varchar(20) not null,
+	username varchar(20) not null unique,
+	password varchar(20) not null,
 	primary key (id)
 );
+
+--################################################################################
+--booking related sql
+--create a booking id to link room schedules onto
+create table customer_booking (
+	id int not null generated always as identity,
+	customer_id int not null,
+	start_date date not null,
+	end_date date not null,
+	primary key (id),
+	foreign key (customer_id) references customer(id),
+	constraint chk_date_range check
+	(start_date <= end_date)
+	--additional constraint added in DAO, check date ranges do not overlap
+	--for any particular customer
+);
+
+--link between room and booking
+create table room_schedule (
+	id int not null generated always as identity,
+	room_id int not null,
+	customer_booking_id int not null,
+	primary key (id),
+	foreign key (room_id) references room(id),
+	foreign key (customer_booking_id) references customer_booking(id)
+);
+
+--################################################################################
+--staff related sql
 
 create table staff (
 	id int not null generated always as identity,
-	name varchar(20),
-	username varchar(20),
-	password varchar(20),
+	name varchar(20) not null,
+	username varchar(20) not null unique,
+	password varchar(20) not null,
+	staff_type varchar(10) not null,
+	constraint chk_staff_type check
+	(staff_type='owner' or staff_type='manager'),
 	primary key (id)
-);
-
-create table owner (
-	id int not null generated always as identity,
-	name varchar(20),
-	username varchar(20),
-	password varchar(20),
-	primary key (id)
-);
-
-create table booking (
-	id int not null generated always as identity,
-	start_date date,
-	end_date date,
-	primary key (id)
-);
-
-create table customer_booking (
-	booking int not null,
-	customer int not null,
-	room int not null,
-	foreign key (booking) references booking(id),
-	foreign key (customer) references customer(id),
-	foreign key (room) references room(id),
-	primary key (booking, customer, room)
 );

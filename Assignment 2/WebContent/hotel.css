@@ -85,12 +85,9 @@ select {
 	box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
-input[type=submit] {
-	width: 20%;
+#searchForm input[type=submit] {
+	width: 80px;
 	height: 30px;
-	clear: both;
-	float: right;
-	align: right;
 }
 
 table {
@@ -106,9 +103,4 @@ thead {
 
 #clearing-div {
 	clear: both;
-}
-
-#staff-search-string input[type=text]{
-	width: 200px;
-	text-align: center;
 }

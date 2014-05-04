@@ -1,5 +1,6 @@
 package edu.unsw.comp9321.jdbc;
 
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class BookingDTO {
 	
 	public void setRooms(List<RoomDTO> rooms) {
 		this.rooms = rooms;
+
 	}
 
 	private int id;
