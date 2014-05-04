@@ -1,6 +1,8 @@
 package edu.unsw.comp9321.jdbc;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,15 +34,73 @@ public class DAO {
 	}
 
 	//return all bookings including past completed ones
-	//unsure if we actually need this
 	public List<BookingDTO> getAllBookings() {
-		return null;
+		List<BookingDTO> bookings = new ArrayList<BookingDTO>();
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "SELECT * FROM CUSTOMER_BOOKING CB JOIN CUSTOMER C ON (CB.CUSTOMER_ID=C.ID) ";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+res.getFetchSize());
+			while (res.next()) {
+				int c_id = res.getInt("id");
+				String c_name = res.getString("name");
+				String c_userName = res.getString("username");
+				String c_password = res.getString("password");
+
+				Date startDate = res.getDate("start_date");
+				Date endDate = res.getDate("end_date");
+				bookings.add(new BookingDTO(startDate, endDate, new CustomerDTO(c_id, c_name, c_userName, c_password)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bookings;
 	}
 
 	//return a single booking from ID, plan to use for
 	//displaying individual booking information
 	public BookingDTO getBooking(String ID) {
 		return null;
+	}
+	
+	public BookingDTO addBooking(int custID, int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear) {
+		BookingDTO returnRes = null;
+		if (!isValidDate(startDay, startMonth, startYear) || !isValidDate(endDay, endMonth, endYear)) {
+			return returnRes;
+		}
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO CUSTOMER_BOOKING VALUES(DEFAULT,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setInt(1, custID);
+			preparedStatement.setString(2, startYear+"-"+startMonth+"-"+startDay);
+			preparedStatement.setString(3, endYear+"-"+endMonth+"-"+endDay);
+			preparedStatement.executeUpdate();
+			
+			ResultSet res = preparedStatement.getGeneratedKeys();
+			int last_inserted_id = 0;
+			if (res.next()) {
+                last_inserted_id = res.getInt(1);
+            }
+			Statement stmnt = connection.createStatement();
+			String query_cast = "SELECT * FROM CUSTOMER_BOOKING CB JOIN CUSTOMER C ON (CB.CUSTOMER_ID=C.ID) WHERE CB.ID="+last_inserted_id;
+			res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+res.getFetchSize());
+			
+			while (res.next()) {
+				int c_id = res.getInt("id");
+				String c_name = res.getString("name");
+				String c_userName = res.getString("username");
+				String c_password = res.getString("password");
+
+				Date startDate = res.getDate("start_date");
+				Date endDate = res.getDate("end_date");
+				returnRes = new BookingDTO(startDate, endDate, new CustomerDTO(c_id, c_name, c_userName, c_password));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return returnRes;
+		
 	}
 
 	//return every single rooms, plan to use this for room occupancy
@@ -67,6 +127,36 @@ public class DAO {
 		}
 		return rooms;
 	}
+	
+	public CustomerDTO addCustomer(String name, String userName, String password) {
+		name = name.toUpperCase();
+		userName = userName.toUpperCase();
+		CustomerDTO returnResult = null;
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO CUSTOMER VALUES(DEFAULT,?,?,?)");
+			preparedStatement.setString(1, name);
+			preparedStatement.setString(2, userName);
+			preparedStatement.setString(3, password);
+			preparedStatement.executeUpdate();
+			//added to db
+			//now get from db and return;
+			Statement stmnt = connection.createStatement();
+			String query_cast = "SELECT * FROM CUSTOMER WHERE USERNAME='"+userName+"'";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			while (res.next()) {
+				int sqlid = res.getInt("id");
+				String sqlName = res.getString("name");
+				String sqlUserName = res.getString("username");
+				String sqlPpassword = res.getString("password");
+				returnResult = new CustomerDTO(sqlid, sqlName, sqlUserName, sqlPpassword);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return returnResult;
+	}
 
 	//return all customers, unsure if we need lists of customers
 	public List<CustomerDTO> getAllCustomers() {
@@ -91,7 +181,7 @@ public class DAO {
 		return customers;
 	}
 
-	//return all staff in hotl
+	//return all staff in hotel
 	public List<StaffDTO> getAllStaff() {
 		List<StaffDTO> staff = new ArrayList<StaffDTO>(); 
 		
@@ -138,6 +228,32 @@ public class DAO {
 		return hotels;
 	} 
 
-
+	private boolean isValidDate(int day, int month, int year) {
+		if (month==4||month==6||month==9||month==11) {
+			if (day<1||day>30) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (month==1||month==3||month==5||month==7||month==8||month==10||month==12) {
+			return true;
+		} else if (month==2) {
+			if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+				if (day<1||day>29) {
+					return false;
+				} else {
+					return true;
+				}
+			} else {
+				if (day<1||day>28) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+		} else {
+			return false;
+		}
+	}
 
 }
