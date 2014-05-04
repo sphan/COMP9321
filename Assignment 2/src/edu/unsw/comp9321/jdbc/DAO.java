@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import edu.unsw.comp9321.exception.ServiceLocatorException;
+import edu.unsw.comp9321.logic.RoomTypeSearch;
 
 public class DAO {
 	//This class should be the only class to talk to database
@@ -30,27 +31,33 @@ public class DAO {
 		logger.info("Got connection");
 	}
 	
-	public List<String> getHotelRoomTypes(String location) {
-		List<String> roomTypeList = new ArrayList<String>();
+	public List<RoomTypeSearch> getHotelRoomTypes(String location) {
+		List<RoomTypeSearch> roomTypeList = new ArrayList<RoomTypeSearch>();
 		
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = 
 					"select "
-					+ "distinct "
-					+ "room_type "
+					+ "rt.room_type, "
+					+ "rt.price "
 					+ "from "
 					+ "room r "
 					+ "join "
+					+ "room_type rt "
+					+ "on "
+					+ "(r.room_type_id=rt.id) "
+					+ "join "
 					+ "hotel h "
-					+ "on (h.id=r.hotel_id) "
+					+ "on "
+					+ "(h.id=r.hotel_id) "
 					+ "where "
 					+ "h.location='"+location+"'";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			while (res.next()) {
 				String room_type = res.getString("room_type");
-				roomTypeList.add(room_type);
+				int price = res.getInt("price");
+				roomTypeList.add(new RoomTypeSearch(room_type, price));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

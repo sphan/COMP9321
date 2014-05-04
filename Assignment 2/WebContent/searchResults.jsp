@@ -26,8 +26,8 @@
 					<tbody>
 						<c:forEach items="${roomTypeList}" var="roomType">
 							<tr>
-								<td>${roomType}</td>
-								<td></td>
+								<td>${roomType.roomType}</td>
+								<td>${roomType.price}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

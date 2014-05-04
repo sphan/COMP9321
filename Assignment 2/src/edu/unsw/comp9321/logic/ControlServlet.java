@@ -53,7 +53,7 @@ public class ControlServlet extends HttpServlet {
 			int endYear = Integer.parseInt(request.getParameter("endyear"));
 			String city = request.getParameter("city");
 			int maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-			List<String> roomTypeList = dao.getHotelRoomTypes(city);
+			List<RoomTypeSearch> roomTypeList = dao.getHotelRoomTypes(city);
 			request.setAttribute("roomTypeList", roomTypeList);
 			
 		} catch (ServiceLocatorException e) {
