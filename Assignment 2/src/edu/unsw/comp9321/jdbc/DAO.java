@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -38,18 +40,33 @@ public class DAO {
 		List<BookingDTO> bookings = new ArrayList<BookingDTO>();
 		try {
 			Statement stmnt = connection.createStatement();
-			String query_cast = "SELECT * FROM CUSTOMER_BOOKING CB JOIN CUSTOMER C ON (CB.CUSTOMER_ID=C.ID) ";
+			String query_cast =
+					"SELECT "
+					+ "cb.id as cbid,"
+					+ "cb.start_date,"
+					+ "cb.end_date,"
+					+ "c.id as cid,"
+					+ "c.name,"
+					+ "c.username,"
+					+ "c.password "
+					+ "FROM CUSTOMER_BOOKING cb "
+					+ "JOIN CUSTOMER c "
+					+ "ON (cb.CUSTOMER_ID=c.ID)";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			while (res.next()) {
-				int c_id = res.getInt("id");
+				int c_id = res.getInt("cid");
 				String c_name = res.getString("name");
 				String c_userName = res.getString("username");
 				String c_password = res.getString("password");
-
-				Date startDate = res.getDate("start_date");
-				Date endDate = res.getDate("end_date");
-				bookings.add(new BookingDTO(startDate, endDate, new CustomerDTO(c_id, c_name, c_userName, c_password)));
+				
+				int cb_id = res.getInt("cbid");
+				Calendar startDate = new GregorianCalendar();
+				startDate.setTime(res.getDate("start_date"));
+				Calendar endDate = new GregorianCalendar();
+				startDate.setTime(res.getDate("end_date"));
+				
+				bookings.add(new BookingDTO(cb_id, new CustomerDTO(c_id, c_name, c_userName, c_password), startDate, endDate));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,19 +98,33 @@ public class DAO {
                 last_inserted_id = res.getInt(1);
             }
 			Statement stmnt = connection.createStatement();
-			String query_cast = "SELECT * FROM CUSTOMER_BOOKING CB JOIN CUSTOMER C ON (CB.CUSTOMER_ID=C.ID) WHERE CB.ID="+last_inserted_id;
+			String query_cast = "SELECT "
+					+ "cb.id as cbid,"
+					+ "cb.start_date,"
+					+ "cb.end_date,"
+					+ "c.id as cid,"
+					+ "c.name,"
+					+ "c.username,"
+					+ "c.password "
+					+ " FROM CUSTOMER_BOOKING CB "
+					+ "JOIN CUSTOMER C "
+					+ "ON (CB.CUSTOMER_ID=C.ID) "
+					+ "WHERE CB.ID="+last_inserted_id;
 			res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			
 			while (res.next()) {
-				int c_id = res.getInt("id");
+				int c_id = res.getInt("cid");
 				String c_name = res.getString("name");
 				String c_userName = res.getString("username");
 				String c_password = res.getString("password");
-
-				Date startDate = res.getDate("start_date");
-				Date endDate = res.getDate("end_date");
-				returnRes = new BookingDTO(startDate, endDate, new CustomerDTO(c_id, c_name, c_userName, c_password));
+				
+				int cb_id = res.getInt("cbid");
+				Calendar startDate = new GregorianCalendar();
+				startDate.setTime(res.getDate("start_date"));
+				Calendar endDate = new GregorianCalendar();
+				startDate.setTime(res.getDate("end_date"));
+				returnRes = new BookingDTO(cb_id, new CustomerDTO(c_id, c_name, c_userName, c_password), startDate, endDate);
 			}
 			
 		} catch (Exception e) {
@@ -181,7 +212,8 @@ public class DAO {
 		return customers;
 	}
 
-	//return all staff in hotel
+	
+	//return all staff in hotels
 	public List<StaffDTO> getAllStaff() {
 		List<StaffDTO> staff = new ArrayList<StaffDTO>(); 
 		
@@ -202,6 +234,33 @@ public class DAO {
 			e.printStackTrace();
 		}
 		
+		return staff;
+	}
+
+	/**
+	 * Get staff by the given username.
+	 * @param username The staff username.
+	 * @return The staff.
+	 */
+	public StaffDTO getStaffByUsername(String username) {
+		StaffDTO staff = null;
+		try {
+			String query_cast = "SELECT id, name, username, password FROM STAFF WHERE username = ?";
+			PreparedStatement count_stmnt = connection.prepareStatement(query_cast);
+			count_stmnt.setString(1, username);
+			ResultSet res = count_stmnt.executeQuery();
+			res.next();
+			int numRows = res.getInt(1);
+			logger.info("The result set size is " + numRows);
+			
+			int id = res.getInt("id");
+			String name = res.getString("name");
+			String usr = res.getString("username");
+			String pw = res.getString("password");
+			staff = new StaffDTO(id, name, usr, pw);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return staff;
 	}
 	
