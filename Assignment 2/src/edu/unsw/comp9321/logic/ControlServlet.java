@@ -59,10 +59,12 @@ public class ControlServlet extends HttpServlet {
 			} catch (NumberFormatException nfe) {
 				//catch exception and do nothing
 			}
+			System.out.println(request.getContextPath());
 			String city = request.getParameter("city");
 			List<RoomTypeSearch> roomTypeList = dao.getHotelRoomTypes(city, maxPrice);
+			request.setAttribute("location", city);
+			request.setAttribute("maxPrice", maxPrice);
 			request.setAttribute("roomTypeList", roomTypeList);
-			System.out.println(request.getRequestURI());
 			
 		} catch (ServiceLocatorException e) {
 			// TODO Auto-generated catch block
