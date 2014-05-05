@@ -64,4 +64,8 @@ insert into CUSTOMER_BOOKING values (default, 3, '2014-05-04', '2014-05-04');
 insert into CUSTOMER_BOOKING values (default, 4, '2014-05-03', '2014-05-04');
 insert into CUSTOMER_BOOKING values (default, 5, '2014-05-03', '2014-05-04');
 
+insert into STAFF values (default, 'Sandy', 'Sandy', 'password', 'manager');
+insert into STAFF values (default, 'Jason', 'Jason', 'password', 'manager');
+insert into STAFF values (default, 'Kate', 'Kate', 'password', 'owner');
+
 --select rt.room_type, rt.price, count(rt.room_type) as count from room r join room_type rt on (r.room_type_id=rt.id) join hotel h on (h.id=r.hotel_id) where h.location='Sydney' group by rt.room_type, rt.price 
