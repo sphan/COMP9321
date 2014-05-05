@@ -110,6 +110,42 @@ public class DAO {
 		}
 		return bookings;
 	}
+	
+	/**
+	 * Return booking by the given booking id.
+	 * @param bid
+	 * @return
+	 */
+	public BookingDTO getBookingByID(int bid) {
+		BookingDTO booking = null;
+		
+		try {
+			PreparedStatement stmnt = connection.prepareStatement(
+							"SELECT "
+							+ "cb.id as cbid,"
+							+ "cb.start_date,"
+							+ "cb.end_date,"
+							+ "c.id as cid,"
+							+ "c.name,"
+							+ "c.username,"
+							+ "c.password "
+							+ "FROM CUSTOMER_BOOKING cb "
+							+ "JOIN CUSTOMER c "
+							+ "ON (cb.CUSTOMER_ID=c.ID)"
+							+ "WHERE cbid = ?");
+			stmnt.setInt(1, bid);
+			ResultSet res = stmnt.executeQuery();
+			logger.info("The result set size is "+ res.getFetchSize());
+			while (res.next()) {
+				booking = rebuildBooking(res);
+			}
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getAllBookings");
+		}
+		
+		return booking;
+	}
 
 	public BookingDTO addBooking(int custID, int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear) {
 		BookingDTO returnRes = null;
