@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import edu.unsw.comp9321.exception.ServiceLocatorException;
+import edu.unsw.comp9321.logic.PassByRef;
 import edu.unsw.comp9321.logic.RoomTypeSearch;
 
 public class DAO {
@@ -25,9 +26,19 @@ public class DAO {
 	static Logger logger = Logger.getLogger(DAO.class.getName());
 	private Connection connection;
 	DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+	private PassByRef pbr;
 
-	public DAO () throws ServiceLocatorException, SQLException{
-		connection = DBConnectionFactory.getConnection();
+	public DAO (PassByRef pbr) {
+		this.pbr = pbr;
+		try {
+			connection = DBConnectionFactory.getConnection();
+		} catch (ServiceLocatorException e) {
+			e.printStackTrace();
+			pbr.addErrorMessage("ServiceLocatorException in DAO");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			pbr.addErrorMessage("SQLException in DAO");
+		}
 		logger.info("Got connection");
 	}
 
@@ -64,8 +75,9 @@ public class DAO {
 				int count = res.getInt("count");
 				roomTypeList.add(new RoomTypeSearch(room_type, price, count));
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getHotelRoomTypes");
 		}
 		return roomTypeList;
 	}
@@ -92,8 +104,9 @@ public class DAO {
 			while (res.next()) {
 				bookings.add(rebuildBooking(res));
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getAllBookings");
 		}
 		return bookings;
 	}

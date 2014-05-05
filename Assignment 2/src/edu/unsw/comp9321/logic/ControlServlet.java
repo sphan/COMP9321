@@ -35,44 +35,35 @@ public class ControlServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String message = null;
-		request.setAttribute("message", message);
-		DAO dao;
+
+		PassByRef pbr = new PassByRef();
+		DAO dao = new DAO(pbr);
+		int startDay = Integer.parseInt(request.getParameter("startday"));
+		int startMonth = Integer.parseInt(request.getParameter("startmonth"));
+		int startYear = Integer.parseInt(request.getParameter("startyear"));
+		int endDay = Integer.parseInt(request.getParameter("endday"));
+		int endMonth = Integer.parseInt(request.getParameter("endmonth"));
+		int endYear = Integer.parseInt(request.getParameter("endyear"));
+		
+		int maxPrice = Integer.MAX_VALUE;	//will display all rooms if nothing is set
 		try {
-			dao = new DAO();
-			int startDay = Integer.parseInt(request.getParameter("startday"));
-			int startMonth = Integer.parseInt(request.getParameter("startmonth"));
-			int startYear = Integer.parseInt(request.getParameter("startyear"));
-			int endDay = Integer.parseInt(request.getParameter("endday"));
-			int endMonth = Integer.parseInt(request.getParameter("endmonth"));
-			int endYear = Integer.parseInt(request.getParameter("endyear"));
-			int maxPrice = Integer.MAX_VALUE;	//will display all rooms if nothing is set
-			try {
 			maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-			} catch (NumberFormatException nfe) {
-				//catch exception and do nothing
-			}
-			System.out.println(request.getContextPath());
-			String city = request.getParameter("city");
-			List<RoomTypeSearch> roomTypeList = dao.getHotelRoomTypes(city, maxPrice);
-			request.setAttribute("location", city);
-			request.setAttribute("maxPrice", maxPrice);
-			request.setAttribute("roomTypeList", roomTypeList);
-			
-		} catch (ServiceLocatorException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (NumberFormatException nfe) {/*catch exception and do nothing*/}
+		
+		String city = request.getParameter("city");
+		List<RoomTypeSearch> roomTypeList = dao.getHotelRoomTypes(city, maxPrice);
+		request.setAttribute("location", city);
+		request.setAttribute("maxPrice", maxPrice);
+		request.setAttribute("roomTypeList", roomTypeList);
+		
+		pbr.postErrorMessage(request);
 		RequestDispatcher rd = request.getRequestDispatcher("/" + "searchResults.jsp");
 		rd.forward(request, response);
 

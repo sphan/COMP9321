@@ -43,30 +43,29 @@ public class BookingServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DAO dao;
+		PassByRef pbr = new PassByRef();
+		DAO dao = new DAO(pbr);
 		String nextPage = "";
+		boolean searchEmpty = false;
+
 		String location = request.getParameter("location");
 		int maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-		List<RoomTypeSearch> bookingsList = null;
-
-		try {
-			dao = new DAO();
-			 bookingsList = dao.getHotelRoomTypes(location, maxPrice);
+		List<RoomTypeSearch> bookingsList = dao.getHotelRoomTypes(location, maxPrice);
+		if (bookingsList.size() == 0) {
+			//if nothing in list, return message telling them to retry with different values
+			searchEmpty = true;
+			nextPage = "booking.jsp";//send them to another page, but bookings for now.
+		} else {
+			//if something in list, return those things in list
 			for (RoomTypeSearch rts : bookingsList) {
 				int count = Integer.parseInt(request.getParameter(rts.getRoomType()));
 				rts.setCount(count);
 			}
-		} catch (ServiceLocatorException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			request.setAttribute("bookings", bookingsList);
+			nextPage = "booking.jsp";
 		}
-		
-		request.setAttribute("bookings", bookingsList);
-		nextPage = "booking.jsp";
-
+		request.setAttribute("searchEmpty", searchEmpty);
+		pbr.postErrorMessage(request);
 		RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
 		rd.forward(request, response);
 	}
