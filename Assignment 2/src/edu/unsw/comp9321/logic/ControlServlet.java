@@ -45,24 +45,29 @@ public class ControlServlet extends HttpServlet {
 
 		PassByRef pbr = new PassByRef();
 		DAO dao = new DAO(pbr);
-		int startDay = Integer.parseInt(request.getParameter("startday"));
-		int startMonth = Integer.parseInt(request.getParameter("startmonth"));
-		int startYear = Integer.parseInt(request.getParameter("startyear"));
-		int endDay = Integer.parseInt(request.getParameter("endday"));
-		int endMonth = Integer.parseInt(request.getParameter("endmonth"));
-		int endYear = Integer.parseInt(request.getParameter("endyear"));
-		
-		int maxPrice = Integer.MAX_VALUE;	//will display all rooms if nothing is set
 		try {
-			maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-		} catch (NumberFormatException nfe) {/*catch exception and do nothing*/}
-		
-		String city = request.getParameter("city");
-		List<RoomTypeSearch> roomTypeList = dao.getHotelRoomTypes(city, maxPrice);
-		request.setAttribute("location", city);
-		request.setAttribute("maxPrice", maxPrice);
-		request.setAttribute("roomTypeList", roomTypeList);
-		
+			int startDay = Integer.parseInt(request.getParameter("startday"));
+			int startMonth = Integer.parseInt(request.getParameter("startmonth"));
+			int startYear = Integer.parseInt(request.getParameter("startyear"));
+			int endDay = Integer.parseInt(request.getParameter("endday"));
+			int endMonth = Integer.parseInt(request.getParameter("endmonth"));
+			int endYear = Integer.parseInt(request.getParameter("endyear"));
+			
+			String city = request.getParameter("city");
+			int maxPrice = Integer.MAX_VALUE;	//will display all rooms if nothing is set
+			try {
+				maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
+			} catch (NumberFormatException nfe) {/*catch exception and do nothing*/}
+			
+			List<RoomTypeSearch> roomTypeList = dao.getHotelRoomTypes(city, maxPrice);
+			request.setAttribute("location", city);
+			request.setAttribute("maxPrice", maxPrice);
+			request.setAttribute("roomTypeList", roomTypeList);
+			
+			
+		} catch (NumberFormatException nfe) {
+			pbr.addErrorMessage("One of the values are invalid");
+		}
 		pbr.postErrorMessage(request);
 		RequestDispatcher rd = request.getRequestDispatcher("/" + "searchResults.jsp");
 		rd.forward(request, response);

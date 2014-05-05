@@ -16,8 +16,8 @@
 		<div id="main-content">
 			<p>rooms matching your results:</p>
 			<form action="Booking" method="POST">
-			<input type="hidden" name="location" value="${location}">
-			<input type="hidden" name="maxPrice" value="${maxPrice}">
+				<input type="hidden" name="location" value="${location}"> <input
+					type="hidden" name="maxPrice" value="${maxPrice}">
 				<table id="result-table">
 					<thead>
 						<tr id="result-table-header">
@@ -33,7 +33,8 @@
 								<td>${roomType.roomType}</td>
 								<td>${roomType.price}</td>
 								<td>${roomType.count}</td>
-								<td><input type="number" name=${roomType.roomType} value="0" min="0" max=${roomType.count}></td>
+								<td><input type="number" name=${roomType.roomType
+									} value="0" min="0" max=${roomType.count}></td>
 							</tr>
 						</c:forEach>
 					</tbody>
