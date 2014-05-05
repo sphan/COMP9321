@@ -9,23 +9,40 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<table id="result-table" align="center">
-		<thead>
-			<tr id="result-table-header">
-				<td>Room Type</td>
-				<td>Price per night</td>
-				<td>Count</td>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${bookings}" var="booking">
-				<tr>
-					<td>${booking.roomType}</td>
-					<td>${booking.price}</td>
-					<td>${booking.count}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+	<form action="Payment" method="post">
+		<c:choose>
+			<c:when test="${searchEmpty==false}">
+				<table id="result-table" align="center">
+					<thead>
+						<tr id="result-table-header">
+							<td>Room Type</td>
+							<td>Price per night</td>
+							<td>Count</td>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${bookingChoices}" var="booking">
+							<input type="hidden" name="${booking.roomType}|roomType"
+								value="${booking.roomType}">
+							<input type="hidden" name="${booking.roomType}|price"
+								value="${booking.price}">
+							<input type="hidden" name="${booking.roomType}|count"
+								value="${booking.count}">
+							<tr>
+								<td>${booking.roomType}</td>
+								<td>${booking.price}</td>
+								<td>${booking.count}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:when>
+			<c:otherwise>
+			nothing selected
+		</c:otherwise>
+		</c:choose>
+
+		<input type="submit" value="confirm">
+	</form>
 </body>
 </html>
