@@ -17,7 +17,7 @@
 	<%@ include file="staffSearchForm.html"%>
 	<div id="main-content">
 		<p>All Customer Bookings:</p>
-		<form action="control" method="POST">
+		<form action="search" method="POST">
 			<table id="result-table">
 				<thead>
 					<tr id="result-table-header">

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:useBean id="booking" class="edu.unsw.comp9321.bean.BookingListBean"
+	scope="session" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,7 +17,7 @@
 		<%@ include file="searchForm.html"%>
 		<div id="main-content">
 			<p>rooms matching your results:</p>
-			<form action="Booking" method="POST">
+			<form action="booking" method="POST">
 				<input type="hidden" name="location" value="${location}"> <input
 					type="hidden" name="maxPrice" value="${maxPrice}">
 				<table id="result-table">
@@ -33,13 +35,17 @@
 								<td>${roomType.roomType}</td>
 								<td>${roomType.price}</td>
 								<td>${roomType.count}</td>
-								<td><input type="number" name=${roomType.roomType
-									} value="0" min="0" max=${roomType.count}></td>
+								<td><input type="hidden" name="roomTypeName[]"
+									value="${roomType.roomType}"><input type="hidden"
+									name="roomTypePrice[]" value="${roomType.price}"><input
+									type="number" name="roomTypeCount[]" value="0" min="0"
+									max=${roomType.count}></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<input align="right" type="submit" value="submit">
+				<input type="submit" name="submit" value="submit"> <input
+					type="submit" name="submit" value="calculate total">
 			</form>
 		</div>
 	</div>

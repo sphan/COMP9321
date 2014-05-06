@@ -9,7 +9,7 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<form action="Payment" method="post">
+	<form action="payment" method="post">
 		<c:choose>
 			<c:when test="${searchEmpty==false}">
 				<table id="result-table" align="center">
@@ -21,17 +21,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${bookingChoices}" var="booking">
-							<input type="hidden" name="${booking.roomType}|roomType"
-								value="${booking.roomType}">
-							<input type="hidden" name="${booking.roomType}|price"
-								value="${booking.price}">
-							<input type="hidden" name="${booking.roomType}|count"
-								value="${booking.count}">
+						<c:forEach items="${booking.list}" var="bookingSelection">
 							<tr>
-								<td>${booking.roomType}</td>
-								<td>${booking.price}</td>
-								<td>${booking.count}</td>
+								<td>${bookingSelection.roomType}</td>
+								<td>${bookingSelection.price}</td>
+								<td>${bookingSelection.count}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.unsw.comp9321.bean.BookingListBean;
 import edu.unsw.comp9321.exception.ServiceLocatorException;
 import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.DBConnectionFactory;
@@ -20,14 +21,14 @@ import edu.unsw.comp9321.jdbc.RoomTypeDTO;
 /**
  * Servlet implementation class ControlServlet
  */
-@WebServlet(urlPatterns="/control",displayName="ControlServlet")
-public class ControlServlet extends HttpServlet {
+@WebServlet(urlPatterns="/search",displayName="SearchServlet")
+public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ControlServlet() {
+	public SearchServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -43,7 +44,7 @@ public class ControlServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		PassByRef pbr = new PassByRef();
 		DAO dao = new DAO(pbr);
 		try {
@@ -65,7 +66,7 @@ public class ControlServlet extends HttpServlet {
 			request.setAttribute("maxPrice", maxPrice);
 			request.setAttribute("roomTypeList", roomTypeList);
 			
-			
+			//TODO perform number checking for room counts gotten from search results page
 		} catch (NumberFormatException nfe) {
 			pbr.addErrorMessage("One of the values are invalid");
 		}

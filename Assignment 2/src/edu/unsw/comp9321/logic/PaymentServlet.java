@@ -16,7 +16,7 @@ import edu.unsw.comp9321.jdbc.RoomTypeDTO;
 /**
  * Servlet implementation class Payment
  */
-@WebServlet("/Payment")
+@WebServlet(urlPatterns="/payment",displayName="PaymentServlet")
 public class PaymentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
