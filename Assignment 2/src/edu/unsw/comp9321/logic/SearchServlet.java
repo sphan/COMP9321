@@ -55,14 +55,14 @@ public class SearchServlet extends HttpServlet {
 			int endMonth = Integer.parseInt(request.getParameter("endmonth"));
 			int endYear = Integer.parseInt(request.getParameter("endyear"));
 			
-			String city = request.getParameter("city");
+			String location = request.getParameter("location");
 			int maxPrice = Integer.MAX_VALUE;	//will display all rooms if nothing is set
 			try {
 				maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
 			} catch (NumberFormatException nfe) {/*catch exception and do nothing*/}
 			
-			List<RoomTypeDTO> roomTypeList = dao.getHotelRoomTypes(city, maxPrice);
-			request.setAttribute("location", city);
+			List<RoomTypeDTO> roomTypeList = dao.getHotelRoomTypes(location, maxPrice);
+			request.setAttribute("location", location);
 			request.setAttribute("maxPrice", maxPrice);
 			request.setAttribute("roomTypeList", roomTypeList);
 			

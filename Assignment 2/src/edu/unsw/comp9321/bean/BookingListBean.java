@@ -22,5 +22,9 @@ public class BookingListBean {
 	public void addBookingSelection(BookingSelection bs) {
 		this.list.add(bs);
 	}
+	
+	public void clearBookingList() {
+		this.list = new ArrayList<BookingSelection>();
+	}
 
 }

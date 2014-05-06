@@ -11,7 +11,7 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<form action="payment" method="post">
 		<c:choose>
-			<c:when test="${searchEmpty==false}">
+			<c:when test="${bookingEmpty==false}">
 				<table id="result-table" align="center">
 					<thead>
 						<tr id="result-table-header">

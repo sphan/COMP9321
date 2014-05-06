@@ -44,9 +44,15 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<input type="submit" name="submit" value="submit"> <input
-					type="submit" name="submit" value="calculate total">
+				<input type="submit" name="action" value="submit"> <input
+					type="submit" name="action" value="calculate total">
 			</form>
+			<div>
+				<c:if test="${totalPrice != null}">
+						Total Price of booking selection is: ${totalPrice}<br>
+						
+				</c:if>
+			</div>
 		</div>
 	</div>
 	<div id="clearing-div"></div>
