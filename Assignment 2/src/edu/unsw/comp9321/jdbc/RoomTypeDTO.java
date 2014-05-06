@@ -1,12 +1,12 @@
-package edu.unsw.comp9321.logic;
+package edu.unsw.comp9321.jdbc;
 
-public class RoomTypeSearch {
+public class RoomTypeDTO {
 	
 	private String roomType;
 	private int price;
 	private int count;
 	
-	public RoomTypeSearch(String roomType, int price, int count) {
+	public RoomTypeDTO(String roomType, int price, int count) {
 		this.roomType = roomType;
 		this.price = price;
 		this.count = count;

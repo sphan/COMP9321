@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.unsw.comp9321.exception.ServiceLocatorException;
 import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.DBConnectionFactory;
+import edu.unsw.comp9321.jdbc.RoomTypeDTO;
 
 /**
  * Servlet implementation class ControlServlet
@@ -59,7 +60,7 @@ public class ControlServlet extends HttpServlet {
 				maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
 			} catch (NumberFormatException nfe) {/*catch exception and do nothing*/}
 			
-			List<RoomTypeSearch> roomTypeList = dao.getHotelRoomTypes(city, maxPrice);
+			List<RoomTypeDTO> roomTypeList = dao.getHotelRoomTypes(city, maxPrice);
 			request.setAttribute("location", city);
 			request.setAttribute("maxPrice", maxPrice);
 			request.setAttribute("roomTypeList", roomTypeList);
