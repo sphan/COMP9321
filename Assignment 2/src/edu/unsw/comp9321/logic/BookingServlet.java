@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.unsw.comp9321.exception.ServiceLocatorException;
 import edu.unsw.comp9321.jdbc.DAO;
+import edu.unsw.comp9321.jdbc.RoomTypeDTO;
 
 /**
  * Servlet implementation class Booking
@@ -51,11 +52,11 @@ public class BookingServlet extends HttpServlet {
 
 		String location = request.getParameter("location");
 		int maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-		List<RoomTypeSearch> bookingChoices = dao.getHotelRoomTypes(location, maxPrice);
+		List<RoomTypeDTO> bookingChoices = dao.getHotelRoomTypes(location, maxPrice);
 		
 		if (bookingChoices.size() > 0) {
 			//if something in list, return those things in list
-			for (RoomTypeSearch rts : bookingChoices) {
+			for (RoomTypeDTO rts : bookingChoices) {
 				int count = Integer.parseInt(request.getParameter(rts.getRoomType()));
 				rts.setCount(count);
 			}

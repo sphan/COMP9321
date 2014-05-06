@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 
 import edu.unsw.comp9321.exception.ServiceLocatorException;
 import edu.unsw.comp9321.logic.PassByRef;
-import edu.unsw.comp9321.logic.RoomTypeSearch;
 
 public class DAO {
 	//This class should be the only class to talk to database
@@ -42,8 +41,8 @@ public class DAO {
 		logger.info("Got connection");
 	}
 
-	public List<RoomTypeSearch> getHotelRoomTypes(String location, int maxPrice) {
-		List<RoomTypeSearch> roomTypeList = new ArrayList<RoomTypeSearch>();
+	public List<RoomTypeDTO> getHotelRoomTypes(String location, int maxPrice) {
+		List<RoomTypeDTO> roomTypeList = new ArrayList<RoomTypeDTO>();
 
 		try {
 			Statement stmnt = connection.createStatement();
@@ -73,7 +72,7 @@ public class DAO {
 				String room_type = res.getString("room_type");
 				int price = res.getInt("price");
 				int count = res.getInt("count");
-				roomTypeList.add(new RoomTypeSearch(room_type, price, count));
+				roomTypeList.add(new RoomTypeDTO(room_type, price, count));
 			}
 		} catch (SQLException SQLe) {
 			SQLe.printStackTrace();
