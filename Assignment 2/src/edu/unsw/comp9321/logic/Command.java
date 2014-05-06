@@ -81,11 +81,12 @@ public class Command {
 				e.printStackTrace();
 			}
 		} else if (searchType.equalsIgnoreCase("customerName")) {
-			
+			bookings = dao.getBookingsByCustomerName(searchString);
 		}
 		
 		request.setAttribute("booked", bookings);
 		request.setAttribute("resultNum", bookings.size());
+		request.setAttribute("staffName", request.getParameter("staffName"));
 		
 		return nextPage;
 	}

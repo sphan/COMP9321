@@ -31,6 +31,18 @@ public class StaffServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action");
+		String nextPage = "staffPage.jsp";
+		PassByRef pbr = new PassByRef();
+		DAO dao = new DAO(pbr);
 		
+		if (action.equalsIgnoreCase("Search")) {
+			nextPage = Command.staffSearch(request, dao);
+			System.out.println("nextPage: " + nextPage);
+		}
+		
+		pbr.postErrorMessage(request);
+		RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
+		rd.forward(request, response);
 	}
 }

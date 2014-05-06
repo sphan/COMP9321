@@ -119,8 +119,8 @@ public class DAO {
 		BookingDTO booking = null;
 		
 		try {
-			PreparedStatement stmnt = connection.prepareStatement(
-							"SELECT "
+			Statement stmnt = connection.createStatement();
+			String query_cast =	"SELECT "
 							+ "cb.id as cbid,"
 							+ "cb.start_date,"
 							+ "cb.end_date,"
@@ -131,21 +131,51 @@ public class DAO {
 							+ "FROM CUSTOMER_BOOKING cb "
 							+ "JOIN CUSTOMER c "
 							+ "ON (cb.CUSTOMER_ID=c.ID)"
-							+ "WHERE cbid = ?");
-			stmnt.setInt(1, bid);
-			ResultSet res = stmnt.executeQuery();
+							+ "WHERE cb.id = " + bid;
+			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+ res.getFetchSize());
 			while (res.next()) {
 				booking = rebuildBooking(res);
 			}
 		} catch (SQLException SQLe) {
 			SQLe.printStackTrace();
-			pbr.addErrorMessage("SQLException in getAllBookings");
+			pbr.addErrorMessage("SQLException in getBookingsByID");
 		}
 		
 		return booking;
 	}
-
+	
+	public List<BookingDTO> getBookingsByCustomerName(String customerName) {
+		List<BookingDTO> bookings = new ArrayList<BookingDTO>();
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast =	"SELECT "
+							+ "cb.id as cbid,"
+							+ "cb.start_date,"
+							+ "cb.end_date,"
+							+ "c.id as cid,"
+							+ "c.name,"
+							+ "c.username,"
+							+ "c.password "
+							+ "FROM CUSTOMER_BOOKING cb "
+							+ "JOIN CUSTOMER c "
+							+ "ON (cb.CUSTOMER_ID=c.ID)"
+							+ "WHERE c.name = '" + customerName + "'";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+ res.getFetchSize());
+			while (res.next()) {
+				bookings.add(rebuildBooking(res));
+				System.out.println("getting booking");
+			}
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getBookingsByCustomerName");
+		}
+		
+		return bookings;
+	}
+	
 	public BookingDTO addBooking(int custID, int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear) {
 		BookingDTO returnRes = null;
 		if (!isValidDate(startDay, startMonth, startYear) || !isValidDate(endDay, endMonth, endYear)) {
