@@ -40,7 +40,6 @@ public class Command {
 	
 	public static void displayAllBookings(HttpServletRequest request, DAO dao) {
 		List<BookingDTO> allBookings = dao.getAllBookings();
-		System.out.println(allBookings.size());
 //		List<BookingDTO> pendingBookings = new LinkedList<BookingDTO>();
 		
 //		for (BookingDTO booking : allBookings) {
@@ -63,7 +62,32 @@ public class Command {
 //		}
 		
 		request.setAttribute("booked", allBookings);
+		request.setAttribute("resultNum", allBookings.size());
 //		request.setAttribute("checkedin", checkedin);
+	}
+	
+	public static String staffSearch(HttpServletRequest request, DAO dao) {
+		String nextPage = "staffPage.jsp";
+		String searchType = request.getParameter("search-type");
+		String searchString = request.getParameter("searchString");
+		List<BookingDTO> bookings = new LinkedList<BookingDTO>();
+		
+		if (searchType.equalsIgnoreCase("bookingNumber")) {
+			int bookingID;
+			try {
+				bookingID = Integer.parseInt(searchString);
+				bookings.add(dao.getBookingByID(bookingID));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (searchType.equalsIgnoreCase("customerName")) {
+			
+		}
+		
+		request.setAttribute("booked", bookings);
+		request.setAttribute("resultNum", bookings.size());
+		
+		return nextPage;
 	}
 	
 	/***********************************************

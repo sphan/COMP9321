@@ -18,32 +18,39 @@
 <div id="content">
 	<%@ include file="staffSearchForm.html"%>
 	<div id="main-content">
-		<p>All Customer Bookings:</p>
-		<form action="control" method="POST">
-			<table id="result-table">
-				<thead>
-					<tr id="result-table-header">
-						<td>Booking Number</td>
-						<td>Customer</td>
-						<td>Booking Status</td>
-						<td>Select</td>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="booking" items="${booked}">
-						<tr>
-							<td><c:out value="${booking.id}" /></td>
-							<td><c:out value="${booking.customer.name}" /></td>
-							<td>Booked</td>
-							<td><input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<div>
-				<input type="submit" name="action" value="Select Booking">
-			</div>
-		</form>
+		<c:choose>
+			<c:when test="${resultNum eq 0}">
+				<p>There currently are no pending bookings.</p>
+			</c:when>
+			<c:when test="${resultNum gt 0}">
+				<p>All Customer Bookings:</p>
+				<form action="control" method="POST">
+					<table id="result-table">
+						<thead>
+							<tr id="result-table-header">
+								<td>Booking Number</td>
+								<td>Customer</td>
+								<td>Booking Status</td>
+								<td>Select</td>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="booking" items="${booked}">
+								<tr>
+									<td><c:out value="${booking.id}" /></td>
+									<td><c:out value="${booking.customer.name}" /></td>
+									<td>Booked</td>
+									<td><input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<div>
+						<input type="submit" name="action" value="Select Booking">
+					</div>
+				</form>
+			</c:when>
+		</c:choose>
 	</div>
 </div>
 </body>

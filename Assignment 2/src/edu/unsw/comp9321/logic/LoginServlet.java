@@ -35,10 +35,15 @@ public class LoginServlet extends HttpServlet {
 		PassByRef pbr = new PassByRef();
 		DAO dao = new DAO(pbr);
 		
-		if (!action.equalsIgnoreCase("Login"))
-			return;
+		if (action.equalsIgnoreCase("Login")) {
+			nextPage = Command.login(request, dao);
+			if (nextPage.equals("customerMain.jsp"))
+				pbr.addErrorMessage("User not found.");
+		} else if (action.equalsIgnoreCase("Search")) {
+			
+		}
 		
-		nextPage = Command.login(request, dao);
+		pbr.postErrorMessage(request);
 		
 		pbr.postErrorMessage(request);
 		RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
