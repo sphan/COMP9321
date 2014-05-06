@@ -73,6 +73,7 @@ public class SearchServlet extends HttpServlet {
 		pbr.postErrorMessage(request);
 		RequestDispatcher rd = request.getRequestDispatcher("/" + "searchResults.jsp");
 		rd.forward(request, response);
+		
 
 
 	}

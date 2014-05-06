@@ -38,7 +38,6 @@ body {
 	font-size: 0.9em;
 	position: relative;
 	display: inline-block;
-	border-right: 1px solid #888;
 }
 
 #main-content {
@@ -48,6 +47,7 @@ body {
 	padding: 20px;
 	width: 65%;
 	display: inline-block;
+	border-left: 1px solid #888;
 }
 
 input[type=text], input[type=password] {

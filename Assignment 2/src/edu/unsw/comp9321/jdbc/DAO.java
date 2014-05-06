@@ -282,6 +282,7 @@ public class DAO {
 			logger.info("The result set size is "+res.getFetchSize());
 
 			while (res.next()) {
+				System.out.println("test");
 				int id = res.getInt("id");
 				String name = res.getString("name");
 				String userName = res.getString("username");
@@ -303,19 +304,18 @@ public class DAO {
 	public StaffDTO getStaffByUsername(String username) {
 		StaffDTO staff = null;
 		try {
-			String query_cast = "SELECT id, name, username, password FROM STAFF WHERE username = ?";
-			PreparedStatement count_stmnt = connection.prepareStatement(query_cast);
-			count_stmnt.setString(1, username);
-			ResultSet res = count_stmnt.executeQuery();
-			res.next();
-			int numRows = res.getInt(1);
-			logger.info("The result set size is " + numRows);
+			Statement stmnt = connection.createStatement();
+			String query_cast = "SELECT id, name, username, password, staff_type FROM STAFF WHERE username = '" + username + "'";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+res.getFetchSize());
 
+			res.next();
 			int id = res.getInt("id");
 			String name = res.getString("name");
 			String usr = res.getString("username");
 			String pw = res.getString("password");
 			staff = new StaffDTO(id, name, usr, pw);
+			staff.setType(res.getString("staff_type"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

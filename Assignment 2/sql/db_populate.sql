@@ -68,4 +68,4 @@ insert into STAFF values (default, 'Sandy', 'Sandy', 'password', 'manager');
 insert into STAFF values (default, 'Jason', 'Jason', 'password', 'manager');
 insert into STAFF values (default, 'Kate', 'Kate', 'password', 'owner');
 
---select rt.room_type, rt.price, count(rt.room_type) as count from room r join room_type rt on (r.room_type_id=rt.id) join hotel h on (h.id=r.hotel_id) where h.location='Sydney' and rt.price <= 13000 group by rt.room_type, rt.price 
+--select rt.room_type, rt.price, count(rt.room_type) as count from room r join room_type rt on (r.room_type_id=rt.id) join hotel h on (h.id=r.hotel_id) where h.location='Sydney' and rt.price <= 13000 group by rt.room_type, rt.price
