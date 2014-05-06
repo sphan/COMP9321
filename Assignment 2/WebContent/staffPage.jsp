@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="edu.unsw.comp9321.*, java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,9 +12,9 @@
 <body>
 <div id="header">
 <center><h1>Hotels</h1></center>
+<div align="right">Hi, <c:out value="${staffName}" /></div>
 <hr>
 </div>
-
 <div id="content">
 	<%@ include file="staffSearchForm.html"%>
 	<div id="main-content">
@@ -21,19 +23,21 @@
 			<table id="result-table">
 				<thead>
 					<tr id="result-table-header">
-						<td>Hotel Name</td>
-						<td>Customer</td>
 						<td>Booking Number</td>
+						<td>Customer</td>
+						<td>Booking Status</td>
 						<td>Select</td>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>Iris</td>
-						<td>Somebody</td>
-						<td>1</td>
-						<td><input type="radio" name="selectBooking" /></td>
-					</tr>
+					<c:forEach var="booking" items="${booked}">
+						<tr>
+							<td><c:out value="${booking.id}" /></td>
+							<td><c:out value="${booking.customer.name}" /></td>
+							<td>Booked</td>
+							<td><input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			<div>
