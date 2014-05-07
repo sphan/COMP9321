@@ -16,7 +16,7 @@
 	<div id="content">
 		<%@ include file="searchForm.html"%>
 		<div id="main-content">
-			<p>rooms matching your results:</p>
+			<p>Searching for hotel rooms in "${location}":</p>
 			<form action="booking" method="POST">
 				<input type="hidden" name="location" value="${location}"> <input
 					type="hidden" name="maxPrice" value="${maxPrice}">

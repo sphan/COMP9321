@@ -15,27 +15,42 @@
 				<table id="result-table" align="center">
 					<thead>
 						<tr id="result-table-header">
+							<td>Room</td>
 							<td>Room Type</td>
 							<td>Price per night</td>
-							<td>Count</td>
+							<td>Extra bed?</td>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${booking.list}" var="bookingSelection">
 							<tr>
+								<td>${bookingSelection.index}</td>
 								<td>${bookingSelection.roomType}</td>
 								<td>${bookingSelection.price}</td>
-								<td>${bookingSelection.count}</td>
+								<td>
+								<c:set value="${bookingSelection.roomType=='SINGLE'?'disabled':''}"var="disable"/>
+								<input type="checkbox" name="extrabed" ${disable} value="false">
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				<div>Total: ${totalPrice}</div>
 			</c:when>
 			<c:otherwise>
 			nothing selected
 		</c:otherwise>
 		</c:choose>
 
+		<div align="center">
+			Please enter your information:
+			<div>
+				Name:<input type="text" name="name"><br> UserName:<input
+					type="text" name="username"><br> Password:<input
+					type="password" name="name"><br> Email:<input
+					type="text" name="email"><br>
+			</div>
+		</div>
 		<input type="submit" value="confirm">
 	</form>
 </body>

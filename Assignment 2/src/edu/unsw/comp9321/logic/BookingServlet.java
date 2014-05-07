@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.unsw.comp9321.bean.BookingListBean;
 import edu.unsw.comp9321.bean.BookingSelection;
+import edu.unsw.comp9321.bean.SearchDetailsBean;
 import edu.unsw.comp9321.exception.ServiceLocatorException;
 import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.RoomTypeDTO;
@@ -55,39 +56,44 @@ public class BookingServlet extends HttpServlet {
 		assert(roomTypeName.length==roomTypePrice.length && roomTypePrice.length==roomTypeCount.length);
 		//###############################################################
 		if (request.getParameter("action").equals("submit")) {
+
 			boolean bookingEmpty = false;
 			BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
-			blb.clearBookingList();
-			
+			blb.clearBookingList();//to prepare for a new search
+			int index = 1;
 			for (int i = 0; i < roomTypeName.length; i++) {
 				if (Integer.parseInt(roomTypeCount[i]) != 0) {
-					blb.addBookingSelection(new BookingSelection(roomTypeName[i], roomTypePrice[i], roomTypeCount[i]));
+					for (int j = 0; j < Integer.parseInt(roomTypeCount[i]); j++) {
+						blb.addBookingSelection(new BookingSelection(index++, roomTypeName[i], roomTypePrice[i]));
+					}
 				}
 			}
 			if (blb.getList().size() == 0) {
 				bookingEmpty = true;
 			}
-			request.setAttribute("bookingEmpty", bookingEmpty);
-			nextPage = "booking.jsp";
-		}
-		else if (request.getParameter("action").equals("calculate total")) {
-			DAO dao = new DAO(pbr);
-			String location = request.getParameter("location");
-			int maxPrice = Integer.MAX_VALUE;	//will display all rooms if nothing is set
-			try {
-				maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
-			} catch (NumberFormatException nfe) {/*catch exception and do nothing*/}
-			
-			List<RoomTypeDTO> roomTypeList = dao.getHotelRoomTypes(location, maxPrice);
-			request.setAttribute("location", location);
-			request.setAttribute("maxPrice", maxPrice);
-			request.setAttribute("roomTypeList", roomTypeList);
-			
+
 			int totalPrice = 0;
 			for (int i = 0; i < roomTypeName.length; i++) {
 				totalPrice += Integer.parseInt(roomTypeCount[i]) * Integer.parseInt(roomTypePrice[i]);
 			}
 			request.setAttribute("totalPrice", totalPrice);
+			request.setAttribute("bookingEmpty", bookingEmpty);
+			nextPage = "booking.jsp";
+		}
+		//###############################################################
+		else if (request.getParameter("action").equals("calculate total")) {
+			DAO dao = new DAO(pbr);
+			SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
+
+			int totalPrice = 0;
+			for (int i = 0; i < roomTypeName.length; i++) {
+				totalPrice += Integer.parseInt(roomTypeCount[i]) * Integer.parseInt(roomTypePrice[i]);
+			}
+			request.setAttribute("totalPrice", totalPrice);
+			request.setAttribute("location", sdb.getLocation());
+			request.setAttribute("maxPrice", sdb.getMaxPrice());
+			request.setAttribute("roomTypeList", dao.getHotelRoomSelection(sdb.getLocation(), sdb.getMaxPrice(), sdb.getStartDay(), sdb.getStartMonth(), sdb.getStartYear(), sdb.getEndDay(), sdb.getEndMonth(), sdb.getEndYear()));
+
 			nextPage = "searchResults.jsp";
 		} else {
 			nextPage = "customerMain.jsp";

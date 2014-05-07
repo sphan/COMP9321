@@ -40,6 +40,13 @@ public class PaymentServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO booking and payment has been confirmed, we must create bookings and make email etc
+		PassByRef pbr = new PassByRef();
+		DAO dao = new DAO(pbr);
+		String name = request.getParameter("name");
+		String userName = request.getParameter("username");
+		String password = request.getParameter("password");
+		String email = request.getParameter("email");
+		
 	}
 
 }

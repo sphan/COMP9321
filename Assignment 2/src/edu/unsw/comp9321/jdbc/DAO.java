@@ -41,7 +41,7 @@ public class DAO {
 		logger.info("Got connection");
 	}
 
-	public List<RoomTypeDTO> getHotelRoomTypes(String location, int maxPrice) {
+	public List<RoomTypeDTO> getHotelRoomSelection(String location, int maxPrice, int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear) {
 		List<RoomTypeDTO> roomTypeList = new ArrayList<RoomTypeDTO>();
 
 		try {
