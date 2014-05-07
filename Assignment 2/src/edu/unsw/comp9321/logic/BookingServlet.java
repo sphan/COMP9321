@@ -56,10 +56,16 @@ public class BookingServlet extends HttpServlet {
 		assert(roomTypeName.length==roomTypePrice.length && roomTypePrice.length==roomTypeCount.length);
 		//###############################################################
 		if (request.getParameter("action").equals("submit")) {
-
-			boolean bookingEmpty = false;
 			BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
 			blb.clearBookingList();//to prepare for a new search
+			SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
+			blb.setStartDay(sdb.getStartDay());
+			blb.setStartMonth(sdb.getStartMonth());
+			blb.setStartYear(sdb.getStartYear());
+			blb.setEndDay(sdb.getEndDay());
+			blb.setEndMonth(sdb.getEndMonth());
+			blb.setEndYear(sdb.getEndYear());
+			blb.setLocation(sdb.getLocation());
 			int index = 1;
 			for (int i = 0; i < roomTypeName.length; i++) {
 				if (Integer.parseInt(roomTypeCount[i]) != 0) {
@@ -68,16 +74,6 @@ public class BookingServlet extends HttpServlet {
 					}
 				}
 			}
-			if (blb.getList().size() == 0) {
-				bookingEmpty = true;
-			}
-
-			int totalPrice = 0;
-			for (int i = 0; i < roomTypeName.length; i++) {
-				totalPrice += Integer.parseInt(roomTypeCount[i]) * Integer.parseInt(roomTypePrice[i]);
-			}
-			request.setAttribute("totalPrice", totalPrice);
-			request.setAttribute("bookingEmpty", bookingEmpty);
 			nextPage = "booking.jsp";
 		}
 		//###############################################################
@@ -90,9 +86,7 @@ public class BookingServlet extends HttpServlet {
 				totalPrice += Integer.parseInt(roomTypeCount[i]) * Integer.parseInt(roomTypePrice[i]);
 			}
 			request.setAttribute("totalPrice", totalPrice);
-			request.setAttribute("location", sdb.getLocation());
-			request.setAttribute("maxPrice", sdb.getMaxPrice());
-			request.setAttribute("roomTypeList", dao.getHotelRoomSelection(sdb.getLocation(), sdb.getMaxPrice(), sdb.getStartDay(), sdb.getStartMonth(), sdb.getStartYear(), sdb.getEndDay(), sdb.getEndMonth(), sdb.getEndYear()));
+			request.setAttribute("roomTypeList", dao.getHotelRoomSelection(sdb));
 
 			nextPage = "searchResults.jsp";
 		} else {

@@ -55,9 +55,8 @@ create table room (
 
 create table customer (
 	id int not null generated always as identity,
-	name varchar(20) not null,
-	username varchar(20) not null unique,
-	password varchar(20) not null,
+	first_name varchar(20) not null,
+	last_name varchar(20) not null,
 	primary key (id)
 );
 
@@ -100,3 +99,7 @@ create table staff (
 	(staff_type='owner' or staff_type='manager'),
 	primary key (id)
 );
+
+
+select rt.room_type from room r join hotel h on (r.hotel_id=h.id) join room_type rt on (rt.id=r.room_type_id) where h.location='Sydney' and rt.room_type='SINGLE' and r.id not in 
+(select rt.room_type from room_schedule rs join customer_booking cb on (rs.customer_booking_id=cb.id) join room r on (r.id=rs.room_id) join room_type rt on (rt.id=r.room_type_id) where (cb.start_date between '2014-05-01' and '2014-05-10') or (cb.end_date between '2014-05-01' and '2014-05-10')) 

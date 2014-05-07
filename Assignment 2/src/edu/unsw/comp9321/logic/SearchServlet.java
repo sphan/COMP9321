@@ -66,7 +66,7 @@ public class SearchServlet extends HttpServlet {
 		
 		request.setAttribute("location", sdb.getLocation());
 		request.setAttribute("maxPrice", sdb.getMaxPrice());
-		request.setAttribute("roomTypeList", dao.getHotelRoomSelection(sdb.getLocation(), sdb.getMaxPrice(), sdb.getStartDay(), sdb.getStartMonth(), sdb.getStartYear(), sdb.getEndDay(), sdb.getEndMonth(), sdb.getEndYear()));
+		request.setAttribute("roomTypeList", dao.getHotelRoomSelection(sdb));
 		
 		pbr.postErrorMessage(request);
 		RequestDispatcher rd = request.getRequestDispatcher("/" + "searchResults.jsp");

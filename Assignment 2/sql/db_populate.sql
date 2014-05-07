@@ -225,14 +225,14 @@ insert into ROOM values (default, 4, 140, 'available', 5);
 insert into ROOM values (default, 5, 141, 'available', 5);
 insert into ROOM values (default, 5, 142, 'available', 5);
 
-insert into CUSTOMER values (default, 'Andrew', 'Andrew', 'password');
-insert into CUSTOMER values (default, 'Bill', 'Bill', 'password');
-insert into CUSTOMER values (default, 'Claire', 'Claire', 'password');
-insert into CUSTOMER values (default, 'Daniel', 'Daniel', 'password');
-insert into CUSTOMER values (default, 'Ethan', 'Ethan', 'password');
-insert into CUSTOMER values (default, 'Frank', 'Frank', 'password');
-insert into CUSTOMER values (default, 'Gary', 'Gary', 'password');
-insert into CUSTOMER values (default, 'Harold', 'Harold', 'password');
+insert into CUSTOMER values (default, 'Andrew', 'Anderson');
+insert into CUSTOMER values (default, 'Bill', 'Bite');
+insert into CUSTOMER values (default, 'Claire', 'Eclair');
+insert into CUSTOMER values (default, 'Daniel', 'Danish');
+insert into CUSTOMER values (default, 'Ethan', 'Ether');
+insert into CUSTOMER values (default, 'Frank', 'Fryer');
+insert into CUSTOMER values (default, 'Gary', 'Grey');
+insert into CUSTOMER values (default, 'Harold', 'Haroldson');
 
 insert into CUSTOMER_BOOKING values (default, 2, '2014-05-09', '2014-05-11');
 insert into CUSTOMER_BOOKING values (default, 3, '2014-05-04', '2014-05-04');
