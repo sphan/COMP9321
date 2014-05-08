@@ -60,7 +60,6 @@ public class Command {
 					displayAllOccupancies(request, dao);
 				}
 				request.getSession().setAttribute("staffName", staff.getName());
-//				request.setAttribute("staffName", staff.getName());
 			}
 		}
 		
@@ -82,6 +81,7 @@ public class Command {
 		List<BookingDTO> checkedin = new LinkedList<BookingDTO>();
 		for (BookingDTO booking : pendingBookings) {
 			List<RoomDTO> rooms = dao.getRoomsByBooking(booking.getId());
+			System.out.println(booking.getId());
 			if (bookingAllCheckedIn(rooms)) {
 				checkedin.add(booking);
 			} else {
@@ -89,23 +89,10 @@ public class Command {
 			}
 		}
 		
-//		List<BookingDTO> booked = new LinkedList<BookingDTO>();
-//		List<BookingDTO> checkedin = new LinkedList<BookingDTO>();
-//		for (BookingDTO booking: allBookings) {
-//			if (booking.getRooms().get(0).getAvailability() == Availability.BOOKED) {
-//				booked.add(booking);
-//				System.out.println("booked: " + booking.getId());
-//			} else if (booking.getRooms().get(0).getAvailability() == Availability.CHECKEDIN) {
-//				checkedin.add(booking);
-//				System.out.println("checkedin: " + booking.getId());
-//			}
-//		}
-		
 		request.setAttribute("booked", booked);
 		request.setAttribute("checkedin", checkedin);
 		request.setAttribute("bookedNum", booked.size());
 		request.setAttribute("checkedinNum", checkedin.size());
-//		request.setAttribute("checkedin", checkedin);
 	}
 	
 	public static String staffSelectBooking(HttpServletRequest request, DAO dao) {
@@ -196,7 +183,6 @@ public class Command {
 		
 		for (HotelDTO hotel : hotels) {
 			HashMap<String, HashMap<String, Integer>> occupancies = dao.getRoomsOccupancyByLocation(hotel.getLocation());
-//			printOccupancies(occupancies);
 			if (occupancies.size() > 0)
 				results.put(hotel.getLocation(), occupancies);
 		}
