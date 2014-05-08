@@ -11,44 +11,44 @@ insert into ROOM_TYPE values (default, 'EXECUTIVE', 18000, 0);
 insert into ROOM_TYPE values (default, 'SUITE', 30000, 0);
 
 -- Sydney hotel
-insert into ROOM values (default, 1,101, 'booked', 1);
-insert into ROOM values (default, 2,102, 'booked', 1);
-insert into ROOM values (default, 3,103, 'booked', 1);
-insert into ROOM values (default, 4,104, 'booked', 1);
-insert into ROOM values (default, 5,105, 'booked', 1);
-insert into ROOM values (default, 1,106, 'booked', 1);
-insert into ROOM values (default, 2,107, 'booked', 1);
+insert into ROOM values (default, 1,101, 'available', 1);
+insert into ROOM values (default, 2,102, 'available', 1);
+insert into ROOM values (default, 3,103, 'available', 1);
+insert into ROOM values (default, 4,104, 'available', 1);
+insert into ROOM values (default, 5,105, 'available', 1);
+insert into ROOM values (default, 1,106, 'available', 1);
+insert into ROOM values (default, 2,107, 'available', 1);
 insert into ROOM values (default, 3,108, 'booked', 1);
 insert into ROOM values (default, 4,109, 'booked', 1);
 insert into ROOM values (default, 5,110, 'booked', 1);
 
 -- Melbourne hotel
-insert into ROOM values (default, 1,101, 'booked', 2);
-insert into ROOM values (default, 2,102, 'booked', 2);
-insert into ROOM values (default, 3,103, 'booked', 2);
+insert into ROOM values (default, 1,101, 'available', 2);
+insert into ROOM values (default, 2,102, 'available', 2);
+insert into ROOM values (default, 3,103, 'available', 2);
 insert into ROOM values (default, 4,104, 'booked', 2);
 insert into ROOM values (default, 5,105, 'booked', 2);
 
 -- Brisbane hotel
-insert into ROOM values (default, 1,101, 'booked', 3);
-insert into ROOM values (default, 2,102, 'booked', 3);
-insert into ROOM values (default, 3,103, 'booked', 3);
-insert into ROOM values (default, 4,104, 'booked', 3);
-insert into ROOM values (default, 5,105, 'booked', 3);
+insert into ROOM values (default, 1,101, 'available', 3);
+insert into ROOM values (default, 2,102, 'available', 3);
+insert into ROOM values (default, 3,103, 'available', 3);
+insert into ROOM values (default, 4,104, 'available', 3);
+insert into ROOM values (default, 5,105, 'available', 3);
 
 -- Adelaide hotel
-insert into ROOM values (default, 1,101, 'booked', 4);
-insert into ROOM values (default, 2,102, 'booked', 4);
-insert into ROOM values (default, 3,103, 'booked', 4);
-insert into ROOM values (default, 4,104, 'booked', 4);
-insert into ROOM values (default, 5,105, 'booked', 4);
+insert into ROOM values (default, 1,101, 'available', 4);
+insert into ROOM values (default, 2,102, 'available', 4);
+insert into ROOM values (default, 3,103, 'available', 4);
+insert into ROOM values (default, 4,104, 'available', 4);
+insert into ROOM values (default, 5,105, 'available', 4);
 
 -- Hobart hotel
-insert into ROOM values (default, 1,101, 'booked', 5);
-insert into ROOM values (default, 2,102, 'booked', 5);
-insert into ROOM values (default, 3,103, 'booked', 5);
-insert into ROOM values (default, 4,104, 'booked', 5);
-insert into ROOM values (default, 5,105, 'booked', 5);
+insert into ROOM values (default, 1,101, 'available', 5);
+insert into ROOM values (default, 2,102, 'available', 5);
+insert into ROOM values (default, 3,103, 'available', 5);
+insert into ROOM values (default, 4,104, 'available', 5);
+insert into ROOM values (default, 5,105, 'available', 5);
 
 insert into CUSTOMER values (default, 'Andrew', 'Andrew', 'password');
 insert into CUSTOMER values (default, 'Bill', 'Bill', 'password');
@@ -69,3 +69,5 @@ insert into STAFF values (default, 'Jason', 'Jason', 'password', 'manager');
 insert into STAFF values (default, 'Kate', 'Kate', 'password', 'owner');
 
 --select rt.room_type, rt.price, count(rt.room_type) as count from room r join room_type rt on (r.room_type_id=rt.id) join hotel h on (h.id=r.hotel_id) where h.location='Sydney' and rt.price <= 13000 group by rt.room_type, rt.price
+--select rt.room_type, r.availability, count(r.availability) as count from room r join room_type rt on (r.room_type_id=rt.id) join hotel h on (h.id=r.hotel_id) where h.location = 'Sydney' group by rt.room_type, r.availability order by rt.room_type
+-- select id, name, location from hotel
