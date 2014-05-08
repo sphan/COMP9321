@@ -22,32 +22,57 @@
 	<%@ include file="staffSearchForm.html"%>
 	<div id="main-content">
 		<c:choose>
-			<c:when test="${resultNum eq 0}">
+			<c:when test="${(bookedNum eq 0) && (checkedinNum eq 0)}">
 				<p>There currently are no pending bookings.</p>
 			</c:when>
-			<c:when test="${resultNum gt 0}">
-				<p>All Customer Bookings:</p>
+			<c:when test="${(bookedNum ne 0) || (checkedinNum ne 0)}">
 				<form action="staff" method="POST">
-					<table id="result-table">
-						<thead>
-							<tr id="result-table-header">
-								<td>Booking Number</td>
-								<td>Customer</td>
-								<td>Booking Status</td>
-								<td>Select</td>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="booking" items="${booked}">
-								<tr>
-									<td><c:out value="${booking.id}" /></td>
-									<td><c:out value="${booking.customer.firstName}" /> <c:out value="${booking.customer.lastName}" /></td>
-									<td>Booked</td>
-									<td><input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
+					<c:if test="${bookedNum ne 0}">
+						<p>All pending customer bookings:</p>
+						<table id="result-table">
+							<thead>
+								<tr id="result-table-header">
+									<td>Booking Number</td>
+									<td>Customer</td>
+									<td>Booking Status</td>
+									<td>Select</td>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								<c:forEach var="booking" items="${booked}">
+									<tr>
+										<td><c:out value="${booking.id}" /></td>
+										<td><c:out value="${booking.customer.firstName}" /> <c:out value="${booking.customer.lastName}" /></td>
+										<td>BOOKED</td>
+										<td><input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:if>
+					<c:if test="${checkedinNum ne 0}">
+						<p>All checked in bookings:</p>
+						<table id="result-table">
+							<thead>
+								<tr id="result-table-header">
+									<td>Booking Number</td>
+									<td>Customer</td>
+									<td>Booking Status</td>
+									<td>Select</td>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="booking" items="${checkedin}">
+									<tr>
+										<td><c:out value="${booking.id}" /></td>
+										<td><c:out value="${booking.customer.firstName}" /> <c:out value="${booking.customer.lastName}" /></td>
+										<td>CHECKED IN</td>
+										<td><input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:if>
 					<div>
 						<input type="submit" value="Select Booking">
 						<input type="hidden" name="action" value="selectBooking">
