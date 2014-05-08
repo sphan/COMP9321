@@ -45,6 +45,10 @@ public class StaffServlet extends HttpServlet {
 				pbr.addErrorMessage("Please select a booking.");
 				Command.displayAllBookings(request, dao);
 			}
+		} else if (action.equalsIgnoreCase("back")) {
+			Command.displayAllBookings(request, dao);
+		} else if (action.equalsIgnoreCase("checkIn")) {
+			nextPage = Command.checkIn(request, dao, pbr);
 		}
 		
 		pbr.postErrorMessage(request);

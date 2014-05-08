@@ -19,33 +19,67 @@
 </div>
 <div id="content">
 	<div id="main-content">
-		<p>Room bookings for customer: <c:out value="${customer.firstName}" /> <c:out value="${customer.lastName}" /></p>
-		
-		<p>Select the rooms for check in.</p>
-		<form action="staff" method="POST">
-			<table id="result-table">
-				<thead>
-					<tr id="result-table-header">
-						<td>Room Number</td>
-						<td>Room Type</td>
-						<td>Current Availability</td>
-						<td>Check In</td>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="room" items="${rooms}">
-						<tr>
-							<td><c:out value="${room.room_number}" /></td>
-							<td><c:out value="${room.room_type}" /></td>
-							<td><c:out value="${room.availability} "/></td>
-							<td><input type="checkbox" name="checkInRooms" value="<c:out value="${room.id}" />" /></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<input type="submit" name="action" value="Back" />
-			<input type="submit" name="action" value="Check In" />
-		</form>
+		<c:choose>
+			<c:when test="${checkedIn eq false}">
+				<p>Room bookings for customer: <c:out value="${customer.firstName}" /> <c:out value="${customer.lastName}" /></p>
+				<input type="hidden" name="customerFirstName" value="<c:out value="${customer.firstName}" />" />
+				<input type="hidden" name="customerLastName" value="<c:out value="${customer.lastName}" />" />
+				<p>Select the rooms for check in.</p>
+				<form action="staff" method="POST">
+					<table id="result-table">
+						<thead>
+							<tr id="result-table-header">
+								<td>Room Number</td>
+								<td>Room Type</td>
+								<td>Current Availability</td>
+								<td>Check In</td>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="room" items="${rooms}">
+								<tr>
+									<td><c:out value="${room.room_number}" /></td>
+									<td><c:out value="${room.room_type}" /></td>
+									<td><c:out value="${room.availability} "/></td>
+									<td><input type="checkbox" name="checkInRooms" value="<c:out value="${room.id}" />" /></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<input type="submit" name="action" value="Back" />
+					<input type="submit" value="Check In" />
+					<input type="hidden" name="action" value="checkIn" />
+				</form>
+			</c:when>
+			<c:when test="${checkedIn eq true}">
+				<p>The following rooms have been checked in:</p>
+				<form action="staff" method="POST">
+					<table id="result-table">
+						<thead>
+							<tr id="result-table-header">
+								<td>Room Number</td>
+								<td>Room Type</td>
+								<td>Current Availability</td>
+								<td>Check out</td>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="room" items="${rooms}">
+								<tr>
+									<td><c:out value="${room.room_number}" /></td>
+									<td><c:out value="${room.room_type}" /></td>
+									<td><c:out value="${room.availability} "/></td>
+									<td><input type="checkbox" name="checkOutRooms" value="<c:out value="${room.id}" />" /></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<input type="submit" name="action" value="Back" />
+					<input type="submit" value="Check Out" />
+					<input type="hidden" name="action" value="checkOut" />
+				</form>
+			</c:when>
+		</c:choose>
 	</div>
 </div>
 </body>

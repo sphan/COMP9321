@@ -1,5 +1,6 @@
 package edu.unsw.comp9321.logic;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -68,14 +69,25 @@ public class Command {
 	
 	public static void displayAllBookings(HttpServletRequest request, DAO dao) {
 		List<BookingDTO> allBookings = dao.getAllBookings();
-//		List<BookingDTO> pendingBookings = new LinkedList<BookingDTO>();
+		List<BookingDTO> pendingBookings = new LinkedList<BookingDTO>();
 		
-//		for (BookingDTO booking : allBookings) {
-//			if (booking.getEndDate().after(Calendar.getInstance())) {
-//				pendingBookings.add(booking);
-//				System.out.println("booking: " + booking.getId());
-//			}
-//		}
+		for (BookingDTO booking : allBookings) {
+			if (booking.getEndDate().after(Calendar.getInstance())) {
+				pendingBookings.add(booking);
+				System.out.println("booking: " + booking.getId());
+			}
+		}
+		
+		List<BookingDTO> booked = new LinkedList<BookingDTO>();
+		List<BookingDTO> checkedin = new LinkedList<BookingDTO>();
+		for (BookingDTO booking : pendingBookings) {
+			List<RoomDTO> rooms = dao.getRoomsByBooking(booking.getId());
+			if (bookingAllCheckedIn(rooms)) {
+				checkedin.add(booking);
+			} else {
+				booked.add(booking);
+			}
+		}
 		
 //		List<BookingDTO> booked = new LinkedList<BookingDTO>();
 //		List<BookingDTO> checkedin = new LinkedList<BookingDTO>();
@@ -89,13 +101,16 @@ public class Command {
 //			}
 //		}
 		
-		request.setAttribute("booked", allBookings);
-		request.setAttribute("resultNum", allBookings.size());
+		request.setAttribute("booked", booked);
+		request.setAttribute("checkedin", checkedin);
+		request.setAttribute("bookedNum", booked.size());
+		request.setAttribute("checkedinNum", checkedin.size());
 //		request.setAttribute("checkedin", checkedin);
 	}
 	
 	public static String staffSelectBooking(HttpServletRequest request, DAO dao) {
 		String nextPage = "checkInPage.jsp";
+		boolean checkedIn = false;
 		
 		int bookingID = 0;
 		if (request.getParameter("bookingID") == null) {
@@ -111,8 +126,10 @@ public class Command {
 		List<RoomDTO> rooms = dao.getRoomsByBooking(bookingID);
 		CustomerDTO customer = dao.getCustomerByBookingID(bookingID);
 				
+		request.setAttribute("checkedIn", checkedIn);
 		request.setAttribute("customer", customer);
 		request.setAttribute("rooms", rooms);
+		request.setAttribute("bookingID", bookingID);
 		return nextPage;
 	}
 	
@@ -137,6 +154,37 @@ public class Command {
 		request.setAttribute("booked", bookings);
 		request.setAttribute("resultNum", bookings.size());
 		request.setAttribute("staffName", request.getParameter("staffName"));
+		
+		return nextPage;
+	}
+	
+	public static String checkIn(HttpServletRequest request, DAO dao, PassByRef pbr) {
+		String nextPage = "checkInPage.jsp";
+		boolean checkedIn = false;
+		
+		String[] roomIDs = request.getParameterValues("checkInRooms");
+		
+		if (roomIDs == null) {
+			displayAllBookings(request, dao);
+			pbr.addErrorMessage("Select a room to check in.");
+			return "staffPage.jsp";
+		}
+		
+		List<RoomDTO> rooms = new ArrayList<RoomDTO>();
+		
+		for (String roomID : roomIDs) {
+			try {
+				int room_id = Integer.parseInt(roomID);
+				dao.updateRoomAvailability(room_id, "checkedin");
+				rooms.add(dao.getRoomByID(room_id));
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		checkedIn = true;
+		request.setAttribute("rooms", rooms);
+		request.setAttribute("checkedIn", checkedIn);
 		
 		return nextPage;
 	}
@@ -172,5 +220,21 @@ public class Command {
 				System.out.println(roomtype + ": " + avail + " " + occupancies.get(roomtype).get(avail));
 			}
 		}
+	}
+	
+	public static boolean bookingAllCheckedIn(List<RoomDTO> rooms) {
+		int checkedInCnt = 0;
+		for (RoomDTO room : rooms) {
+			if (room.getAvailability() == Availability.BOOKED) {
+				return false;
+			} else if (room.getAvailability() == Availability.CHECKEDIN) {
+				checkedInCnt++;
+			}
+		}
+		
+		if (checkedInCnt == rooms.size())
+			return true;
+		
+		return false;
 	}
 }

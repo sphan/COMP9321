@@ -397,6 +397,19 @@ public class DAO {
 		}
 		return returnRes;
 	}
+	
+	public void updateRoomAvailability(int room_id, String new_avail) {
+		try {
+			PreparedStatement pStatement = connection.prepareStatement(
+					"update room set availability = ? where id = ?");
+			pStatement.setString(1, new_avail);
+			pStatement.setInt(2, room_id);
+			pStatement.executeUpdate();
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in updateRoomAvailability");
+		}
+	}
 
 	//return every single rooms, plan to use this for room occupancy
 	public List<RoomDTO> getAllRooms() {
@@ -452,6 +465,31 @@ public class DAO {
 		}
 		
 		return rooms;
+	}
+	
+	public RoomDTO getRoomByID(int room_id) {
+		RoomDTO room = null;
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "select r.id, r.room_number, r.availability, rt.room_type, r.hotel_id " +
+					"from room r join room_type rt on (rt.id = r.room_type_id)" +
+					"where r.id = " + room_id;
+			ResultSet res = stmnt.executeQuery(query_cast);
+			
+			int id = res.getInt("id");
+			int roomNum = res.getInt("room_number");
+			String availability = res.getString("availability");
+			String room_type = res.getString("room_type");
+			int hotel = res.getInt("hotel_id");
+			
+			room = new RoomDTO(id, roomNum, 0, 0, room_type, availability, hotel);
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getRoomByID");
+		}
+		
+		return room;
 	}
 
 	public CustomerDTO addCustomer(String firstName, String lastName) {
@@ -621,7 +659,7 @@ public class DAO {
 		Calendar startDate = new GregorianCalendar();
 		startDate.setTime(res.getDate("start_date"));
 		Calendar endDate = new GregorianCalendar();
-		startDate.setTime(res.getDate("end_date"));
+		endDate.setTime(res.getDate("end_date"));
 		
 		return new BookingDTO(cb_id, new CustomerDTO(c_id, c_Firstname, c_LastName), startDate, endDate);
 	}
