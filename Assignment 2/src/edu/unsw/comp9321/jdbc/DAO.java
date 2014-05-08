@@ -422,6 +422,37 @@ public class DAO {
 		}
 		return rooms;
 	}
+	
+	public List<RoomDTO> getRoomsByBooking(int bookingID) {
+		List<RoomDTO> rooms = new ArrayList<RoomDTO>();
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "select r.id as room_id, r.room_number, r.availability, " +
+					"rt.room_type, h.id as hotel_id, h.location from room r join room_type rt " +
+					"on (rt.id = r.room_type_id) " +
+					"join hotel h on (h.id = r.hotel_id) " +
+					"join room_schedule rs on (rs.room_id = r.id) " +
+					"where rs.customer_booking_id = " + bookingID;
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is " + res.getFetchSize());
+			
+			while (res.next()) {
+				int id = res.getInt("room_id");
+				int roomNum = res.getInt("room_number");
+				String availability = res.getString("availability");
+				String room_type = res.getString("room_type");
+				int hotel = res.getInt("hotel_id");
+//				String location = res.getString("location");
+				
+				rooms.add(new RoomDTO(id, roomNum, 0, 0, room_type, availability, hotel));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return rooms;
+	}
 
 	public CustomerDTO addCustomer(String firstName, String lastName) {
 		firstName = firstName.toUpperCase();
@@ -482,6 +513,28 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return customers;
+	}
+	
+	public CustomerDTO getCustomerByBookingID(int bookingID) {
+		CustomerDTO customer = null;
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "select c.id, c.first_name, c.last_name " +
+					"from customer c " +
+					"join customer_booking cb on " +
+					"(cb.customer_id = c.id) " +
+					"where cb.id = " + bookingID;
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+res.getFetchSize());
+			
+			customer = new CustomerDTO(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return customer;
+		
 	}
 
 

@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import edu.unsw.comp9321.jdbc.Availability;
 import edu.unsw.comp9321.jdbc.BookingDTO;
+import edu.unsw.comp9321.jdbc.CustomerDTO;
 import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.HotelDTO;
+import edu.unsw.comp9321.jdbc.RoomDTO;
 import edu.unsw.comp9321.jdbc.StaffDTO;
 import edu.unsw.comp9321.jdbc.StaffType;
 
@@ -41,7 +43,7 @@ public class Command {
 		return nextPage;
 	}
 	
-	public static String login(HttpServletRequest request, DAO dao) {
+	public static String staffLogin(HttpServletRequest request, DAO dao) {
 		String nextPage = "customerMain.jsp";
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -56,7 +58,8 @@ public class Command {
 					nextPage = "ownerPage.jsp";
 					displayAllOccupancies(request, dao);
 				}
-				request.setAttribute("staffName", staff.getName());
+				request.getSession().setAttribute("staffName", staff.getName());
+//				request.setAttribute("staffName", staff.getName());
 			}
 		}
 		
@@ -89,6 +92,28 @@ public class Command {
 		request.setAttribute("booked", allBookings);
 		request.setAttribute("resultNum", allBookings.size());
 //		request.setAttribute("checkedin", checkedin);
+	}
+	
+	public static String staffSelectBooking(HttpServletRequest request, DAO dao) {
+		String nextPage = "checkInPage.jsp";
+		
+		int bookingID = 0;
+		if (request.getParameter("bookingID") == null) {
+			return "staffPage.jsp";
+		} else {
+			try {
+				bookingID = Integer.parseInt(request.getParameter("bookingID"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		List<RoomDTO> rooms = dao.getRoomsByBooking(bookingID);
+		CustomerDTO customer = dao.getCustomerByBookingID(bookingID);
+				
+		request.setAttribute("customer", customer);
+		request.setAttribute("rooms", rooms);
+		return nextPage;
 	}
 	
 	public static String staffSearch(HttpServletRequest request, DAO dao) {
