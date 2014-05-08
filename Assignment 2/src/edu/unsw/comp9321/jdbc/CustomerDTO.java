@@ -3,32 +3,32 @@ package edu.unsw.comp9321.jdbc;
 public class CustomerDTO {
 	
 	private final int id;
-	private String name;
-	private String userName;
+	private String first_name;
+	private String last_name;
 	
-	public CustomerDTO (int id, String name, String userName) {
+	public CustomerDTO (int id, String firstName, String lastName) {
 		this.id = id;
-		this.setName(name);
-		this.setUserName(userName);
+		this.setName(firstName);
+		this.setUserName(lastName);
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return first_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String firstName) {
+		this.first_name = firstName;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getLastName() {
+		return last_name;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName(String lastName) {
+		this.last_name = lastName;
 	}
 }
