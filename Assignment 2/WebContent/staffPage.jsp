@@ -27,7 +27,7 @@
 			</c:when>
 			<c:when test="${resultNum gt 0}">
 				<p>All Customer Bookings:</p>
-				<form action="control" method="POST">
+				<form action="staff" method="POST">
 					<table id="result-table">
 						<thead>
 							<tr id="result-table-header">
@@ -41,7 +41,7 @@
 							<c:forEach var="booking" items="${booked}">
 								<tr>
 									<td><c:out value="${booking.id}" /></td>
-									<td><c:out value="${booking.customer.name}" /></td>
+									<td><c:out value="${booking.customer.firstName}" /> <c:out value="${booking.customer.lastName}" /></td>
 									<td>Booked</td>
 									<td><input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
 								</tr>
@@ -49,7 +49,8 @@
 						</tbody>
 					</table>
 					<div>
-						<input type="submit" name="action" value="Select Booking">
+						<input type="submit" value="Select Booking">
+						<input type="hidden" name="action" value="selectBooking">
 					</div>
 				</form>
 			</c:when>
