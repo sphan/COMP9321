@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
+import edu.unsw.comp9321.bean.BookingListBean;
+import edu.unsw.comp9321.bean.BookingSelection;
+import edu.unsw.comp9321.bean.SearchDetailsBean;
 import edu.unsw.comp9321.exception.ServiceLocatorException;
 import edu.unsw.comp9321.logic.PassByRef;
 
@@ -65,31 +68,48 @@ public class DAO {
 		return hotels;
 	}
 
-	public List<RoomTypeDTO> getHotelRoomTypes(String location, int maxPrice) {
+	public List<RoomTypeDTO> getHotelRoomSelection(SearchDetailsBean sdb) {
 		List<RoomTypeDTO> roomTypeList = new ArrayList<RoomTypeDTO>();
 
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = 
 					"select "
-							+ "rt.room_type, "
-							+ "rt.price, "
-							+ "count(rt.room_type) as count "
-							+ "from "
-							+ "room r "
-							+ "join "
-							+ "room_type rt "
-							+ "on "
-							+ "(r.room_type_id=rt.id) "
-							+ "join "
-							+ "hotel h "
-							+ "on "
-							+ "(h.id=r.hotel_id) "
-							+ "where "
-							+ "h.location='"+location+"' "
-							+ "and "
-							+ "rt.price <="+maxPrice+" "
-							+ "group by rt.room_type, rt.price";
+					+ "rt.room_type, "
+					+ "rt.price, "
+					+ "count(rt.room_type) as count "
+					+ "from "
+					+ "room r "
+					+ "join "
+					+ "hotel h "
+					+ "on (r.hotel_id=h.id) "
+					+ "join "
+					+ "room_type rt "
+					+ "on (rt.id=r.room_type_id) "
+					+ "where "
+					+ "h.location='"+sdb.getLocation()+"' "
+					+ "and "
+					+ "rt.price <="+sdb.getMaxPrice()+" "
+					+ "and "
+					+ "r.id not in "
+					+ "(select "
+					+ "r.id "
+					+ "from "
+					+ "room_schedule rs "
+					+ "join "
+					+ "customer_booking cb "
+					+ "on (rs.customer_booking_id=cb.id) "
+					+ "join "
+					+ "room r "
+					+ "on (r.id=rs.room_id) "
+					+ "join "
+					+ "room_type rt "
+					+ "on (rt.id=r.room_type_id) "
+					+ "where "
+					+ "(cb.start_date between '"+sdb.getStartYear()+"-"+sdb.getStartMonth()+"-"+sdb.getStartDay()+"' and '"+sdb.getEndYear()+"-"+sdb.getEndMonth()+"-"+sdb.getEndDay()+"') "
+					+ "or "
+					+ "(cb.end_date between '"+sdb.getStartYear()+"-"+sdb.getStartMonth()+"-"+sdb.getStartDay()+"' and '"+sdb.getEndYear()+"-"+sdb.getEndMonth()+"-"+sdb.getEndDay()+"')) "
+					+ "group by rt.room_type, rt.price ";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			while (res.next()) {
@@ -198,9 +218,8 @@ public class DAO {
 							+ "cb.start_date,"
 							+ "cb.end_date,"
 							+ "c.id as cid,"
-							+ "c.name,"
-							+ "c.username,"
-							+ "c.password "
+							+ "c.first_name,"
+							+ "c.last_name "
 							+ "FROM CUSTOMER_BOOKING cb "
 							+ "JOIN CUSTOMER c "
 							+ "ON (cb.CUSTOMER_ID=c.ID)";
@@ -215,7 +234,7 @@ public class DAO {
 		}
 		return bookings;
 	}
-	
+
 	/**
 	 * Return booking by the given booking id.
 	 * @param bid
@@ -223,21 +242,20 @@ public class DAO {
 	 */
 	public BookingDTO getBookingByID(int bid) {
 		BookingDTO booking = null;
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast =	"SELECT "
-							+ "cb.id as cbid,"
-							+ "cb.start_date,"
-							+ "cb.end_date,"
-							+ "c.id as cid,"
-							+ "c.name,"
-							+ "c.username,"
-							+ "c.password "
-							+ "FROM CUSTOMER_BOOKING cb "
-							+ "JOIN CUSTOMER c "
-							+ "ON (cb.CUSTOMER_ID=c.ID)"
-							+ "WHERE cb.id = " + bid;
+					+ "cb.id as cbid,"
+					+ "cb.start_date,"
+					+ "cb.end_date,"
+					+ "c.id as cid,"
+					+ "c.first_name,"
+					+ "c.last_name "
+					+ "FROM CUSTOMER_BOOKING cb "
+					+ "JOIN CUSTOMER c "
+					+ "ON (cb.CUSTOMER_ID=c.ID)"
+					+ "WHERE cb.id = " + bid;
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+ res.getFetchSize());
 			while (res.next()) {
@@ -247,27 +265,26 @@ public class DAO {
 			SQLe.printStackTrace();
 			pbr.addErrorMessage("SQLException in getBookingsByID");
 		}
-		
+
 		return booking;
 	}
-	
+
 	public List<BookingDTO> getBookingsByCustomerName(String customerName) {
 		List<BookingDTO> bookings = new ArrayList<BookingDTO>();
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast =	"SELECT "
-							+ "cb.id as cbid,"
-							+ "cb.start_date,"
-							+ "cb.end_date,"
-							+ "c.id as cid,"
-							+ "c.name,"
-							+ "c.username,"
-							+ "c.password "
-							+ "FROM CUSTOMER_BOOKING cb "
-							+ "JOIN CUSTOMER c "
-							+ "ON (cb.CUSTOMER_ID=c.ID)"
-							+ "WHERE c.name = '" + customerName + "'";
+					+ "cb.id as cbid,"
+					+ "cb.start_date,"
+					+ "cb.end_date,"
+					+ "c.id as cid,"
+					+ "c.first_name,"
+					+ "c.lastname,"
+					+ "FROM CUSTOMER_BOOKING cb "
+					+ "JOIN CUSTOMER c "
+					+ "ON (cb.CUSTOMER_ID=c.ID)"
+					+ "WHERE c.first_name = '" + customerName + "'";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+ res.getFetchSize());
 			while (res.next()) {
@@ -278,12 +295,14 @@ public class DAO {
 			SQLe.printStackTrace();
 			pbr.addErrorMessage("SQLException in getBookingsByCustomerName");
 		}
-		
+
 		return bookings;
 	}
-	
-	public BookingDTO addBooking(int custID, int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear) {
+
+	public BookingDTO addBooking(
+			int custID, int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear, BookingListBean blb) {
 		BookingDTO returnRes = null;
+		System.out.println("add booking");
 		if (!isValidDate(startDay, startMonth, startYear) || !isValidDate(endDay, endMonth, endYear)) {
 			return returnRes;
 		}
@@ -311,9 +330,8 @@ public class DAO {
 							+ "cb.start_date,"
 							+ "cb.end_date,"
 							+ "c.id as cid,"
-							+ "c.name,"
-							+ "c.username,"
-							+ "c.password "
+							+ "c.first_name,"
+							+ "c.last_name "
 							+ " FROM CUSTOMER_BOOKING CB "
 							+ "JOIN CUSTOMER C "
 							+ "ON (CB.CUSTOMER_ID=C.ID) "
@@ -322,7 +340,58 @@ public class DAO {
 			logger.info("The result set size is "+res.getFetchSize());
 
 			while (res.next()) {
-				returnRes = rebuildBooking(res);			}
+				returnRes = rebuildBooking(res);
+			}
+			//allocate rooms to the booking from bookingList
+			List<BookingSelection> bsList = blb.getList();
+			for (BookingSelection bs : bsList) {
+				stmnt = connection.createStatement();
+				query_cast = "select "
+						+ "r.id "
+						+ "from "
+						+ "room r "
+						+ "join "
+						+ "hotel h "
+						+ "on (r.hotel_id=h.id) "
+						+ "join "
+						+ "room_type rt "
+						+ "on (rt.id=r.room_type_id) "
+						+ "where h.location='"+blb.getLocation()+"' "
+						+ "and "
+						+ "rt.room_type='"+bs.getRoomType()+"' "
+						+ "and "
+						+ "r.id "
+						+ "not in "
+						+ "(select "
+						+ "r.id "
+						+ "from "
+						+ "room_schedule rs "
+						+ "join "
+						+ "customer_booking cb "
+						+ "on (rs.customer_booking_id=cb.id) "
+						+ "join room r "
+						+ "on (r.id=rs.room_id) "
+						+ "where "
+						+ "(cb.start_date between '"+blb.getStartYear()+"-"+blb.getStartMonth()+"-"+blb.getStartDay()+"' and '"+blb.getEndYear()+"-"+blb.getEndMonth()+"-"+blb.getEndDay()+"') "
+						+ "or "
+						+ "(cb.end_date between '"+blb.getStartYear()+"-"+blb.getStartMonth()+"-"+blb.getStartDay()+"' and '"+blb.getEndYear()+"-"+blb.getEndMonth()+"-"+blb.getEndDay()+"'))";
+				res = stmnt.executeQuery(query_cast);
+				logger.info("The result set size is "+res.getFetchSize());
+				if (res.next()) {
+					preppedStmnt = 
+							connection.prepareStatement(""
+									+ "INSERT "
+									+ "INTO "
+									+ "ROOM_SCHEDULE "
+									+ "VALUES(DEFAULT,?,?)", 
+									Statement.RETURN_GENERATED_KEYS);
+					preppedStmnt.setString(1, String.valueOf(res.getInt("id")));
+					System.out.println(res.getInt("id"));
+					preppedStmnt.setString(2, String.valueOf(last_inserted_id));
+					System.out.println(last_inserted_id);
+					preppedStmnt.executeUpdate();
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -354,27 +423,37 @@ public class DAO {
 		return rooms;
 	}
 
-	public CustomerDTO addCustomer(String name, String userName, String password) {
-		name = name.toUpperCase();
-		userName = userName.toUpperCase();
+	public CustomerDTO addCustomer(String firstName, String lastName) {
+		firstName = firstName.toUpperCase();
+		lastName = lastName.toUpperCase();
 		CustomerDTO returnResult = null;
 		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO CUSTOMER VALUES(DEFAULT,?,?,?)");
-			preparedStatement.setString(1, name);
-			preparedStatement.setString(2, userName);
-			preparedStatement.setString(3, password);
-			preparedStatement.executeUpdate();
+			PreparedStatement preppedStmnt = 
+					connection.prepareStatement(""
+							+ "INSERT "
+							+ "INTO "
+							+ "CUSTOMER "
+							+ "VALUES(DEFAULT,?,?)", 
+							Statement.RETURN_GENERATED_KEYS);
+			preppedStmnt.setString(1, firstName);
+			preppedStmnt.setString(2, lastName);
+			preppedStmnt.executeUpdate();
 			//added to db
 			//now get from db and return;
+			ResultSet res = preppedStmnt.getGeneratedKeys();
+			int last_inserted_id = 0;
+			if (res.next()) {
+				last_inserted_id = res.getInt(1);
+			}
 			Statement stmnt = connection.createStatement();
-			String query_cast = "SELECT * FROM CUSTOMER WHERE USERNAME='"+userName+"'";
-			ResultSet res = stmnt.executeQuery(query_cast);
+			String query_cast = "SELECT * FROM CUSTOMER WHERE ID="+last_inserted_id;
+			res = stmnt.executeQuery(query_cast);
 			while (res.next()) {
 				int sqlid = res.getInt("id");
-				String sqlName = res.getString("name");
-				String sqlUserName = res.getString("username");
-				String sqlPpassword = res.getString("password");
-				returnResult = new CustomerDTO(sqlid, sqlName, sqlUserName, sqlPpassword);
+				String sqlFirstName = res.getString("first_name");
+				String sqlLastName = res.getString("last_name");
+
+				returnResult = new CustomerDTO(sqlid, sqlFirstName, sqlLastName);
 			}
 
 		} catch (Exception e) {
@@ -395,10 +474,9 @@ public class DAO {
 
 			while (res.next()) {
 				int id = res.getInt("id");
-				String name = res.getString("name");
-				String userName = res.getString("username");
-				String password = res.getString("password");
-				customers.add(new CustomerDTO(id, name, userName, password));
+				String firstName = res.getString("first_name");
+				String lastName = res.getString("last_name");
+				customers.add(new CustomerDTO(id, firstName, lastName));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -483,16 +561,16 @@ public class DAO {
 
 	private BookingDTO rebuildBooking(ResultSet res) throws SQLException {
 		int c_id = res.getInt("cid");
-		String c_name = res.getString("name");
-		String c_userName = res.getString("username");
-		String c_password = res.getString("password");
+		String c_Firstname = res.getString("first_name");
+		String c_LastName = res.getString("last_name");
 
 		int cb_id = res.getInt("cbid");
 		Calendar startDate = new GregorianCalendar();
 		startDate.setTime(res.getDate("start_date"));
 		Calendar endDate = new GregorianCalendar();
 		startDate.setTime(res.getDate("end_date"));
-		return new BookingDTO(cb_id, new CustomerDTO(c_id, c_name, c_userName, c_password), startDate, endDate);
+		
+		return new BookingDTO(cb_id, new CustomerDTO(c_id, c_Firstname, c_LastName), startDate, endDate);
 	}
 
 	private boolean isValidDate(int day, int month, int year) {

@@ -1,9 +1,9 @@
+<jsp:useBean id="searchDetails"
+	class="edu.unsw.comp9321.bean.SearchDetailsBean" scope="session" />
 <div id="searchForm">
-	<form action="search" method="POST">
+	<form action="search">
 		<div id="checkin">
-			Check In Date: <br>
-			Date:
-			<select name="startday">
+			Check In Date: <br> Date: <select name="startday">
 				<option>1</option>
 				<option>2</option>
 				<option>3</option>
@@ -35,9 +35,7 @@
 				<option>29</option>
 				<option>30</option>
 				<option>31</option>
-			</select>
-			Month:
-			<select name="startmonth">
+			</select> Month: <select name="startmonth">
 				<option value=1>January</option>
 				<option value=2>February</option>
 				<option value=3>March</option>
@@ -50,18 +48,14 @@
 				<option value=10>October</option>
 				<option value=11>November</option>
 				<option value=12>December</option>
-			</select>
-			Year:
-			<select name="startyear">
+			</select> Year: <select name="startyear">
 				<option>2014</option>
 				<option>2015</option>
 				<option>2016</option>
 			</select>
 		</div>
 		<div id="checkout">
-			Check Out Date: <br>
-			Date:
-			<select name="endday">
+			Check Out Date: <br> Date: <select name="endday">
 				<option>1</option>
 				<option>2</option>
 				<option>3</option>
@@ -93,9 +87,7 @@
 				<option>29</option>
 				<option>30</option>
 				<option>31</option>
-			</select>
-			Month:
-			<select name="endmonth">
+			</select> Month: <select name="endmonth">
 				<option value=1>January</option>
 				<option value=2>February</option>
 				<option value=3>March</option>
@@ -108,17 +100,14 @@
 				<option value=10>October</option>
 				<option value=11>November</option>
 				<option value=12>December</option>
-			</select>
-			Year:
-			<select name="endyear">
+			</select> Year: <select name="endyear">
 				<option>2014</option>
 				<option>2015</option>
 				<option>2016</option>
 			</select>
 		</div>
 		<div>
-			City:
-			<select name="city">
+			City: <select name="location">
 				<option>Sydney</option>
 				<option>Melbourne</option>
 				<option>Brisbane</option>
@@ -127,10 +116,7 @@
 			</select>
 		</div>
 		<div>
-		</div>
-		<div>
-			Max. Price per night:
-			<input type="number" name="maxPrice" min="0">
+			Max. Price per night: <input type="number" name="maxPrice" min="0">
 		</div>
 		<div>
 			<input type="submit" name="action" value="Search">

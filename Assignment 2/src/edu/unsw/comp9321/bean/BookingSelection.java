@@ -2,17 +2,17 @@ package edu.unsw.comp9321.bean;
 
 public class BookingSelection {
 	
+	private int index;
 	private String roomType;
-	private int count;
 	private int price;
 	
-	public BookingSelection(String roomType, int count, int price) {
+	public BookingSelection(int index, String roomType, int price) {
+		this.index = index;
 		this.roomType = roomType;
-		this.count = count;
 		this.price = price;
 	}
-	public BookingSelection(String roomType, String count, String price) {
-		this(roomType, Integer.parseInt(count), Integer.parseInt(price));
+	public BookingSelection(int index, String roomType, String price) {
+		this(index, roomType, Integer.parseInt(price));
 	}
 	
 	public String getRoomType() {
@@ -21,17 +21,17 @@ public class BookingSelection {
 	public void setRoomType(String roomType) {
 		this.roomType = roomType;
 	}
-	public int getCount() {
-		return count;
-	}
-	public void setCount(int count) {
-		this.count = count;
-	}
 	public int getPrice() {
 		return price;
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public int getIndex() {
+		return index;
+	}
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 }

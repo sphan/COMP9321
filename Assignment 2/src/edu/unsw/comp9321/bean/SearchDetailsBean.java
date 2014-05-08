@@ -1,11 +1,7 @@
 package edu.unsw.comp9321.bean;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class BookingListBean {
+public class SearchDetailsBean {
 	
-	private List<BookingSelection> list;
 	private int startDay;
 	private int startMonth;
 	private int startYear;
@@ -15,38 +11,7 @@ public class BookingListBean {
 	private int endYear;
 	
 	private String location;
-	
-	public BookingListBean() {
-		this.list = new ArrayList<BookingSelection>();
-	}
-
-	public List<BookingSelection> getList() {
-		return list;
-	}
-
-	public void setList(List<BookingSelection> list) {
-		this.list = list;
-	}
-	
-	public void addBookingSelection(BookingSelection bs) {
-		this.list.add(bs);
-	}
-	
-	public void clearBookingList() {
-		this.list = new ArrayList<BookingSelection>();
-	}
-	
-	public int getSize() {
-		return this.list.size();
-	}
-	
-	public int getTotalPrice() {
-		int total = 0;
-		for (BookingSelection bs : list) {
-			total += bs.getPrice();
-		}
-		return total;
-	}
+	private int maxPrice;
 	
 	public int getStartDay() {
 		return startDay;
@@ -90,5 +55,10 @@ public class BookingListBean {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
+	public int getMaxPrice() {
+		return maxPrice;
+	}
+	public void setMaxPrice(int maxPrice) {
+		this.maxPrice = maxPrice;
+	}
 }

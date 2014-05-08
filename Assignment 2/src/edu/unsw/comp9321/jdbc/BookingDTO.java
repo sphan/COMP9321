@@ -5,7 +5,13 @@ import java.util.Calendar;
 import java.util.List;
 
 public class BookingDTO {
-	// not sure if this should take in CustomerDTO.
+	
+	private int id;
+	private CustomerDTO customer;
+	private Calendar startDate;
+	private Calendar endDate;
+	private List<RoomDTO> rooms;
+	
 	public BookingDTO(int id, CustomerDTO customer, Calendar startDate, Calendar endDate) {
 		this.id = id;
 		this.customer = customer;
@@ -51,12 +57,5 @@ public class BookingDTO {
 	
 	public void setRooms(List<RoomDTO> rooms) {
 		this.rooms = rooms;
-
 	}
-
-	private int id;
-	private CustomerDTO customer;
-	private Calendar startDate;
-	private Calendar endDate;
-	private List<RoomDTO> rooms;
 }

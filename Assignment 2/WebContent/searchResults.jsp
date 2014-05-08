@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean id="booking" class="edu.unsw.comp9321.bean.BookingListBean"
 	scope="session" />
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,7 +17,7 @@
 	<div id="content">
 		<%@ include file="searchForm.html"%>
 		<div id="main-content">
-			<p>rooms matching your results:</p>
+			<p>Searching for hotel rooms in "${location}":</p>
 			<form action="booking" method="POST">
 				<input type="hidden" name="location" value="${location}"> <input
 					type="hidden" name="maxPrice" value="${maxPrice}">
@@ -44,9 +45,15 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<input type="submit" name="submit" value="submit"> <input
-					type="submit" name="submit" value="calculate total">
+				<input type="submit" name="action" value="submit"> <input
+					type="submit" name="action" value="calculate total">
 			</form>
+			<div>
+				<c:if test="${totalPrice != null}">
+						Total Price of booking selection is: ${totalPrice}<br>
+						
+				</c:if>
+			</div>
 		</div>
 	</div>
 	<div id="clearing-div"></div>

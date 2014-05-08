@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.unsw.comp9321.bean.BookingListBean;
+import edu.unsw.comp9321.bean.BookingSelection;
+import edu.unsw.comp9321.jdbc.BookingDTO;
+import edu.unsw.comp9321.jdbc.CustomerDTO;
 import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.RoomTypeDTO;
 
@@ -40,6 +44,39 @@ public class PaymentServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO booking and payment has been confirmed, we must create bookings and make email etc
+		PassByRef pbr = new PassByRef();
+		DAO dao = new DAO(pbr);
+		String nextPage = "";
+		
+		String firstName = request.getParameter("fname");
+		String lastName = request.getParameter("lname");
+		String email = request.getParameter("email");
+		String creditCardNumber = request.getParameter("creditcard");
+		String expirationMonth = request.getParameter("expireMM");
+		String expirationYear = request.getParameter("expireYY");
+		if (firstName.equals("")||lastName.equals("")||email.equals("")||creditCardNumber.equals("")||expirationMonth.equals("")||expirationYear.equals("")||
+				firstName==null||lastName==null||email==null||creditCardNumber==null||expirationMonth==null||expirationYear==null) {
+			nextPage = "booking.jsp";
+			pbr.addErrorMessage("one of the fields are invalid or incomplete");
+		} else {
+			BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
+			CustomerDTO cust = dao.addCustomer(firstName, lastName);
+			BookingDTO booking = dao.addBooking(
+					cust.getId(), 
+					blb.getStartDay(), 
+					blb.getStartMonth(), 
+					blb.getStartYear(), 
+					blb.getEndDay(), 
+					blb.getEndMonth(), 
+					blb.getEndYear(), blb
+					);
+			
+			
+		}
+		
+		pbr.postErrorMessage(request);
+		RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
+		rd.forward(request, response);
 	}
 
 }

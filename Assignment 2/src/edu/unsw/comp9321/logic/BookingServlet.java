@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.unsw.comp9321.bean.BookingListBean;
 import edu.unsw.comp9321.bean.BookingSelection;
+import edu.unsw.comp9321.bean.SearchDetailsBean;
 import edu.unsw.comp9321.exception.ServiceLocatorException;
 import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.RoomTypeDTO;
@@ -48,21 +49,54 @@ public class BookingServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PassByRef pbr = new PassByRef();
-		//#####################
-		BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
+		String nextPage = "";
 		String[] roomTypeName = request.getParameterValues("roomTypeName[]");
 		String[] roomTypePrice = request.getParameterValues("roomTypePrice[]");
 		String[] roomTypeCount = request.getParameterValues("roomTypeCount[]");
 		assert(roomTypeName.length==roomTypePrice.length && roomTypePrice.length==roomTypeCount.length);
-		for (int i = 0; i < roomTypeName.length; i++) {
-			if (Integer.parseInt(roomTypeCount[i]) != 0) {
-				blb.addBookingSelection(new BookingSelection(roomTypeName[i], roomTypePrice[i], roomTypeCount[i]));
+		//###############################################################
+		if (request.getParameter("action").equals("submit")) {
+			BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
+			blb.clearBookingList();//to prepare for a new search
+			SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
+			blb.setStartDay(sdb.getStartDay());
+			blb.setStartMonth(sdb.getStartMonth());
+			blb.setStartYear(sdb.getStartYear());
+			blb.setEndDay(sdb.getEndDay());
+			blb.setEndMonth(sdb.getEndMonth());
+			blb.setEndYear(sdb.getEndYear());
+			blb.setLocation(sdb.getLocation());
+			int index = 1;
+			for (int i = 0; i < roomTypeName.length; i++) {
+				if (Integer.parseInt(roomTypeCount[i]) != 0) {
+					for (int j = 0; j < Integer.parseInt(roomTypeCount[i]); j++) {
+						blb.addBookingSelection(new BookingSelection(index++, roomTypeName[i], roomTypePrice[i]));
+					}
+				}
 			}
+			nextPage = "booking.jsp";
 		}
-		//#####################
-		request.setAttribute("searchEmpty", false);
+		//###############################################################
+		else if (request.getParameter("action").equals("calculate total")) {
+			DAO dao = new DAO(pbr);
+			SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
+
+			int totalPrice = 0;
+			for (int i = 0; i < roomTypeName.length; i++) {
+				totalPrice += Integer.parseInt(roomTypeCount[i]) * Integer.parseInt(roomTypePrice[i]);
+			}
+			request.setAttribute("totalPrice", totalPrice);
+			request.setAttribute("roomTypeList", dao.getHotelRoomSelection(sdb));
+
+			nextPage = "searchResults.jsp";
+		} else {
+			nextPage = "customerMain.jsp";
+			pbr.addErrorMessage("an error occurred, please try it again");
+		}
+		//###############################################################
+
 		pbr.postErrorMessage(request);
-		RequestDispatcher rd = request.getRequestDispatcher("/" + "booking.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
 		rd.forward(request, response);
 	}
 }
