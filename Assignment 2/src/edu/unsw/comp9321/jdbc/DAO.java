@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -39,6 +40,29 @@ public class DAO {
 			pbr.addErrorMessage("SQLException in DAO");
 		}
 		logger.info("Got connection");
+	}
+	
+	public List<HotelDTO> getAllHotelLocations() {
+		List<HotelDTO> hotels = new ArrayList<HotelDTO>();
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "select id, name, location from hotel";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+res.getFetchSize());
+			
+			while (res.next()) {
+				int id = res.getInt("id");
+				String name = res.getString("name");
+				String location = res.getString("location");
+				hotels.add(new HotelDTO(id, name, location));
+			}
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getAllHotelLocation");
+		}
+		
+		return hotels;
 	}
 
 	public List<RoomTypeDTO> getHotelRoomTypes(String location, int maxPrice) {
@@ -79,6 +103,34 @@ public class DAO {
 			pbr.addErrorMessage("SQLException in getHotelRoomTypes");
 		}
 		return roomTypeList;
+	}
+	
+	public HashMap<String, HashMap<String, Integer>> getRoomsOccupancyByLocation(String location) {
+		HashMap<String, HashMap<String, Integer>> roomOccupancy = new HashMap<String, HashMap<String, Integer>>();
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "select rt.room_type, r.availability, count(r.availability) " +
+					"as count from room r join room_type rt on (r.room_type_id=rt.id) " +
+					"join hotel h on (h.id=r.hotel_id) where h.location = '" + location + "' " +
+					"group by rt.room_type, r.availability order by rt.room_type"; 
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+res.getFetchSize());
+			
+			while (res.next()) {
+				String room_type = res.getString("room_type");
+				String availability = res.getString("availability");
+				int availNum = res.getInt("count");
+				HashMap<String, Integer> temp = new HashMap<String, Integer>();
+				temp.put(availability, availNum);
+				roomOccupancy.put(room_type, temp);
+			}
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getRoomsOccupancyByLocation");
+		}
+		
+		return roomOccupancy;
 	}
 
 	//return all bookings including past completed ones

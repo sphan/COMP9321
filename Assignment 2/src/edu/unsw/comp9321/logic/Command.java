@@ -1,6 +1,7 @@
 package edu.unsw.comp9321.logic;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import edu.unsw.comp9321.jdbc.Availability;
 import edu.unsw.comp9321.jdbc.BookingDTO;
 import edu.unsw.comp9321.jdbc.DAO;
+import edu.unsw.comp9321.jdbc.HotelDTO;
 import edu.unsw.comp9321.jdbc.StaffDTO;
 import edu.unsw.comp9321.jdbc.StaffType;
 
@@ -30,6 +32,9 @@ public class Command {
 				if (staff.getType() == StaffType.MANAGER) {
 					nextPage = "staffPage.jsp";
 					displayAllBookings(request, dao);
+				} else if (staff.getType() == StaffType.OWNER) {
+					nextPage = "ownerPage.jsp";
+					displayAllOccupancies(request, dao);
 				}
 				request.setAttribute("staffName", staff.getName());
 			}
@@ -89,6 +94,20 @@ public class Command {
 		request.setAttribute("staffName", request.getParameter("staffName"));
 		
 		return nextPage;
+	}
+	
+	public static void displayAllOccupancies(HttpServletRequest request, DAO dao) {
+		List<HotelDTO> hotels = dao.getAllHotelLocations();
+		HashMap<String, HashMap<String, HashMap<String, Integer>>> results =
+				new HashMap<String, HashMap<String, HashMap<String, Integer>>>();
+		
+		for (HotelDTO hotel : hotels) {
+			HashMap<String, HashMap<String, Integer>> occupancies = dao.getRoomsOccupancyByLocation(hotel.getLocation());
+			if (occupancies.size() > 0)
+				results.put(hotel.getLocation(), occupancies);
+		}
+		
+		request.setAttribute("occupancies", results);
 	}
 	
 	/***********************************************
