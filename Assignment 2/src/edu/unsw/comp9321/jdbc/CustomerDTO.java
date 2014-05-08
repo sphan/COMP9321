@@ -3,8 +3,8 @@ package edu.unsw.comp9321.jdbc;
 public class CustomerDTO {
 	
 	private final int id;
-	private String first_name;
-	private String last_name;
+	private String firstName;
+	private String lastName;
 	
 	public CustomerDTO (int id, String firstName, String lastName) {
 		this.id = id;
@@ -17,18 +17,18 @@ public class CustomerDTO {
 	}
 
 	public String getFirstName() {
-		return first_name;
+		return firstName;
 	}
 
 	public void setName(String firstName) {
-		this.first_name = firstName;
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
-		return last_name;
+		return lastName;
 	}
 
 	public void setUserName(String lastName) {
-		this.last_name = lastName;
+		this.lastName = lastName;
 	}
 }
