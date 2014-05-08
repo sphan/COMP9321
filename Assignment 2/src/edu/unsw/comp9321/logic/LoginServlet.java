@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 		DAO dao = new DAO(pbr);
 		
 		if (action.equalsIgnoreCase("Login")) {
-			nextPage = Command.login(request, dao);
+			nextPage = Command.staffLogin(request, dao);
 			if (nextPage.equals("customerMain.jsp"))
 				pbr.addErrorMessage("User not found.");
 		}
