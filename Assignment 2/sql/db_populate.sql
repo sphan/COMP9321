@@ -239,11 +239,6 @@ insert into CUSTOMER values (default, 'Frank', 'Fryer');
 insert into CUSTOMER values (default, 'Gary', 'Grey');
 insert into CUSTOMER values (default, 'Harold', 'Haroldson');
 
-insert into CUSTOMER_BOOKING values (default, 2, '2014-05-09', '2014-05-11');
-insert into CUSTOMER_BOOKING values (default, 3, '2014-05-04', '2014-05-04');
-insert into CUSTOMER_BOOKING values (default, 4, '2014-05-03', '2014-05-04');
-insert into CUSTOMER_BOOKING values (default, 5, '2014-05-03', '2014-05-04');
-
 insert into STAFF values (default, 'Sandy', 'Sandy', 'password', 'manager');
 insert into STAFF values (default, 'Jason', 'Jason', 'password', 'manager');
 insert into STAFF values (default, 'Kate', 'Kate', 'password', 'owner');
