@@ -105,15 +105,26 @@ public class DAO {
 		return roomTypeList;
 	}
 	
+	/**
+	 * Get all room occupancies for the hotel chain by the given location.
+	 * @param location The location.
+	 * @return
+	 */
 	public HashMap<String, HashMap<String, Integer>> getRoomsOccupancyByLocation(String location) {
 		HashMap<String, HashMap<String, Integer>> roomOccupancy = new HashMap<String, HashMap<String, Integer>>();
 		
 		try {
 			Statement stmnt = connection.createStatement();
-			String query_cast = "select rt.room_type, r.availability, count(r.availability) " +
-					"as count from room r join room_type rt on (r.room_type_id=rt.id) " +
-					"join hotel h on (h.id=r.hotel_id) where h.location = '" + location + "' " +
-					"group by rt.room_type, r.availability order by rt.room_type"; 
+			String query_cast = "select rt.room_type, r.availability, " +
+					"count(r.availability) as count from room r " +
+					"join room_type rt on (r.room_type_id=rt.id) " +
+					"join hotel h on (h.id=r.hotel_id) where h.location = '" +
+					location + "' group by rt.room_type, r.availability order by rt.room_type";
+//" 
+//					"select rt.room_type, r.availability, count(r.availability) " +
+//					"as count from room r join room_type rt on (r.room_type_id=rt.id) " +
+//					"join hotel h on (h.id=r.hotel_id) where h.location = '" + location + "' " +
+//					"group by rt.room_type, r.availability order by rt.room_type"; 
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			
@@ -124,6 +135,14 @@ public class DAO {
 				HashMap<String, Integer> temp = new HashMap<String, Integer>();
 				temp.put(availability, availNum);
 				roomOccupancy.put(room_type, temp);
+//				if (roomOccupancy.get(room_type) != null) {
+//					
+//					roomOccupancy.put(room_type, temp);
+//				} else {
+//					System.out.println("2=> " + room_type + ": " + availability + " " + availNum);
+//					roomOccupancy.get(room_type).put(availability, availNum);
+//				}
+				System.out.println("1=> " + location + " " + room_type + ": " + availability + " " + availNum);
 			}
 		} catch (SQLException SQLe) {
 			SQLe.printStackTrace();
@@ -132,6 +151,41 @@ public class DAO {
 		
 		return roomOccupancy;
 	}
+	
+	/**
+	 * Get all room occupancies for the hotel chain by the given location.
+	 * @param location The location.
+	 * @return
+	 */
+	public HashMap<String, HashMap<String, Integer>> getRoomsOccupancyByLocation(String location, String availability) {
+		HashMap<String, HashMap<String, Integer>> roomOccupancy = new HashMap<String, HashMap<String, Integer>>();
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "select rt.room_type, r.availability, count(r.availability) " +
+					"as count from room r join room_type rt on (r.room_type_id=rt.id) " +
+					"join hotel h on (h.id=r.hotel_id) where h.location = '" + location + "' " +
+					"and r.availability = '" + availability + "' " +
+					"group by rt.room_type, r.availability order by rt.room_type"; 
+			ResultSet res = stmnt.executeQuery(query_cast);
+			logger.info("The result set size is "+res.getFetchSize());
+			
+			while (res.next()) {
+				String room_type = res.getString("room_type");
+				String avail = res.getString("availability");
+				int availNum = res.getInt("count");
+				HashMap<String, Integer> temp = new HashMap<String, Integer>();
+				temp.put(avail, availNum);
+				roomOccupancy.put(room_type, temp);
+			}
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getRoomsOccupancyByLocation");
+		}
+		
+		return roomOccupancy;
+	}
+
 
 	//return all bookings including past completed ones
 	public List<BookingDTO> getAllBookings() {

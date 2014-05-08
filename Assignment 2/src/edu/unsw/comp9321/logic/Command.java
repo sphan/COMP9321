@@ -15,8 +15,28 @@ import edu.unsw.comp9321.jdbc.StaffDTO;
 import edu.unsw.comp9321.jdbc.StaffType;
 
 public class Command {
-	public static String search(HttpServletRequest request, DAO dao) {
-		String nextPage = "";
+	public static String ownerSearch(HttpServletRequest request, DAO dao) {
+		String nextPage = "ownerPage.jsp";
+		
+		String hotelLocation = request.getParameter("hotelLocation");
+		System.out.println(hotelLocation);
+		String roomAvail = request.getParameter("roomAvail");
+		System.out.println(roomAvail);
+		
+		HashMap<String, HashMap<String, Integer>> occupancies;
+		
+		if (roomAvail.equalsIgnoreCase("all")) {
+			occupancies = dao.getRoomsOccupancyByLocation(hotelLocation);
+			printOccupancies(occupancies);
+		} else {
+			occupancies = dao.getRoomsOccupancyByLocation(hotelLocation, roomAvail.toUpperCase());
+		}
+		
+		HashMap<String, HashMap<String, HashMap<String, Integer>>> results =
+				new HashMap<String, HashMap<String, HashMap<String, Integer>>>();
+		results.put(hotelLocation, occupancies);
+		
+		request.setAttribute("occupancies", results);
 		
 		return nextPage;
 	}
@@ -103,6 +123,7 @@ public class Command {
 		
 		for (HotelDTO hotel : hotels) {
 			HashMap<String, HashMap<String, Integer>> occupancies = dao.getRoomsOccupancyByLocation(hotel.getLocation());
+//			printOccupancies(occupancies);
 			if (occupancies.size() > 0)
 				results.put(hotel.getLocation(), occupancies);
 		}
@@ -118,5 +139,13 @@ public class Command {
 			return true;
 		}
 		return false;
+	}
+	
+	public static void printOccupancies(HashMap<String, HashMap<String, Integer>> occupancies) {
+		for (String roomtype : occupancies.keySet()) {
+			for (String avail : occupancies.get(roomtype).keySet()) {
+				System.out.println(roomtype + ": " + avail + " " + occupancies.get(roomtype).get(avail));
+			}
+		}
 	}
 }

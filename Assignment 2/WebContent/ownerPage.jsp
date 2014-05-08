@@ -22,33 +22,29 @@
 	<%@ include file="ownerSearchForm.html"%>
 	<div id="main-content">
 		<p>Room Occupancy:</p>
-		<form action="control" method="POST">
-			
-			<c:forEach var="hotel" items="${occupancies}">
-				<div><h4><c:out value="${hotel.key}" /></h4></div>
-				<table id="result-table">
-					<thead>
-						<tr id="result-table-header">
-							<td>Room Type</td>
-							<td>Availability</td>
-							<td>Count</td>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="roomType" items="${hotel.value}">
-							<c:forEach var="occupancy" items="${roomType.value}">
-								<tr>
-									<td><c:out value="${roomType.key}" /></td>
-									<td><c:out value="${occupancy.key}" /></td>
-									<td><c:out value="${occupancy.value}" /></td>
-								</tr>
-							</c:forEach>
+		<c:forEach var="hotel" items="${occupancies}">
+			<div><h4><c:out value="${hotel.key}" /></h4></div>
+			<table id="result-table">
+				<thead>
+					<tr id="result-table-header">
+						<td>Room Type</td>
+						<td>Availability</td>
+						<td>Count</td>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="roomType" items="${hotel.value}">
+						<c:forEach var="occupancy" items="${roomType.value}">
+							<tr>
+								<td><c:out value="${roomType.key}" /></td>
+								<td><c:out value="${occupancy.key}" /></td>
+								<td><c:out value="${occupancy.value}" /></td>
+							</tr>
 						</c:forEach>
-					</tbody>
-				</table>
-			</c:forEach>
-				
-		</form>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:forEach>
 	</div>
 </div>
 </body>
