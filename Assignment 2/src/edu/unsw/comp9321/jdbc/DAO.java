@@ -46,16 +46,16 @@ public class DAO {
 		}
 		logger.info("Got connection");
 	}
-	
+
 	public List<HotelDTO> getAllHotelLocations() {
 		List<HotelDTO> hotels = new ArrayList<HotelDTO>();
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = "select id, name, location from hotel";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
-			
+
 			while (res.next()) {
 				int id = res.getInt("id");
 				String name = res.getString("name");
@@ -66,13 +66,13 @@ public class DAO {
 			SQLe.printStackTrace();
 			pbr.addErrorMessage("SQLException in getAllHotelLocation");
 		}
-		
+
 		return hotels;
 	}
-	
+
 	public HotelDTO getHotelByRoomID(int room_id) {
 		HotelDTO hotel = null;
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = "select h.id, h.name, h.location from hotel h " +
@@ -80,13 +80,13 @@ public class DAO {
 					"where r.id = " + room_id;
 			ResultSet res = stmnt.executeQuery(query_cast);
 			res.next();
-			
+
 			hotel = new HotelDTO(res.getInt("id"), res.getString("name"), res.getString("location"));
 		} catch (SQLException SQLe) {
 			SQLe.printStackTrace();
 			pbr.addErrorMessage("SQLException in getAllHotelLocation");
 		}
-		
+
 		return hotel;
 	}
 
@@ -97,41 +97,41 @@ public class DAO {
 			Statement stmnt = connection.createStatement();
 			String query_cast = 
 					"select "
-					+ "rt.room_type, "
-					+ "rt.price, "
-					+ "count(rt.room_type) as count "
-					+ "from "
-					+ "room r "
-					+ "join "
-					+ "hotel h "
-					+ "on (r.hotel_id=h.id) "
-					+ "join "
-					+ "room_type rt "
-					+ "on (rt.id=r.room_type_id) "
-					+ "where "
-					+ "h.location='"+sdb.getLocation()+"' "
-					+ "and "
-					+ "rt.price <="+sdb.getMaxPrice()+" "
-					+ "and "
-					+ "r.id not in "
-					+ "(select "
-					+ "r.id "
-					+ "from "
-					+ "room_schedule rs "
-					+ "join "
-					+ "customer_booking cb "
-					+ "on (rs.customer_booking_id=cb.id) "
-					+ "join "
-					+ "room r "
-					+ "on (r.id=rs.room_id) "
-					+ "join "
-					+ "room_type rt "
-					+ "on (rt.id=r.room_type_id) "
-					+ "where "
-					+ "(cb.start_date between '"+sdb.getStartYear()+"-"+sdb.getStartMonth()+"-"+sdb.getStartDay()+"' and '"+sdb.getEndYear()+"-"+sdb.getEndMonth()+"-"+sdb.getEndDay()+"') "
-					+ "or "
-					+ "(cb.end_date between '"+sdb.getStartYear()+"-"+sdb.getStartMonth()+"-"+sdb.getStartDay()+"' and '"+sdb.getEndYear()+"-"+sdb.getEndMonth()+"-"+sdb.getEndDay()+"')) "
-					+ "group by rt.room_type, rt.price ";
+							+ "rt.room_type, "
+							+ "rt.price, "
+							+ "count(rt.room_type) as count "
+							+ "from "
+							+ "room r "
+							+ "join "
+							+ "hotel h "
+							+ "on (r.hotel_id=h.id) "
+							+ "join "
+							+ "room_type rt "
+							+ "on (rt.id=r.room_type_id) "
+							+ "where "
+							+ "h.location='"+sdb.getLocation()+"' "
+							+ "and "
+							+ "rt.price <="+sdb.getMaxPrice()+" "
+							+ "and "
+							+ "r.id not in "
+							+ "(select "
+							+ "r.id "
+							+ "from "
+							+ "room_schedule rs "
+							+ "join "
+							+ "customer_booking cb "
+							+ "on (rs.customer_booking_id=cb.id) "
+							+ "join "
+							+ "room r "
+							+ "on (r.id=rs.room_id) "
+							+ "join "
+							+ "room_type rt "
+							+ "on (rt.id=r.room_type_id) "
+							+ "where "
+							+ "(cb.start_date between '"+sdb.getStartYear()+"-"+sdb.getStartMonth()+"-"+sdb.getStartDay()+"' and '"+sdb.getEndYear()+"-"+sdb.getEndMonth()+"-"+sdb.getEndDay()+"') "
+							+ "or "
+							+ "(cb.end_date between '"+sdb.getStartYear()+"-"+sdb.getStartMonth()+"-"+sdb.getStartDay()+"' and '"+sdb.getEndYear()+"-"+sdb.getEndMonth()+"-"+sdb.getEndDay()+"')) "
+							+ "group by rt.room_type, rt.price ";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			while (res.next()) {
@@ -146,7 +146,7 @@ public class DAO {
 		}
 		return roomTypeList;
 	}
-	
+
 	/**
 	 * Get all room occupancies for the hotel chain by the given location.
 	 * @param location The location.
@@ -154,7 +154,7 @@ public class DAO {
 	 */
 	public List<OccupancyBean> getRoomsOccupancyByLocation(String location) {
 		List<OccupancyBean> occupancies = new ArrayList<OccupancyBean>();
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = "select rt.room_type, r.availability, " +
@@ -164,22 +164,22 @@ public class DAO {
 					location + "' group by rt.room_type, r.availability order by rt.room_type";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
-			
+
 			while (res.next()) {
 				String room_type = res.getString("room_type");
 				final String availability = res.getString("availability");
 				final int availNum = res.getInt("count");
-				
+
 				occupancies.add(new OccupancyBean(room_type, availability, availNum));
 			}
 		} catch (SQLException SQLe) {
 			SQLe.printStackTrace();
 			pbr.addErrorMessage("SQLException in getRoomsOccupancyByLocation");
 		}
-		
+
 		return occupancies;
 	}
-	
+
 	/**
 	 * Get all room occupancies for the hotel chain by the given location.
 	 * @param location The location.
@@ -189,7 +189,7 @@ public class DAO {
 		List<OccupancyBean> roomOccupancy = new ArrayList<OccupancyBean>();
 		System.out.println(location);
 		System.out.println(availability);
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = "select rt.room_type, r.availability, count(r.availability) " +
@@ -199,7 +199,7 @@ public class DAO {
 					"group by rt.room_type, r.availability order by rt.room_type"; 
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
-			
+
 			while (res.next()) {
 				String room_type = res.getString("room_type");
 				String avail = res.getString("availability");
@@ -210,7 +210,7 @@ public class DAO {
 			SQLe.printStackTrace();
 			pbr.addErrorMessage("SQLException in getRoomsOccupancyByLocation");
 		}
-		
+
 		return roomOccupancy;
 	}
 
@@ -245,10 +245,10 @@ public class DAO {
 
 	/**
 	 * Return booking by the given booking id.
-	 * @param bid
+	 * @param customerBookingID
 	 * @return
 	 */
-	public BookingDTO getBookingByID(int bid) {
+	public BookingDTO getBookingByID(int customerBookingID) {
 		BookingDTO booking = null;
 
 		try {
@@ -263,10 +263,11 @@ public class DAO {
 					+ "FROM CUSTOMER_BOOKING cb "
 					+ "JOIN CUSTOMER c "
 					+ "ON (cb.CUSTOMER_ID=c.ID)"
-					+ "WHERE cb.id = " + bid;
+					+ "WHERE cb.id = " + customerBookingID;
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+ res.getFetchSize());
 			while (res.next()) {
+				
 				booking = rebuildBooking(res);
 			}
 		} catch (SQLException SQLe) {
@@ -307,105 +308,108 @@ public class DAO {
 		return bookings;
 	}
 
-	public BookingDTO addBooking(
-			int custID, int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear, BookingListBean blb) {
-		BookingDTO returnRes = null;
-		System.out.println("add booking");
-		if (!isValidDate(startDay, startMonth, startYear) || !isValidDate(endDay, endMonth, endYear)) {
-			return returnRes;
-		}
+	public RoomDTO addRoomSchedule(int custBookingID, String roomType, String location, String startDate, String endDate) {
+		RoomDTO room = null;
+		ResultSet result = null;
+		ResultSet generatedKeys = null;
+
 		try {
-			PreparedStatement preppedStmnt = connection.prepareStatement(
-					"INSERT "
-							+ "INTO "
-							+ "CUSTOMER_BOOKING "
-							+ "VALUES(DEFAULT,?,?,?)", 
-							Statement.RETURN_GENERATED_KEYS);
-			preppedStmnt.setInt(1, custID);
-			preppedStmnt.setString(2, startYear+"-"+startMonth+"-"+startDay);
-			preppedStmnt.setString(3, endYear+"-"+endMonth+"-"+endDay);
-			preppedStmnt.executeUpdate();
+			PreparedStatement ps = connection.prepareStatement(
+					"select "
+							+ "r.id "
+							+ "from "
+							+ "room r "
+							+ "join "
+							+ "hotel h "
+							+ "on (r.hotel_id=h.id) "
+							+ "join "
+							+ "room_type rt "
+							+ "on (rt.id=r.room_type_id) "
+							+ "where h.location=? "
+							+ "and "
+							+ "rt.room_type=? "
+							+ "and "
+							+ "r.id "
+							+ "not in "
+							+ "(select "
+							+ "r.id "
+							+ "from "
+							+ "room_schedule rs "
+							+ "join "
+							+ "customer_booking cb "
+							+ "on (rs.customer_booking_id=cb.id) "
+							+ "join room r "
+							+ "on (r.id=rs.room_id) "
+							+ "where "
+							+ "(cb.start_date between ? and ?) "
+							+ "or "
+							+ "(cb.end_date between ? and ?))");
+			ps.setString(1, location);
+			ps.setString(2, roomType);
+			ps.setString(3, startDate);
+			ps.setString(4, endDate);
+			ps.setString(5, startDate);
+			ps.setString(6, endDate);
+			result = ps.executeQuery();
 
-			ResultSet res = preppedStmnt.getGeneratedKeys();
-			int last_inserted_id = 0;
-			if (res.next()) {
-				last_inserted_id = res.getInt(1);
-			}
-			Statement stmnt = connection.createStatement();
-			String query_cast = 
-					"SELECT "
-							+ "cb.id as cbid,"
-							+ "cb.start_date,"
-							+ "cb.end_date,"
-							+ "c.id as cid,"
-							+ "c.first_name,"
-							+ "c.last_name "
-							+ " FROM CUSTOMER_BOOKING CB "
-							+ "JOIN CUSTOMER C "
-							+ "ON (CB.CUSTOMER_ID=C.ID) "
-							+ "WHERE CB.ID="+last_inserted_id;
-			res = stmnt.executeQuery(query_cast);
-			logger.info("The result set size is "+res.getFetchSize());
-
-			while (res.next()) {
-				returnRes = rebuildBooking(res);
-			}
-			//allocate rooms to the booking from bookingList
-			List<BookingSelection> bsList = blb.getList();
-			for (BookingSelection bs : bsList) {
-				stmnt = connection.createStatement();
-				query_cast = "select "
-						+ "r.id "
-						+ "from "
-						+ "room r "
-						+ "join "
-						+ "hotel h "
-						+ "on (r.hotel_id=h.id) "
-						+ "join "
-						+ "room_type rt "
-						+ "on (rt.id=r.room_type_id) "
-						+ "where h.location='"+blb.getLocation()+"' "
-						+ "and "
-						+ "rt.room_type='"+bs.getRoomType()+"' "
-						+ "and "
-						+ "r.id "
-						+ "not in "
-						+ "(select "
-						+ "r.id "
-						+ "from "
-						+ "room_schedule rs "
-						+ "join "
-						+ "customer_booking cb "
-						+ "on (rs.customer_booking_id=cb.id) "
-						+ "join room r "
-						+ "on (r.id=rs.room_id) "
-						+ "where "
-						+ "(cb.start_date between '"+blb.getStartYear()+"-"+blb.getStartMonth()+"-"+blb.getStartDay()+"' and '"+blb.getEndYear()+"-"+blb.getEndMonth()+"-"+blb.getEndDay()+"') "
-						+ "or "
-						+ "(cb.end_date between '"+blb.getStartYear()+"-"+blb.getStartMonth()+"-"+blb.getStartDay()+"' and '"+blb.getEndYear()+"-"+blb.getEndMonth()+"-"+blb.getEndDay()+"'))";
-				res = stmnt.executeQuery(query_cast);
-				logger.info("The result set size is "+res.getFetchSize());
-				if (res.next()) {
-					preppedStmnt = 
-							connection.prepareStatement(""
-									+ "INSERT "
-									+ "INTO "
-									+ "ROOM_SCHEDULE "
-									+ "VALUES(DEFAULT,?,?)", 
-									Statement.RETURN_GENERATED_KEYS);
-					preppedStmnt.setString(1, String.valueOf(res.getInt("id")));
-					System.out.println(res.getInt("id"));
-					preppedStmnt.setString(2, String.valueOf(last_inserted_id));
-					System.out.println(last_inserted_id);
-					preppedStmnt.executeUpdate();
+			if (result.next()) {
+				result.getInt("id");
+				ps = connection.prepareStatement(
+						"INSERT "
+								+ "INTO "
+								+ "ROOM_SCHEDULE "
+								+ "VALUES(DEFAULT,?,?)", 
+								Statement.RETURN_GENERATED_KEYS);
+				ps.setInt(1, result.getInt("id"));
+				ps.setInt(2, custBookingID);
+				ps.executeUpdate();
+				generatedKeys = ps.getGeneratedKeys();
+				if (generatedKeys.next()) {
+					room = getRoomByID(generatedKeys.getInt(1));
+				} else {
+					throw new SQLException("creating new roomSchedule failed");
 				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return room;
+	}
+
+	public BookingDTO addCustomerBooking(int custID, BookingListBean blb) {
+		BookingDTO booking = null;
+		ResultSet generatedKeys = null;
+
+		try {
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO CUSTOMER_BOOKING VALUES(DEFAULT,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, custID);
+			ps.setString(2, blb.getStartYear()+"-"+blb.getStartMonth()+"-"+blb.getStartDay());
+			ps.setString(3, blb.getEndYear()+"-"+blb.getEndMonth()+"-"+blb.getEndDay());
+			ps.executeUpdate();//create booking entry
+			generatedKeys = ps.getGeneratedKeys();
+
+			if (generatedKeys.next()) {
+				int customerBookingID = generatedKeys.getInt(1);
+				//now that entry has been made, make room_schedule entries
+				for (BookingSelection bs : blb.getList()) {
+					addRoomSchedule(customerBookingID, 
+							bs.getRoomType(), 
+							blb.getLocation(), 
+							blb.getStartYear()+"-"+blb.getStartMonth()+"-"+blb.getStartDay(), 
+							blb.getEndYear()+"-"+blb.getEndMonth()+"-"+blb.getEndDay()
+							);
+				}
+				//after adding room schedules, getting booking would include room schedules
+				booking = getBookingByID(customerBookingID);
+			} else {
+				throw new SQLException("creating new booking failed");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return returnRes;
+		return booking;
 	}
-	
+
 	public void updateRoomAvailability(int room_id, String new_avail) {
 		try {
 			PreparedStatement pStatement = connection.prepareStatement(
@@ -419,34 +423,9 @@ public class DAO {
 		}
 	}
 
-	//return every single rooms, plan to use this for room occupancy
-	public List<RoomDTO> getAllRooms() {
-		List<RoomDTO> rooms = new ArrayList<RoomDTO>();
-		try {
-			Statement stmnt = connection.createStatement();
-			String query_cast = "SELECT * FROM ROOM";
-			ResultSet res = stmnt.executeQuery(query_cast);
-			logger.info("The result set size is "+res.getFetchSize());
-
-			while (res.next()) {
-				int id = res.getInt("id");
-				int room_number = res.getInt("room_number");
-				float price = res.getFloat("price");
-				float discounted_price = res.getFloat("discounted_price");
-				String room_type = res.getString("room_type").toUpperCase();
-				String availability = res.getString("availability");
-				int hotel = res.getInt("hotel");
-				rooms.add(new RoomDTO(id, room_number, price, discounted_price, room_type, availability, hotel));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return rooms;
-	}
-	
 	public List<RoomDTO> getRoomsByBooking(int bookingID) {
 		List<RoomDTO> rooms = new ArrayList<RoomDTO>();
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = "select r.id as room_id, r.room_number, r.availability, " +
@@ -457,27 +436,27 @@ public class DAO {
 					"where rs.customer_booking_id = " + bookingID;
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is " + res.getFetchSize());
-			
+
 			while (res.next()) {
 				int id = res.getInt("room_id");
 				int roomNum = res.getInt("room_number");
 				String availability = res.getString("availability");
 				String room_type = res.getString("room_type");
 				int hotel = res.getInt("hotel_id");
-//				String location = res.getString("location");
-				
-				rooms.add(new RoomDTO(id, roomNum, 0, 0, room_type, availability, hotel));
+				//				String location = res.getString("location");
+
+				rooms.add(new RoomDTO(id, roomNum, room_type, availability, hotel));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return rooms;
 	}
-	
+
 	public RoomDTO getRoomByID(int room_id) {
 		RoomDTO room = null;
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = "select r.id, r.room_number, r.availability, rt.room_type, r.hotel_id " +
@@ -485,19 +464,19 @@ public class DAO {
 					"where r.id = " + room_id;
 			ResultSet res = stmnt.executeQuery(query_cast);
 			res.next();
-			
+
 			int id = res.getInt("id");
 			int roomNum = res.getInt("room_number");
 			String availability = res.getString("availability");
 			String room_type = res.getString("room_type");
 			int hotel = res.getInt("hotel_id");
-			
-			room = new RoomDTO(id, roomNum, 0, 0, room_type, availability, hotel);
+
+			room = new RoomDTO(id, roomNum, room_type, availability, hotel);
 		} catch (SQLException SQLe) {
 			SQLe.printStackTrace();
 			pbr.addErrorMessage("SQLException in getRoomByID");
 		}
-		
+
 		return room;
 	}
 
@@ -561,10 +540,10 @@ public class DAO {
 		}
 		return customers;
 	}
-	
+
 	public CustomerDTO getCustomerByBookingID(int bookingID) {
 		CustomerDTO customer = null;
-		
+
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = "select c.id, c.first_name, c.last_name " +
@@ -575,18 +554,18 @@ public class DAO {
 			System.out.println(query_cast);
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
-			
+
 			int id = res.getInt("id");
 			String first_name = res.getString("first_name");
 			String last_name = res.getString("last_name");
-			
+
 			customer = new CustomerDTO(id, first_name, last_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return customer;
-		
+
 	}
 
 
@@ -663,6 +642,28 @@ public class DAO {
 		}
 		return hotels;
 	}
+	
+	public List<RoomDTO> getRoomScheduleByCustomerBookingID(int custBookingID) {
+		ResultSet result = null;
+		List <RoomDTO> rooms = new ArrayList<RoomDTO>();
+		try {
+		PreparedStatement ps = connection.prepareStatement(
+				"SELECT "
+				+ "room_id "
+				+ "FROM "
+				+ "ROOM_SCHEDULE "
+				+ "WHERE "
+				+ "customer_booking_id=?");
+		ps.setInt(1, custBookingID);
+		result = ps.executeQuery();
+		while (result.next()) {
+			rooms.add(getRoomByID(result.getInt("room_id")));
+		}
+		} catch (Exception e) {
+			
+		}
+		return rooms;
+	}
 
 	private BookingDTO rebuildBooking(ResultSet res) throws SQLException {
 		int c_id = res.getInt("cid");
@@ -674,8 +675,8 @@ public class DAO {
 		startDate.setTime(res.getDate("start_date"));
 		Calendar endDate = new GregorianCalendar();
 		endDate.setTime(res.getDate("end_date"));
-		
-		return new BookingDTO(cb_id, new CustomerDTO(c_id, c_Firstname, c_LastName), startDate, endDate);
+
+		return new BookingDTO(cb_id, new CustomerDTO(c_id, c_Firstname, c_LastName), startDate, endDate, getRoomScheduleByCustomerBookingID(cb_id));
 	}
 
 	private boolean isValidDate(int day, int month, int year) {

@@ -12,11 +12,12 @@ public class BookingDTO {
 	private Calendar endDate;
 	private List<RoomDTO> rooms;
 	
-	public BookingDTO(int id, CustomerDTO customer, Calendar startDate, Calendar endDate) {
+	public BookingDTO(int id, CustomerDTO customer, Calendar startDate, Calendar endDate, List<RoomDTO> rooms) {
 		this.id = id;
 		this.customer = customer;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.rooms = rooms;
 	}
 	
 	public int getId() {

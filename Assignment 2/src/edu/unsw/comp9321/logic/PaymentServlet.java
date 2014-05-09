@@ -15,6 +15,7 @@ import edu.unsw.comp9321.bean.BookingSelection;
 import edu.unsw.comp9321.jdbc.BookingDTO;
 import edu.unsw.comp9321.jdbc.CustomerDTO;
 import edu.unsw.comp9321.jdbc.DAO;
+import edu.unsw.comp9321.jdbc.RoomDTO;
 import edu.unsw.comp9321.jdbc.RoomTypeDTO;
 
 /**
@@ -61,17 +62,12 @@ public class PaymentServlet extends HttpServlet {
 		} else {
 			BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
 			CustomerDTO cust = dao.addCustomer(firstName, lastName);
-			BookingDTO booking = dao.addBooking(
-					cust.getId(), 
-					blb.getStartDay(), 
-					blb.getStartMonth(), 
-					blb.getStartYear(), 
-					blb.getEndDay(), 
-					blb.getEndMonth(), 
-					blb.getEndYear(), blb
+			BookingDTO booking = dao.addCustomerBooking(
+					cust.getId(), blb
 					);
+			request.setAttribute("bookingDetails", booking);
 			
-			
+			nextPage = "bookingInfo.jsp";
 		}
 		
 		pbr.postErrorMessage(request);
