@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import edu.unsw.comp9321.bean.BookingListBean;
@@ -663,6 +664,38 @@ public class DAO {
 			
 		}
 		return rooms;
+	}
+	
+	public BookingDTO getCustomerBookingFromCode(String code) {
+		BookingDTO booking = null;
+		try {
+			PreparedStatement ps = connection.prepareStatement("select * from booking_unique where code=?");
+			ps.setString(1, code);
+			ResultSet result = ps.executeQuery();
+			if (result.next()) {
+				booking = getCustomerBookingByID(result.getInt("customer_booking_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return booking;
+	}
+	
+	public String createBookingCode(int custBookingID) {
+		System.out.println("creating code");
+		char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+		StringBuilder sb = new StringBuilder();
+		Random rand = new Random();
+		String code;
+		int length = 30;
+		for (int i = 0; i < length; i++) {
+			sb.append(chars[rand.nextInt(chars.length)]);
+		}
+		code = sb.toString();
+		if (getCustomerBookingFromCode(code) != null) {
+			code = createBookingCode(custBookingID);
+		}
+		return code;
 	}
 
 	private BookingDTO rebuildBooking(ResultSet res) throws SQLException {

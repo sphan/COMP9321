@@ -100,6 +100,13 @@ create table staff (
 	primary key (id)
 );
 
+create table booking_unique (
+	id int not null generated always as identity,
+	code varchar(30) not null unique,
+	customer_booking_id int not null unique,
+	primary key(id),
+	foreign key (customer_booking_id) references customer_booking(id)
+);
 
 select rt.room_type from room r join hotel h on (r.hotel_id=h.id) join room_type rt on (rt.id=r.room_type_id) where h.location='Sydney' and rt.room_type='SINGLE' and r.id not in 
 (select rt.room_type from room_schedule rs join customer_booking cb on (rs.customer_booking_id=cb.id) join room r on (r.id=rs.room_id) join room_type rt on (rt.id=r.room_type_id) where (cb.start_date between '2014-05-01' and '2014-05-10') or (cb.end_date between '2014-05-01' and '2014-05-10')) 

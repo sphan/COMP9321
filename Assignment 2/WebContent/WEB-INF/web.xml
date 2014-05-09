@@ -6,12 +6,12 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>ControlServlet</display-name>
-    <servlet-name>ControlServlet</servlet-name>
-    <servlet-class>edu.unsw.comp9321.ControlServlet</servlet-class>
+    <display-name>SearchServlet</display-name>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>edu.unsw.comp9321.SearchServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ControlServlet</servlet-name>
-    <url-pattern>/ControlServlet</url-pattern>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/Control</url-pattern>
   </servlet-mapping>
 </web-app>

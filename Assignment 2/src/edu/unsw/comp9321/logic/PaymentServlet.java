@@ -66,9 +66,10 @@ public class PaymentServlet extends HttpServlet {
 			BookingDTO booking = dao.addCustomerBooking(
 					cust.getId(), blb
 					);
-			request.setAttribute("bookingDetails", booking);
-			
-			nextPage = "bookingInfo.jsp";
+			String code = dao.createBookingCode(booking.getId());
+			System.out.println(code);
+			pbr.addErrorMessage(code);
+			nextPage = "confirmation.jsp";
 		}
 		
 		pbr.postErrorMessage(request);
