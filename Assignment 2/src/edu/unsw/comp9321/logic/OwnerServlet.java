@@ -44,6 +44,10 @@ public class OwnerServlet extends HttpServlet {
 		} else if (action.equalsIgnoreCase("set discount price")) {
 			nextPage = "setDiscountPrice.jsp";
 			Command.displayAllRoomPrices(request, dao);
+		} else if (action.equalsIgnoreCase("priceSearch")) {
+			nextPage = Command.staffSearchRoomPrice(request, dao);
+		} else if (action.equalsIgnoreCase("back to main")) {
+			Command.displayAllOccupancies(request, dao);
 		}
 		
 		pbr.postErrorMessage(request);

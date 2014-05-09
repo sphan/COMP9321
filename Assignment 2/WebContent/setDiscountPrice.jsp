@@ -24,6 +24,9 @@
 <div id="content">
 	<%@ include file="discountSearchForm.html"%>
 	<div id="main-content">
+		<form action="owner" method="POST">
+			<input type="submit" name="action" value="Back to Main">
+		</form>
 		<p>Room prices:</p>
 		<form action="owner" method="POST">
 			<c:forEach var="hotel" items="${roomPrices}">

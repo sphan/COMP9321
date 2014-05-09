@@ -28,8 +28,6 @@ public class Command {
 		
 		List<OccupancyBean> occupancies = null;
 		
-		System.out.println("hotelLocation: " + hotelLocation);
-		
 		if (hotelLocation.isEmpty()) {
 			displayAllOccupancies(request, dao);
 			return nextPage;
@@ -253,6 +251,43 @@ public class Command {
 		}
 		
 		request.setAttribute("roomPrices", allPrices);
+	}
+	
+	public static String staffSearchRoomPrice(HttpServletRequest request, DAO dao) {
+		String nextPage = "setDiscountPrice.jsp";
+		
+		String location = request.getParameter("hotelLocation");
+		String roomType = request.getParameter("roomType");
+		
+		if (location.isEmpty()) {
+			displayAllBookings(request, dao);
+			return nextPage;
+		}
+		
+		HashMap<String, List<OwnerPriceBean>> allPrices = new HashMap<String, List<OwnerPriceBean>>();
+		
+		List<OwnerPriceBean> discounted = dao.getRoomPrices(location, Command.getCurrentDay(),
+				Command.getCurrentMonth(), Command.getCurrentYear());
+		List<OwnerPriceBean> original = dao.getRoomPrices(location);
+		for (OwnerPriceBean p : discounted) {
+			original.add(p);
+		}
+		
+		if (roomType.equalsIgnoreCase("all")) {
+			allPrices.put(location, original);
+		} else {
+			List<OwnerPriceBean> result = new ArrayList<OwnerPriceBean>(); 
+			for (OwnerPriceBean o : original) {
+				if (o.getRoomType().equalsIgnoreCase(roomType))
+					result.add(o);
+			}
+			
+			allPrices.put(location, result);
+		}
+		
+		request.setAttribute("roomPrices", allPrices);
+		
+		return nextPage;
 	}
 	
 	/***********************************************
