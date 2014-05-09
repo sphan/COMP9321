@@ -77,6 +77,8 @@ public class Command {
 			}
 		}
 		
+		HashMap<String, List<BookingDTO>> results = new HashMap<String, List<BookingDTO>>(); 
+		
 		List<BookingDTO> booked = new LinkedList<BookingDTO>();
 		List<BookingDTO> checkedin = new LinkedList<BookingDTO>();
 		for (BookingDTO booking : pendingBookings) {
@@ -88,9 +90,12 @@ public class Command {
 				booked.add(booking);
 			}
 		}
+		results.put(Availability.CHECKEDIN.name(), checkedin);
+		results.put(Availability.BOOKED.name(), booked);
 		
-		request.setAttribute("booked", booked);
-		request.setAttribute("checkedin", checkedin);
+		request.setAttribute("results", results);
+//		request.setAttribute("booked", booked);
+//		request.setAttribute("checkedin", checkedin);
 		request.setAttribute("bookedNum", booked.size());
 		request.setAttribute("checkedinNum", checkedin.size());
 	}
@@ -99,6 +104,7 @@ public class Command {
 		String nextPage = "checkInPage.jsp";
 		boolean checkedIn = false;
 		
+		String bookingStatus = request.getParameter("bookingStatus");
 		int bookingID = 0;
 		if (request.getParameter("bookingID") == null) {
 			return "staffPage.jsp";
@@ -109,6 +115,15 @@ public class Command {
 				e.printStackTrace();
 			}
 		}
+		
+		if (bookingAllCheckedIn(dao.getRoomsByBooking(bookingID)))
+			checkedIn = true;
+		
+//		System.out.println(bookingStatus);
+//		if (bookingStatus.equals(Availability.CHECKEDIN.name()))
+//			checkedIn = true;
+		
+		System.out.println("checkIn: " + checkedIn);
 		
 		List<RoomDTO> rooms = dao.getRoomsByBooking(bookingID);
 		CustomerDTO customer = dao.getCustomerByBookingID(bookingID);

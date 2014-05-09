@@ -67,6 +67,26 @@ public class DAO {
 		
 		return hotels;
 	}
+	
+	public HotelDTO getHotelByRoomID(int room_id) {
+		HotelDTO hotel = null;
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "select h.id, h.name, h.location from hotel h " +
+					"join room r on (r.hotel_id = h.id) " +
+					"where r.id = " + room_id;
+			ResultSet res = stmnt.executeQuery(query_cast);
+			res.next();
+			
+			hotel = new HotelDTO(res.getInt("id"), res.getString("name"), res.getString("location"));
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getAllHotelLocation");
+		}
+		
+		return hotel;
+	}
 
 	public List<RoomTypeDTO> getHotelRoomSelection(SearchDetailsBean sdb) {
 		List<RoomTypeDTO> roomTypeList = new ArrayList<RoomTypeDTO>();
@@ -476,6 +496,7 @@ public class DAO {
 					"from room r join room_type rt on (rt.id = r.room_type_id)" +
 					"where r.id = " + room_id;
 			ResultSet res = stmnt.executeQuery(query_cast);
+			res.next();
 			
 			int id = res.getInt("id");
 			int roomNum = res.getInt("room_number");
@@ -563,10 +584,15 @@ public class DAO {
 					"join customer_booking cb on " +
 					"(cb.customer_id = c.id) " +
 					"where cb.id = " + bookingID;
+			System.out.println(query_cast);
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			
-			customer = new CustomerDTO(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
+			int id = res.getInt("id");
+			String first_name = res.getString("first_name");
+			String last_name = res.getString("last_name");
+			
+			customer = new CustomerDTO(id, first_name, last_name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -39,12 +39,14 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="booking" items="${booked}">
+								<c:forEach var="booking" items="${results['BOOKED']}">
 									<tr>
 										<td><c:out value="${booking.id}" /></td>
 										<td><c:out value="${booking.customer.firstName}" /> <c:out value="${booking.customer.lastName}" /></td>
 										<td>BOOKED</td>
-										<td><input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
+										<td><input type="hidden" name="bookingStatus" value="BOOKED" />
+										<input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
+										
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -62,19 +64,20 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="booking" items="${checkedin}">
+								<c:forEach var="booking" items="${results['CHECKEDIN']}">
 									<tr>
 										<td><c:out value="${booking.id}" /></td>
 										<td><c:out value="${booking.customer.firstName}" /> <c:out value="${booking.customer.lastName}" /></td>
 										<td>CHECKED IN</td>
-										<td><input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
+										<td><input type="hidden" name="bookingStatus" value="CHECKEDIN" />
+										<input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</c:if>
 					<div>
-						<input type="submit" value="Select Booking">
+						<input type="submit" name="action" value="Select Booking">
 						<input type="hidden" name="action" value="selectBooking">
 					</div>
 				</form>
