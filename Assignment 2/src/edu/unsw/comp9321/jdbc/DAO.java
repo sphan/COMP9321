@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Logger;
 
 import edu.unsw.comp9321.bean.BookingListBean;
 import edu.unsw.comp9321.bean.BookingSelection;
+import edu.unsw.comp9321.bean.OccupancyBean;
 import edu.unsw.comp9321.bean.SearchDetailsBean;
 import edu.unsw.comp9321.exception.ServiceLocatorException;
 import edu.unsw.comp9321.logic.PassByRef;
@@ -150,8 +152,8 @@ public class DAO {
 	 * @param location The location.
 	 * @return
 	 */
-	public HashMap<String, HashMap<String, Integer>> getRoomsOccupancyByLocation(String location) {
-		HashMap<String, HashMap<String, Integer>> roomOccupancy = new HashMap<String, HashMap<String, Integer>>();
+	public List<OccupancyBean> getRoomsOccupancyByLocation(String location) {
+		List<OccupancyBean> occupancies = new ArrayList<OccupancyBean>();
 		
 		try {
 			Statement stmnt = connection.createStatement();
@@ -160,36 +162,22 @@ public class DAO {
 					"join room_type rt on (r.room_type_id=rt.id) " +
 					"join hotel h on (h.id=r.hotel_id) where h.location = '" +
 					location + "' group by rt.room_type, r.availability order by rt.room_type";
-//" 
-//					"select rt.room_type, r.availability, count(r.availability) " +
-//					"as count from room r join room_type rt on (r.room_type_id=rt.id) " +
-//					"join hotel h on (h.id=r.hotel_id) where h.location = '" + location + "' " +
-//					"group by rt.room_type, r.availability order by rt.room_type"; 
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			
 			while (res.next()) {
 				String room_type = res.getString("room_type");
-				String availability = res.getString("availability");
-				int availNum = res.getInt("count");
-				HashMap<String, Integer> temp = new HashMap<String, Integer>();
-				temp.put(availability, availNum);
-				roomOccupancy.put(room_type, temp);
-//				if (roomOccupancy.get(room_type) != null) {
-//					
-//					roomOccupancy.put(room_type, temp);
-//				} else {
-//					System.out.println("2=> " + room_type + ": " + availability + " " + availNum);
-//					roomOccupancy.get(room_type).put(availability, availNum);
-//				}
-				System.out.println("1=> " + location + " " + room_type + ": " + availability + " " + availNum);
+				final String availability = res.getString("availability");
+				final int availNum = res.getInt("count");
+				
+				occupancies.add(new OccupancyBean(room_type, availability, availNum));
 			}
 		} catch (SQLException SQLe) {
 			SQLe.printStackTrace();
 			pbr.addErrorMessage("SQLException in getRoomsOccupancyByLocation");
 		}
 		
-		return roomOccupancy;
+		return occupancies;
 	}
 	
 	/**
@@ -197,8 +185,10 @@ public class DAO {
 	 * @param location The location.
 	 * @return
 	 */
-	public HashMap<String, HashMap<String, Integer>> getRoomsOccupancyByLocation(String location, String availability) {
-		HashMap<String, HashMap<String, Integer>> roomOccupancy = new HashMap<String, HashMap<String, Integer>>();
+	public List<OccupancyBean> getRoomsOccupancyByLocation(String location, String availability) {
+		List<OccupancyBean> roomOccupancy = new ArrayList<OccupancyBean>();
+		System.out.println(location);
+		System.out.println(availability);
 		
 		try {
 			Statement stmnt = connection.createStatement();
@@ -214,9 +204,7 @@ public class DAO {
 				String room_type = res.getString("room_type");
 				String avail = res.getString("availability");
 				int availNum = res.getInt("count");
-				HashMap<String, Integer> temp = new HashMap<String, Integer>();
-				temp.put(avail, availNum);
-				roomOccupancy.put(room_type, temp);
+				roomOccupancy.add(new OccupancyBean(room_type, avail, availNum));
 			}
 		} catch (SQLException SQLe) {
 			SQLe.printStackTrace();

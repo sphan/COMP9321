@@ -33,14 +33,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="roomType" items="${hotel.value}">
-						<c:forEach var="occupancy" items="${roomType.value}">
+					<c:forEach var="occupancy" items="${hotel.value}">
 							<tr>
-								<td><c:out value="${roomType.key}" /></td>
-								<td><c:out value="${occupancy.key}" /></td>
-								<td><c:out value="${occupancy.value}" /></td>
+								<td><c:out value="${occupancy.roomType}" /></td>
+								<td><c:out value="${occupancy.availability}" /></td>
+								<td><c:out value="${occupancy.roomCount}" /></td>
 							</tr>
-						</c:forEach>
 					</c:forEach>
 				</tbody>
 			</table>

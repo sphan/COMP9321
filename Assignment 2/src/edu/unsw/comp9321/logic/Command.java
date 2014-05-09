@@ -8,12 +8,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import edu.unsw.comp9321.bean.OccupancyBean;
 import edu.unsw.comp9321.jdbc.Availability;
 import edu.unsw.comp9321.jdbc.BookingDTO;
 import edu.unsw.comp9321.jdbc.CustomerDTO;
 import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.HotelDTO;
 import edu.unsw.comp9321.jdbc.RoomDTO;
+import edu.unsw.comp9321.jdbc.RoomType;
 import edu.unsw.comp9321.jdbc.StaffDTO;
 import edu.unsw.comp9321.jdbc.StaffType;
 
@@ -22,21 +24,24 @@ public class Command {
 		String nextPage = "ownerPage.jsp";
 		
 		String hotelLocation = request.getParameter("hotelLocation");
-		System.out.println(hotelLocation);
-		String roomAvail = request.getParameter("roomAvail");
-		System.out.println(roomAvail);
+		String roomAvail = request.getParameter("roomAvail").toLowerCase().replaceAll("\\W", "");
 		
-		HashMap<String, HashMap<String, Integer>> occupancies;
+		List<OccupancyBean> occupancies = null;
+		
+		System.out.println("hotelLocation: " + hotelLocation);
+		
+		if (hotelLocation.isEmpty()) {
+			displayAllOccupancies(request, dao);
+			return nextPage;
+		}
 		
 		if (roomAvail.equalsIgnoreCase("all")) {
 			occupancies = dao.getRoomsOccupancyByLocation(hotelLocation);
-			printOccupancies(occupancies);
 		} else {
-			occupancies = dao.getRoomsOccupancyByLocation(hotelLocation, roomAvail.toUpperCase());
+			occupancies = dao.getRoomsOccupancyByLocation(hotelLocation, roomAvail);
 		}
 		
-		HashMap<String, HashMap<String, HashMap<String, Integer>>> results =
-				new HashMap<String, HashMap<String, HashMap<String, Integer>>>();
+		HashMap<String, List<OccupancyBean>> results = new HashMap<String, List<OccupancyBean>>();
 		results.put(hotelLocation, occupancies);
 		
 		request.setAttribute("occupancies", results);
@@ -94,8 +99,6 @@ public class Command {
 		results.put(Availability.BOOKED.name(), booked);
 		
 		request.setAttribute("results", results);
-//		request.setAttribute("booked", booked);
-//		request.setAttribute("checkedin", checkedin);
 		request.setAttribute("bookedNum", booked.size());
 		request.setAttribute("checkedinNum", checkedin.size());
 	}
@@ -104,7 +107,6 @@ public class Command {
 		String nextPage = "checkInPage.jsp";
 		boolean checkedIn = false;
 		
-		String bookingStatus = request.getParameter("bookingStatus");
 		int bookingID = 0;
 		if (request.getParameter("bookingID") == null) {
 			return "staffPage.jsp";
@@ -118,12 +120,6 @@ public class Command {
 		
 		if (bookingAllCheckedIn(dao.getRoomsByBooking(bookingID)))
 			checkedIn = true;
-		
-//		System.out.println(bookingStatus);
-//		if (bookingStatus.equals(Availability.CHECKEDIN.name()))
-//			checkedIn = true;
-		
-		System.out.println("checkIn: " + checkedIn);
 		
 		List<RoomDTO> rooms = dao.getRoomsByBooking(bookingID);
 		CustomerDTO customer = dao.getCustomerByBookingID(bookingID);
@@ -224,11 +220,10 @@ public class Command {
 	
 	public static void displayAllOccupancies(HttpServletRequest request, DAO dao) {
 		List<HotelDTO> hotels = dao.getAllHotelLocations();
-		HashMap<String, HashMap<String, HashMap<String, Integer>>> results =
-				new HashMap<String, HashMap<String, HashMap<String, Integer>>>();
+		HashMap<String, List<OccupancyBean>> results = new HashMap<String, List<OccupancyBean>>();
 		
 		for (HotelDTO hotel : hotels) {
-			HashMap<String, HashMap<String, Integer>> occupancies = dao.getRoomsOccupancyByLocation(hotel.getLocation());
+			List<OccupancyBean> occupancies = dao.getRoomsOccupancyByLocation(hotel.getLocation());
 			if (occupancies.size() > 0)
 				results.put(hotel.getLocation(), occupancies);
 		}
