@@ -12,9 +12,11 @@
 </head>
 <body>
 <div id="header">
+<form action="login" method="POST">
+<div align="right"><input type="submit" name="action" value="Logout" /></div>
+</form>
 <center><h1>Hotels</h1></center>
-<div align="right">Hi, <c:out value="${staffName}" />
-<input type="hidden" name="staffName" value="<c:out value="${staffName}" />" />
+<div>Logged in as: <c:out value="${loginName}" />
 </div>
 <hr>
 </div>

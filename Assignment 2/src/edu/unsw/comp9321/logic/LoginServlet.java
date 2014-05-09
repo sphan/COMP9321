@@ -39,6 +39,8 @@ public class LoginServlet extends HttpServlet {
 			nextPage = Command.staffLogin(request, dao);
 			if (nextPage.equals("customerMain.jsp"))
 				pbr.addErrorMessage("User not found.");
+		} else if (action.equalsIgnoreCase("logout")) {
+			
 		}
 		
 		pbr.postErrorMessage(request);

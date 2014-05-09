@@ -64,7 +64,7 @@ public class Command {
 					nextPage = "ownerPage.jsp";
 					displayAllOccupancies(request, dao);
 				}
-				request.getSession().setAttribute("staffName", staff.getName());
+				request.getSession().setAttribute("loginName", staff.getName());
 			}
 		}
 		
@@ -229,6 +229,11 @@ public class Command {
 		}
 		
 		request.setAttribute("occupancies", results);
+	}
+	
+	public static void logout(HttpServletRequest request, DAO dao) {
+		request.removeAttribute("loginName");
+		request.getSession().invalidate();
 	}
 	
 	/***********************************************
