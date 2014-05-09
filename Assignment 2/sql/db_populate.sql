@@ -4,11 +4,11 @@ insert into HOTEL values (default, 'Ibis', 'Brisbane');
 insert into HOTEL values (default, 'Ibis', 'Adelaide');
 insert into HOTEL values (default, 'Ibis', 'Hobart');
 
-insert into ROOM_TYPE values (default, 'SINGLE', 70, 0);
-insert into ROOM_TYPE values (default, 'DOUBLE', 120, 0);
-insert into ROOM_TYPE values (default, 'QUEEN', 120, 0);
-insert into ROOM_TYPE values (default, 'EXECUTIVE', 180, 0);
-insert into ROOM_TYPE values (default, 'SUITE', 300, 0);
+insert into ROOM_TYPE values (default, 'SINGLE', 70);
+insert into ROOM_TYPE values (default, 'DOUBLE', 120);
+insert into ROOM_TYPE values (default, 'QUEEN', 120);
+insert into ROOM_TYPE values (default, 'EXECUTIVE', 180);
+insert into ROOM_TYPE values (default, 'SUITE', 300);
 
 -- Sydney hotel
 insert into ROOM values (default, 1, 101, 'available', 1);
@@ -242,3 +242,5 @@ insert into CUSTOMER values (default, 'Harold', 'Haroldson');
 insert into STAFF values (default, 'Sandy', 'Sandy', 'password', 'manager');
 insert into STAFF values (default, 'Jason', 'Jason', 'password', 'manager');
 insert into STAFF values (default, 'Kate', 'Kate', 'password', 'owner');
+
+insert into DISCOUNT values (default, 2, '2014-05-01', '2014-05-31', 90, 1);

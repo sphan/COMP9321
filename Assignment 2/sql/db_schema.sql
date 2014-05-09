@@ -1,9 +1,11 @@
 -- Run the following commands to delete all table and re-initialise database.
 drop table room_schedule;
+drop table booking_unique;
 drop table customer_booking;
 drop table room;
 drop table customer;
 drop table staff;
+drop table discount;
 drop table room_type;
 drop table hotel;
 
@@ -28,9 +30,20 @@ create table room_type (
 	price int not null,
 	constraint chk_price check
 	(price>=0),
+	primary key (id)
+);
+
+create table discount (
+	id int not null generated always as identity,
+	room_type_id int not null,
+	start_date date not null,
+	end_date date not null,
 	discounted_price int not null,
 	constraint chk_discounted_price check
 	(discounted_price>=0),
+	hotel_id int not null,
+	foreign key (room_type_id) references room_type(id),
+	foreign key (hotel_id) references hotel(id),
 	primary key (id)
 );
 
