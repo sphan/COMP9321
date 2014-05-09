@@ -5,7 +5,7 @@
 	scope="session" />
 <jsp:useBean id="searchDetails"
 	class="edu.unsw.comp9321.bean.SearchDetailsBean" scope="session" />
-	
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,40 +20,46 @@
 		<%@ include file="searchForm.jsp"%>
 		<div id="main-content">
 			<p>Searching for hotel rooms in "${searchDetails.location}":</p>
-			<form action="booking" method="POST">
-				<table id="result-table">
-					<thead>
-						<tr id="result-table-header">
-							<td>Room Type</td>
-							<td>Price per night</td>
-							<td>Count</td>
-							<td>Select</td>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${roomTypeList}" var="roomType">
-							<tr>
-								<td>${roomType.roomType}</td>
-								<td>${roomType.price}</td>
-								<td>${roomType.count}</td>
-								<td><input type="hidden" name="roomTypeName[]"
-									value="${roomType.roomType}"><input type="hidden"
-									name="roomTypePrice[]" value="${roomType.price}"><input
-									type="number" name="roomTypeCount[]" value="${roomType.selectValue}" min="0"
-									max=${roomType.count}></td>
+			<c:choose>
+			<c:when test="${roomTypeList == null}">
+				Search results are empty please search with different parameters
+			</c:when>
+			<c:otherwise>
+				<form action="booking" method="POST">
+					<table id="result-table">
+						<thead>
+							<tr id="result-table-header">
+								<td>Room Type</td>
+								<td>Price per night</td>
+								<td>Count</td>
+								<td>Select</td>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<input type="submit" name="action" value="submit"> <input
-					type="submit" name="action" value="calculate total">
-			</form>
-			<div>
-				<c:if test="${totalPrice != null}">
+						</thead>
+						<tbody>
+							<c:forEach items="${roomTypeList}" var="roomType">
+								<tr>
+									<td>${roomType.roomType}</td>
+									<td>${roomType.price}</td>
+									<td>${roomType.count}</td>
+									<td><input type="hidden" name="roomTypeName[]"
+										value="${roomType.roomType}"><input type="hidden"
+										name="roomTypePrice[]" value="${roomType.price}"><input
+										type="number" name="roomTypeCount[]"
+										value="${roomType.selectValue}" min="0" max=${roomType.count}></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<input type="submit" name="action" value="submit"> <input
+						type="submit" name="action" value="calculate total">
+				</form>
+				<div>
+					<c:if test="${totalPrice != null}">
 						Total Price of booking selection is: ${totalPrice}<br>
-						
-				</c:if>
-			</div>
+					</c:if>
+				</div>
+			</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	<div id="clearing-div"></div>

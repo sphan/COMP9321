@@ -2,9 +2,11 @@ package edu.unsw.comp9321.logic;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -268,5 +270,59 @@ public class Command {
 			return true;
 		
 		return false;
+	}
+	
+	public static int getCurrentYear() {
+		return Calendar.getInstance().get(Calendar.YEAR);
+	}
+
+	public static int getCurrentMonth() {
+		return Calendar.getInstance().get(Calendar.MONTH)+1;
+	}
+	
+	public static int getCurrentDay() {
+		return Calendar.getInstance().get(Calendar.DATE);
+	}
+	
+	public static boolean isValidDateRange(int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay) {
+		if (endYear < startYear) {
+			return false;
+		}
+		else if (endYear == startYear) {
+			if (endMonth < startMonth) {
+				return false;
+			}
+			else if (endMonth == startMonth) {
+				if (endDay < startDay) {
+					return false;
+				} else {
+					if (endDay == startDay) {
+						return true;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
+	public static boolean isPresentFutureDate(int year, int month, int day) {
+		if (year < getCurrentYear()) {
+			return false;
+		}
+		else if (year == getCurrentYear()) {
+			if (month < getCurrentMonth()) {
+				return false;
+			}
+			else if (month == getCurrentMonth()) {
+				if (day < getCurrentDay()) {
+					return false;
+				} else {
+					if (day == getCurrentDay()) {
+						return true;
+					}
+				}
+			}
+		}
+		return true;
 	}
 }

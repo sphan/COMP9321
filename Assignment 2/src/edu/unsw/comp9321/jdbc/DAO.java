@@ -682,7 +682,6 @@ public class DAO {
 	}
 	
 	public String createBookingCode(int custBookingID) {
-		System.out.println("creating code");
 		char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
 		StringBuilder sb = new StringBuilder();
 		Random rand = new Random();
