@@ -14,9 +14,6 @@ public class PassByRef {
 		}
 	}
 	
-	public void addErrorMessage(int ErrorMessage) {
-		this.addErrorMessage(String.valueOf(errorMessage));
-	}
 	
 	public String getErrorMessage () {
 		return this.errorMessage;

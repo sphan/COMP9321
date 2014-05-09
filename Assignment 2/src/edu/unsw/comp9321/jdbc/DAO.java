@@ -248,7 +248,7 @@ public class DAO {
 	 * @param customerBookingID
 	 * @return
 	 */
-	public BookingDTO getBookingByID(int customerBookingID) {
+	public BookingDTO getCustomerBookingByID(int customerBookingID) {
 		BookingDTO booking = null;
 
 		try {
@@ -400,7 +400,7 @@ public class DAO {
 							);
 				}
 				//after adding room schedules, getting booking would include room schedules
-				booking = getBookingByID(customerBookingID);
+				booking = getCustomerBookingByID(customerBookingID);
 			} else {
 				throw new SQLException("creating new booking failed");
 			}
@@ -423,7 +423,7 @@ public class DAO {
 		}
 	}
 
-	public List<RoomDTO> getRoomsByBooking(int bookingID) {
+	public List<RoomDTO> getRoomsByBookingID(int bookingID) {
 		List<RoomDTO> rooms = new ArrayList<RoomDTO>();
 
 		try {

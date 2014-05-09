@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Hotels</title>
+<link href="hotel.css" rel="stylesheet">
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -38,53 +39,52 @@
 					</tbody>
 				</table>
 				<div>Total: ${booking.totalPrice}</div>
+
+				<div align="center">
+					Please enter your information:
+					<div>
+						<div>
+							First Name:<input type="text" name="fname"><br>
+						</div>
+						<div>
+							Last Name:<input type="text" name="lname"><br>
+						</div>
+						<div>
+							Email:<input type="text" name="email"><br>
+						</div>
+						<br>
+						<div>
+							Credit Card Number:<input type="text" name="creditcard"
+								maxlength="16">
+						</div>
+						<div>
+							Card Expiration <select name='expireMM'>
+								<option value='01'>January</option>
+								<option value='02'>February</option>
+								<option value='03'>March</option>
+								<option value='04'>April</option>
+								<option value='05'>May</option>
+								<option value='06'>June</option>
+								<option value='07'>July</option>
+								<option value='08'>August</option>
+								<option value='09'>September</option>
+								<option value='10'>October</option>
+								<option value='11'>November</option>
+								<option value='12'>December</option>
+							</select> <select name='expireYY'>
+								<option value='13'>2013</option>
+								<option value='14'>2014</option>
+								<option value='15'>2015</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<input type="submit" value="confirm">
 			</c:when>
 			<c:otherwise>
-			nothing selected
-		</c:otherwise>
+				nothing selected
+			</c:otherwise>
 		</c:choose>
-		<div align="center">
-			Please enter your information:
-			<div>
-				<div>
-					First Name:<input type="text" name="fname"><br>
-				</div>
-				<div>
-					Last Name:<input type="text" name="lname"><br>
-				</div>
-				<div>
-					Email:<input type="text" name="email"><br>
-				</div>
-				<br>
-				<div>
-					Credit Card Number:<input type="text" name="creditcard"
-						maxlength="16">
-				</div>
-				<div>
-				Card Expiration
-					<select name='expireMM'>
-						<option value='01'>January</option>
-						<option value='02'>February</option>
-						<option value='03'>March</option>
-						<option value='04'>April</option>
-						<option value='05'>May</option>
-						<option value='06'>June</option>
-						<option value='07'>July</option>
-						<option value='08'>August</option>
-						<option value='09'>September</option>
-						<option value='10'>October</option>
-						<option value='11'>November</option>
-						<option value='12'>December</option>
-					</select>
-					<select name='expireYY'>
-						<option value='13'>2013</option>
-						<option value='14'>2014</option>
-						<option value='15'>2015</option>
-					</select>
-				</div>
-			</div>
-		</div>
-		<input type="submit" value="confirm">
 	</form>
 </body>
 </html>

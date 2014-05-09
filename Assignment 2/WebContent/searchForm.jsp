@@ -1,5 +1,4 @@
-<jsp:useBean id="searchDetails"
-	class="edu.unsw.comp9321.bean.SearchDetailsBean" scope="session" />
+
 <div id="searchForm">
 	<form action="search">
 		<div id="checkin">
@@ -87,7 +86,8 @@
 				<option>29</option>
 				<option>30</option>
 				<option>31</option>
-			</select> Month: <select name="endmonth">
+			</select>
+			Month: <select name="endmonth">
 				<option value=1>January</option>
 				<option value=2>February</option>
 				<option value=3>March</option>
@@ -122,4 +122,5 @@
 			<input type="submit" name="action" value="Search">
 		</div>
 	</form>
+
 </div>

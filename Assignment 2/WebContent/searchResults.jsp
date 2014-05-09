@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean id="booking" class="edu.unsw.comp9321.bean.BookingListBean"
 	scope="session" />
+<jsp:useBean id="searchDetails"
+	class="edu.unsw.comp9321.bean.SearchDetailsBean" scope="session" />
 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -15,12 +17,10 @@
 	<jsp:include page="header.jsp"></jsp:include>
 
 	<div id="content">
-		<%@ include file="searchForm.html"%>
+		<%@ include file="searchForm.jsp"%>
 		<div id="main-content">
-			<p>Searching for hotel rooms in "${location}":</p>
+			<p>Searching for hotel rooms in "${searchDetails.location}":</p>
 			<form action="booking" method="POST">
-				<input type="hidden" name="location" value="${location}"> <input
-					type="hidden" name="maxPrice" value="${maxPrice}">
 				<table id="result-table">
 					<thead>
 						<tr id="result-table-header">
@@ -39,7 +39,7 @@
 								<td><input type="hidden" name="roomTypeName[]"
 									value="${roomType.roomType}"><input type="hidden"
 									name="roomTypePrice[]" value="${roomType.price}"><input
-									type="number" name="roomTypeCount[]" value="0" min="0"
+									type="number" name="roomTypeCount[]" value="${roomType.selectValue}" min="0"
 									max=${roomType.count}></td>
 							</tr>
 						</c:forEach>

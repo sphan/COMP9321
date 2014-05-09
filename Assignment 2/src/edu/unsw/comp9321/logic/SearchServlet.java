@@ -48,6 +48,10 @@ public class SearchServlet extends HttpServlet {
 		PassByRef pbr = new PassByRef();
 		DAO dao = new DAO(pbr);
 		SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
+		if (sdb == null) {
+			//session expired, create new sdb
+			sdb = new SearchDetailsBean();
+		}
 		//######################################
 		sdb.setStartDay(Integer.parseInt(request.getParameter("startday")));
 		sdb.setStartMonth(Integer.parseInt(request.getParameter("startmonth")));
@@ -61,13 +65,9 @@ public class SearchServlet extends HttpServlet {
 			sdb.setMaxPrice(Integer.parseInt(request.getParameter("maxPrice")));
 		} catch (NumberFormatException nfe) {/*catch exception and do nothing*/}
 		//######################################
-		
-		
-		
-		request.setAttribute("location", sdb.getLocation());
-		request.setAttribute("maxPrice", sdb.getMaxPrice());
+
 		request.setAttribute("roomTypeList", dao.getHotelRoomSelection(sdb));
-		
+
 		pbr.postErrorMessage(request);
 		RequestDispatcher rd = request.getRequestDispatcher("/" + "searchResults.jsp");
 		rd.forward(request, response);

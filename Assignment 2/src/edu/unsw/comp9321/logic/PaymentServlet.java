@@ -55,6 +55,7 @@ public class PaymentServlet extends HttpServlet {
 		String creditCardNumber = request.getParameter("creditcard");
 		String expirationMonth = request.getParameter("expireMM");
 		String expirationYear = request.getParameter("expireYY");
+		
 		if (firstName.equals("")||lastName.equals("")||email.equals("")||creditCardNumber.equals("")||expirationMonth.equals("")||expirationYear.equals("")||
 				firstName==null||lastName==null||email==null||creditCardNumber==null||expirationMonth==null||expirationYear==null) {
 			nextPage = "booking.jsp";

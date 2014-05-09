@@ -87,7 +87,7 @@ public class Command {
 		List<BookingDTO> booked = new LinkedList<BookingDTO>();
 		List<BookingDTO> checkedin = new LinkedList<BookingDTO>();
 		for (BookingDTO booking : pendingBookings) {
-			List<RoomDTO> rooms = dao.getRoomsByBooking(booking.getId());
+			List<RoomDTO> rooms = dao.getRoomsByBookingID(booking.getId());
 			System.out.println(booking.getId());
 			if (bookingAllCheckedIn(rooms)) {
 				checkedin.add(booking);
@@ -118,10 +118,10 @@ public class Command {
 			}
 		}
 		
-		if (bookingAllCheckedIn(dao.getRoomsByBooking(bookingID)))
+		if (bookingAllCheckedIn(dao.getRoomsByBookingID(bookingID)))
 			checkedIn = true;
 		
-		List<RoomDTO> rooms = dao.getRoomsByBooking(bookingID);
+		List<RoomDTO> rooms = dao.getRoomsByBookingID(bookingID);
 		CustomerDTO customer = dao.getCustomerByBookingID(bookingID);
 				
 		request.setAttribute("checkedIn", checkedIn);
@@ -141,7 +141,7 @@ public class Command {
 			int bookingID;
 			try {
 				bookingID = Integer.parseInt(searchString);
-				bookings.add(dao.getBookingByID(bookingID));
+				bookings.add(dao.getCustomerBookingByID(bookingID));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
