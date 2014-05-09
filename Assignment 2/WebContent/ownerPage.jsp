@@ -22,6 +22,9 @@
 <div id="content">
 	<%@ include file="ownerSearchForm.html"%>
 	<div id="main-content">
+		<form action="owner" method="POST">
+			<input type="submit" name="action" value="Set Discount Price" />
+		</form>
 		<p>Room Occupancy:</p>
 		<c:forEach var="hotel" items="${occupancies}">
 			<div><h4><c:out value="${hotel.key}" /></h4></div>

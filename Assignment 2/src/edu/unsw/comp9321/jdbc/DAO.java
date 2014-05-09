@@ -1,7 +1,6 @@
 package edu.unsw.comp9321.jdbc;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,8 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -20,8 +17,10 @@ import java.util.logging.Logger;
 import edu.unsw.comp9321.bean.BookingListBean;
 import edu.unsw.comp9321.bean.BookingSelection;
 import edu.unsw.comp9321.bean.OccupancyBean;
+import edu.unsw.comp9321.bean.OwnerPriceBean;
 import edu.unsw.comp9321.bean.SearchDetailsBean;
 import edu.unsw.comp9321.exception.ServiceLocatorException;
+import edu.unsw.comp9321.logic.Command;
 import edu.unsw.comp9321.logic.PassByRef;
 
 public class DAO {
@@ -367,6 +366,7 @@ public class DAO {
 				generatedKeys = ps.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					room = getRoomByID(generatedKeys.getInt(1));
+					updateRoomAvailability(result.getInt("id"), "booked");
 				} else {
 					throw new SQLException("creating new roomSchedule failed");
 				}
@@ -479,6 +479,74 @@ public class DAO {
 		}
 
 		return room;
+	}
+	
+	public List<OwnerPriceBean> getRoomPrices(String location) {
+		List<OwnerPriceBean> roomPrices = new ArrayList<OwnerPriceBean>();
+		int today_day = Command.getCurrentDay();
+		int today_month = Command.getCurrentMonth();
+		int today_year = Command.getCurrentYear();
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "select rt.room_type, rt.price from room_type rt " +
+					"join room r on (r.room_type_id = rt.id) " +
+					"join hotel h on (h.id = r.hotel_id) " +
+					"where h.location = '" + location + "' " +
+					"and rt.id not in " +
+					"(select rt2.id from room_type rt2 " +
+					"join discount d on (d.room_type_id = rt2.id) " +
+					"join hotel h on (h.id = d.hotel_id) " +
+					"where h.location = '" + location + "' " +
+					"and '" + today_year + "-" + today_month + "-" + today_day + "' " +
+					"between d.start_date and d.end_date) " +
+					"group by rt.room_type, rt.price";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			
+			while (res.next()) {
+				String room_type = res.getString("room_type");
+				int price = res.getInt("price");
+				roomPrices.add(new OwnerPriceBean(price, room_type, 0, "", "", location));
+			}
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getRoomPrices");
+		}
+		
+		return roomPrices;		
+	}
+	
+	public List<OwnerPriceBean> getRoomPrices(String location, int today_day, int today_month, int today_year) {
+		List<OwnerPriceBean> roomPrices = new ArrayList<OwnerPriceBean>();
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "select rt.room_type, rt.price, d.start_date, d.end_date, " +
+					"d.discounted_price, h.location from room_type rt " +
+					"join discount d on (d.room_type_id = rt.id) " +
+					"join hotel h on (h.id = d.hotel_id) " +
+					"where h.location = '" + location + "' " +
+					"and '" + today_year + "-" + today_month + "-" + today_day + "' " +
+					"between d.start_date and d.end_date " +
+					"group by rt.room_type, rt.price, d.start_date, d.end_date, d.discounted_price, h.location";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			
+			while (res.next()) {
+				String room_type = res.getString("room_type");
+				int price = res.getInt("price");
+				String start_date = res.getString("start_date");
+				String end_date = res.getString("end_date");
+				int discounted_price = res.getInt("discounted_price");
+				String loc = res.getString("location");
+				
+				roomPrices.add(new OwnerPriceBean(price, room_type, discounted_price, start_date, end_date, loc));
+			}
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getRoomPrices");
+		}
+		
+		return roomPrices;		
 	}
 
 	public CustomerDTO addCustomer(String firstName, String lastName) {

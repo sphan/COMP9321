@@ -41,6 +41,9 @@ public class OwnerServlet extends HttpServlet {
 		
 		if (action.equalsIgnoreCase("search")) {
 			nextPage = Command.ownerSearch(request, dao);
+		} else if (action.equalsIgnoreCase("set discount price")) {
+			nextPage = "setDiscountPrice.jsp";
+			Command.displayAllRoomPrices(request, dao);
 		}
 		
 		pbr.postErrorMessage(request);

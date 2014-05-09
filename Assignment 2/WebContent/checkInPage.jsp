@@ -41,8 +41,8 @@
 						<tbody>
 							<c:forEach var="room" items="${rooms}">
 								<tr>
-									<td><c:out value="${room.room_number}" /></td>
-									<td><c:out value="${room.room_type}" /></td>
+									<td><c:out value="${room.roomNumber}" /></td>
+									<td><c:out value="${room.roomType}" /></td>
 									<td><c:out value="${room.availability} "/></td>
 									<td><input type="checkbox" name="checkInRooms" value="<c:out value="${room.id}" />" /></td>
 								</tr>
@@ -69,8 +69,8 @@
 						<tbody>
 							<c:forEach var="room" items="${rooms}">
 								<tr>
-									<td><c:out value="${room.room_number}" /></td>
-									<td><c:out value="${room.room_type}" /></td>
+									<td><c:out value="${room.roomNumber}" /></td>
+									<td><c:out value="${room.roomType}" /></td>
 									<td><c:out value="${room.availability} "/></td>
 									<td><input type="checkbox" name="checkOutRooms" value="<c:out value="${room.id}" />" /></td>
 								</tr>

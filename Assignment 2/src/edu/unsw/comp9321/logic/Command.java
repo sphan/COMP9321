@@ -2,22 +2,20 @@ package edu.unsw.comp9321.logic;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 
 import edu.unsw.comp9321.bean.OccupancyBean;
+import edu.unsw.comp9321.bean.OwnerPriceBean;
 import edu.unsw.comp9321.jdbc.Availability;
 import edu.unsw.comp9321.jdbc.BookingDTO;
 import edu.unsw.comp9321.jdbc.CustomerDTO;
 import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.HotelDTO;
 import edu.unsw.comp9321.jdbc.RoomDTO;
-import edu.unsw.comp9321.jdbc.RoomType;
 import edu.unsw.comp9321.jdbc.StaffDTO;
 import edu.unsw.comp9321.jdbc.StaffType;
 
@@ -236,6 +234,25 @@ public class Command {
 	public static void logout(HttpServletRequest request, DAO dao) {
 		request.removeAttribute("loginName");
 		request.getSession().invalidate();
+	}
+	
+	public static void displayAllRoomPrices(HttpServletRequest request, DAO dao) {
+		List<HotelDTO> hotels = dao.getAllHotelLocations();
+		HashMap<String, List<OwnerPriceBean>> allPrices = new HashMap<String, List<OwnerPriceBean>>();
+		
+		for (HotelDTO hotel : hotels) {
+			List<OwnerPriceBean> discounted = dao.getRoomPrices(hotel.getLocation(),
+					Command.getCurrentDay(), Command.getCurrentMonth(), Command.getCurrentYear());
+			List<OwnerPriceBean> original = dao.getRoomPrices(hotel.getLocation());
+			
+			for (OwnerPriceBean p : discounted) {
+				original.add(p);
+			}
+			allPrices.put(hotel.getLocation(), original);
+			System.out.println(original.size());
+		}
+		
+		request.setAttribute("roomPrices", allPrices);
 	}
 	
 	/***********************************************
