@@ -49,6 +49,8 @@ public class StaffServlet extends HttpServlet {
 			Command.displayAllBookings(request, dao);
 		} else if (action.equalsIgnoreCase("checkIn")) {
 			nextPage = Command.checkIn(request, dao, pbr);
+		} else if (action.equalsIgnoreCase("checkOut")) {
+			nextPage = Command.checkOut(request, dao, pbr);
 		}
 		
 		pbr.postErrorMessage(request);

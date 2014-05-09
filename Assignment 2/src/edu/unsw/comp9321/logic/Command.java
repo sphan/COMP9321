@@ -191,6 +191,37 @@ public class Command {
 		return nextPage;
 	}
 	
+	public static String checkOut(HttpServletRequest request, DAO dao, PassByRef pbr) {
+		String nextPage = "checkInPage.jsp";
+		boolean checkedIn = false;
+		
+		String[] roomIDs = request.getParameterValues("checkOutRooms");
+		
+		if (roomIDs == null) {
+			displayAllBookings(request, dao);
+			pbr.addErrorMessage("Select a room to check in.");
+			return "staffPage.jsp";
+		}
+		
+		List<RoomDTO> rooms = new ArrayList<RoomDTO>();
+		
+		for (String roomID : roomIDs) {
+			try {
+				int room_id = Integer.parseInt(roomID);
+				dao.updateRoomAvailability(room_id, "available");
+				rooms.add(dao.getRoomByID(room_id));
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		checkedIn = false;
+		request.setAttribute("rooms", rooms);
+		request.setAttribute("checkedIn", checkedIn);
+		
+		return nextPage;
+	}
+	
 	public static void displayAllOccupancies(HttpServletRequest request, DAO dao) {
 		List<HotelDTO> hotels = dao.getAllHotelLocations();
 		HashMap<String, HashMap<String, HashMap<String, Integer>>> results =
