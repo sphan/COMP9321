@@ -265,7 +265,7 @@ public class Command {
 	}
 	
 	public static String staffSearchRoomPrice(HttpServletRequest request, DAO dao) {
-		String nextPage = "setDiscountPrice.jsp";
+		String nextPage = "viewDiscountPrice.jsp";
 		
 		String location = request.getParameter("hotelLocation");
 		String roomType = request.getParameter("roomType");
@@ -306,6 +306,123 @@ public class Command {
 		request.setAttribute("roomPrices", allPrices);
 		
 		return nextPage;
+	}
+	
+	public static String displayDiscountForm(HttpServletRequest request, DAO dao) {
+		String nextPage = "setDiscountPrice.jsp";
+		String[] roomTypeLocation = request.getParameter("roomTypeLocation").split("-");
+		
+		String location = roomTypeLocation[1];
+		String room_type = roomTypeLocation[0];
+		
+		request.setAttribute("location", location);
+		request.setAttribute("roomType", room_type);
+		request.getSession().setAttribute("setDiscountStatus", "displayForm");
+		
+		OwnerPriceBean defaultPrice = dao.getDefaultRoomPrice(location, room_type);
+		request.setAttribute("curPrice", defaultPrice.getCurrentPrice());
+		return nextPage;
+	}
+	
+	public static String setDiscountPrice(HttpServletRequest request, DAO dao) {
+		String nextPage = "setDiscountPrice.jsp";
+		
+		String hotelLocation = request.getParameter("location");
+		String roomType = request.getParameter("roomType");
+		String discountPrice = request.getParameter("discountPrice");
+		
+		try {
+			int d_price = Integer.parseInt(discountPrice);
+			
+			if (d_price > Integer.parseInt(request.getParameter("curPrice"))) {
+				dao.getPbr().addErrorMessage("Invalid input.");
+				request.setAttribute("location", hotelLocation);
+				request.setAttribute("roomType", roomType);
+				request.setAttribute("curPrice", request.getParameter("curPrice"));
+			}
+			
+			int startDay = Integer.parseInt(request.getParameter("startday"));
+			int startMonth = Integer.parseInt(request.getParameter("startmonth"));
+			int startYear = Integer.parseInt(request.getParameter("startyear"));
+			int endDay = Integer.parseInt(request.getParameter("endday"));
+			int endMonth = Integer.parseInt(request.getParameter("endmonth"));
+			int endYear = Integer.parseInt(request.getParameter("endyear"));
+			
+			if (!Command.isPresentFutureDate(startYear, startMonth, startDay) || 
+				!Command.isPresentFutureDate(endYear,  endMonth,  endDay)) {
+				dao.getPbr().addErrorMessage("You cannot book in the past");
+				request.setAttribute("location", hotelLocation);
+				request.setAttribute("roomType", roomType);
+				request.setAttribute("curPrice", request.getParameter("curPrice"));
+			} else if (!Command.isValidDateRange(startYear, startMonth, startDay, endYear, endMonth, endDay)) {
+				dao.getPbr().addErrorMessage("Date range is invalid");
+				request.setAttribute("location", hotelLocation);
+				request.setAttribute("roomType", roomType);
+				request.setAttribute("curPrice", request.getParameter("curPrice"));
+			} else {
+				String start_date = startYear + "-" + startMonth + "-" + startDay;
+				String end_date = endYear + "-" + endMonth + "-" + endDay;
+//				OwnerPriceBean priceBean = new OwnerPriceBean(Integer.parseInt(request.getParameter("curPrice")), roomType, d_price,
+//						start_date, end_date, hotelLocation);
+//				dao.addDiscount(priceBean);
+				
+				request.setAttribute("location", hotelLocation);
+				request.setAttribute("roomType", roomType);
+				request.setAttribute("curPrice", request.getParameter("curPrice"));
+				request.setAttribute("discountPrice", discountPrice);
+				request.setAttribute("startDate", start_date);
+				request.setAttribute("endDate", end_date);
+				request.getSession().setAttribute("setDiscountStatus", "confirm");
+				
+			}
+		} catch (Exception e) {
+			dao.getPbr().addErrorMessage("Invalid input.");
+			request.setAttribute("location", hotelLocation);
+			request.setAttribute("roomType", roomType);
+			request.setAttribute("curPrice", request.getParameter("curPrice"));
+			e.printStackTrace();
+		}
+		
+		return nextPage;
+	}
+	
+	public static String backToDiscountForm(HttpServletRequest request, DAO dao) {
+		String nextPage = "setDiscountPrice.jsp";
+		
+		System.out.println("going back to discount form");
+		
+		String[] startDate = request.getParameter("startDate").split("-");
+		String[] endDate = request.getParameter("endDate").split("-");
+		
+		request.setAttribute("location", request.getParameter("location"));
+		request.setAttribute("roomType", request.getParameter("roomType"));
+		request.setAttribute("curPrice", request.getParameter("curPrice"));
+		request.setAttribute("discountPrice", request.getParameter("discountPrice"));
+		request.setAttribute("startDate", startDate[0]);
+		request.setAttribute("startMonth", startDate[1]);
+		request.setAttribute("startYear", startDate[2]);
+		request.setAttribute("endDate", endDate[0]);
+		request.setAttribute("endMonth", endDate[1]);
+		request.setAttribute("endYear", endDate[2]);
+		
+		return nextPage;
+	}
+	
+	public static String confirmDiscountPrice(HttpServletRequest request, DAO dao) {
+		String hotelLocation = request.getParameter("location");
+		String roomType = request.getParameter("roomType");
+		String curPrice = request.getParameter("curPrice");
+		String discountPrice = request.getParameter("discountPrice");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		
+	
+		
+		OwnerPriceBean priceBean = new OwnerPriceBean(Integer.parseInt(curPrice), roomType, Integer.parseInt(discountPrice),
+				startDate, endDate, hotelLocation);
+		dao.addDiscount(priceBean);
+		
+		return "viewDiscountPrice.jsp";
 	}
 	
 	/***********************************************
