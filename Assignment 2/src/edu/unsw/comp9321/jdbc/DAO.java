@@ -268,10 +268,14 @@ public class DAO {
 							+ "cb.end_date,"
 							+ "c.id as cid,"
 							+ "c.first_name,"
-							+ "c.last_name "
+							+ "c.last_name, "
+							+ "h.id as hid "
 							+ "FROM CUSTOMER_BOOKING cb "
 							+ "JOIN CUSTOMER c "
-							+ "ON (cb.CUSTOMER_ID=c.ID)";
+							+ "ON (cb.CUSTOMER_ID=c.ID) "
+							+ "JOIN "
+							+ "HOTEL h "
+							+ "ON (h.id=cb.hotel_id)";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			while (res.next()) {
@@ -300,10 +304,11 @@ public class DAO {
 					+ "cb.end_date,"
 					+ "c.id as cid,"
 					+ "c.first_name,"
-					+ "c.last_name "
+					+ "c.last_name, "
+					+ "h.id as hid "
 					+ "FROM CUSTOMER_BOOKING cb "
 					+ "JOIN CUSTOMER c "
-					+ "ON (cb.CUSTOMER_ID=c.ID)"
+					+ "ON (cb.CUSTOMER_ID=c.ID) JOIN HOTEL h on (h.id=cb.hotel_id) "
 					+ "WHERE cb.id = " + customerBookingID;
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+ res.getFetchSize());
@@ -325,15 +330,18 @@ public class DAO {
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast =	"SELECT "
-					+ "cb.id as cbid,"
-					+ "cb.start_date,"
-					+ "cb.end_date,"
-					+ "c.id as cid,"
-					+ "c.first_name,"
-					+ "c.lastname,"
+					+ "cb.id as cbid, "
+					+ "cb.start_date, "
+					+ "cb.end_date, "
+					+ "c.id as cid, "
+					+ "c.first_name, "
+					+ "c.lastname, "
+					+ "h.id as hid "
 					+ "FROM CUSTOMER_BOOKING cb "
 					+ "JOIN CUSTOMER c "
-					+ "ON (cb.CUSTOMER_ID=c.ID)"
+					+ "ON (cb.CUSTOMER_ID=c.ID) "
+					+ "JOIN HOTEL h "
+					+ "ON (h.id=cb.hotel_id) "
 					+ "WHERE c.first_name = '" + customerName + "'";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+ res.getFetchSize());
@@ -503,7 +511,7 @@ public class DAO {
 
 		return room;
 	}
-	
+
 	public List<OwnerPriceBean> getRoomPrices(String location, int today_day, int today_month, int today_year) {
 		List<OwnerPriceBean> roomPrices = new ArrayList<OwnerPriceBean>();
 		String loc_query = "";
@@ -803,6 +811,30 @@ public class DAO {
 		return code;
 	}
 
+	public HotelDTO getHotelByID(int hotel_id) {
+		HotelDTO hotel = null;
+		PreparedStatement ps = null;
+		ResultSet result = null;
+
+		try {
+			ps = connection.prepareStatement("SELECT * FROM HOTEL WHERE id=?");
+			ps.setInt(1, hotel_id);
+			result = ps.executeQuery();
+			if (result.next()) {
+				int id = result.getInt("id");
+				String name = result.getString("name");
+				String location = result.getString("location");
+				hotel = new HotelDTO(id, name, location);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return hotel;
+
+	}
+
 	private BookingDTO rebuildBooking(ResultSet res) throws SQLException {
 		int c_id = res.getInt("cid");
 		String c_Firstname = res.getString("first_name");
@@ -814,7 +846,9 @@ public class DAO {
 		Calendar endDate = new GregorianCalendar();
 		endDate.setTime(res.getDate("end_date"));
 
-		return new BookingDTO(cb_id, new CustomerDTO(c_id, c_Firstname, c_LastName), startDate, endDate, getRoomScheduleByCustomerBookingID(cb_id));
+		int h_id = res.getInt("hid");
+
+		return new BookingDTO(cb_id, new CustomerDTO(c_id, c_Firstname, c_LastName), startDate, endDate, getRoomScheduleByCustomerBookingID(cb_id), getHotelByID(h_id));
 	}
 
 	private boolean isValidDate(int day, int month, int year) {
