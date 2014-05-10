@@ -50,6 +50,10 @@ public class DAO {
 		}
 		logger.info("Got connection");
 	}
+	
+	public PassByRef getPbr() {
+		return pbr;
+	}
 
 	public List<HotelDTO> getAllHotelLocations() {
 		List<HotelDTO> hotels = new ArrayList<HotelDTO>();
@@ -512,6 +516,40 @@ public class DAO {
 		return room;
 	}
 
+	/**
+	 * Return the default price of the given room type located
+	 * at the given hotel location.
+	 * @param location The hotel location. E.g. Sydney, Melbourne.
+	 * @param room_type The room type, e.g. single, double.
+	 * @return The current price of the given room type at the given
+	 * 		location.
+	 */
+	public OwnerPriceBean getDefaultRoomPrice(String location, String room_type) {
+		OwnerPriceBean roomPrice = null;
+		
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "select rt.room_type, rt.price, h.location from room_type rt " +
+					"join room r on (r.room_type_id = rt.id) " +
+					"join hotel h on (h.id = r.hotel_id) " +
+					"where h.location = '" + location + "' " +
+					"and rt.room_type = '" + room_type + "' " +
+					"group by rt.room_type, rt.price, h.location";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			
+			if (res.next()) {
+				String type = res.getString("room_type");
+				int price = res.getInt("price");
+				String loc = res.getString("location");
+				roomPrice = new OwnerPriceBean(price, type, 0, null, null, loc);
+			}
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in getCurrRoomPrice");
+		}
+		return roomPrice;
+	}
+
 	public List<OwnerPriceBean> getRoomPrices(String location, int today_day, int today_month, int today_year) {
 		List<OwnerPriceBean> roomPrices = new ArrayList<OwnerPriceBean>();
 		String loc_query = "";
@@ -589,9 +627,39 @@ public class DAO {
 
 		return roomPrices;		
 	}
-
-
-
+	
+	public void addDiscount(OwnerPriceBean newPrice) {
+		try {
+			Statement stmnt = connection.createStatement();
+			String query_cast = "select rt.id as rt_id, h.id as h_id from room_type rt " +
+					"join room r on (r.room_type_id = rt.id) " +
+					"join hotel h on (h.id = r.hotel_id) " +
+					"where rt.room_type = '" + newPrice.getRoomType() + "' " +
+					"and h.location = '" + newPrice.getLocation() + "' " +
+					"group by rt.id, h.id";
+			ResultSet res = stmnt.executeQuery(query_cast);
+			int room_type_id = 0;
+			int hotel_id = 0;
+			if (res.next()) {
+				room_type_id = res.getInt("rt_id");
+				hotel_id = res.getInt("h_id");
+			}
+			
+			PreparedStatement prepStatement = connection.prepareStatement("" +
+					"INSERT INTO DISCOUNT" +
+					"VALUES(DEFAULT, ?, ?, ?, ?, ?");
+			prepStatement.setInt(1, room_type_id);
+			prepStatement.setString(2, newPrice.getDiscountStartDate());
+			prepStatement.setString(3, newPrice.getDiscountEndDate());
+			prepStatement.setInt(4, newPrice.getDiscountPrice());
+			prepStatement.setInt(5, hotel_id);
+			
+		} catch (SQLException SQLe) {
+			SQLe.printStackTrace();
+			pbr.addErrorMessage("SQLException in addDiscount");
+		}
+	}
+	
 	public CustomerDTO addCustomer(String firstName, String lastName) {
 		firstName = firstName.toUpperCase();
 		lastName = lastName.toUpperCase();

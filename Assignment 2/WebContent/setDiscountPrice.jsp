@@ -22,71 +22,118 @@
 </div>
 
 <div id="content">
-	<%@ include file="discountSearchForm.html"%>
-	<div id="main-content">
-		<form action="owner" method="POST">
-			<input type="submit" name="action" value="Back to Main">
-		</form>
-		<p>Room prices:</p>
-		<form action="owner" method="POST">
-			<c:forEach var="hotel" items="${roomPrices}">
-				<div><h4><c:out value="${hotel.key}" /></h4></div>
-				<table id="result-table">
-					<thead>
-						<tr id="result-table-header">
-							<td>Room Type</td>
-							<td>Original Price</td>
-							<td>Discounted Price</td>
-							<td>Start Date</td>
-							<td>End Date</td>
-							<td>Select</td>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="prices" items="${hotel.value}">
-								<tr>
-									<td><c:out value="${prices.roomType}" /></td>
-									<td><c:out value="${prices.currentPrice}" /></td>
-									<td> <!-- discounted price -->
-									<c:if test="${prices.discountPrice eq 0}">
-										<c:out value="N/A" />
-									</c:if>
-									<c:if test="${prices.discountPrice ne 0}">
-										<c:out value="${prices.discountPrice}" />
-									</c:if>
-									</td>
-									<td> <!-- discount start date -->
-									<c:if test="${prices.discountStartDate eq ''}">
-										<c:out value="N/A" />
-									</c:if>
-									<c:if test="${prices.discountStartDate ne ''}">
-										<c:out value="${prices.discountStartDate}" />
-									</c:if>
-									</td>
-									<td> <!-- discount end date -->
-									<c:if test="${prices.discountEndDate eq ''}">
-										<c:out value="N/A" />
-									</c:if>
-									<c:if test="${prices.discountEndDate ne ''}">
-										<c:out value="${prices.discountEndDate}" />
-									</c:if>
-									</td>
-									<td>
-									<c:if test="${prices.discountPrice eq 0}">
-										<input type="radio" name="roomType" value="<c:out value="${prices.roomType}" />" />
-									</c:if>
-									<c:if test="${prices.discountPrice ne 0}">
-										<input type="radio" name="roomType" value="<c:out value="${prices.roomType}" />" disabled/>
-									</c:if>
-									
-									</td>
-								</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</c:forEach>
-			<input type="submit" name="action" value="Set Price" />
-		</form>
+	<form action="owner" method="POST">
+		<input type="submit" name="action" value="Back to Main">
+	</form>
+	<div id="set-price-form">
+		<c:if test="${setDiscountStatus eq 'displayForm'}">
+			<form action="owner" method="POST">
+				<div>
+					Hotel Location:
+					<input type="text" name="location" value="<c:out value="${location}" />" disabled />
+					<input type="hidden" name="location" value="<c:out value="${location}" />" />
+				</div>
+				<div>
+					Room Type:
+					<input type="text" name="roomType" value="<c:out value="${roomType}" />" disabled />
+					<input type="hidden" name="roomType" value="<c:out value="${roomType}" />" />
+				</div>
+				<div>
+					Current Price:
+					<input type="text" name="curPrice" value="<c:out value="${curPrice}" />" disabled />
+					<input type="hidden" name="curPrice" value="<c:out value="${curPrice}" />" />
+				</div>
+				<div>
+					Discounted Price:
+					<input type="text" name="discountPrice" value="${discountPrice ne '' ? discountPrice : ''}" />
+				</div>
+				<div id="checkin">
+				Discount Start Date: <br> Date: <select name="startday">
+					<c:forEach var="date" begin="1" end="31">
+						<option ${startDate eq date ? 'selected' : ''}><c:out value="${date}" /></option>
+					</c:forEach>
+				</select> Month: <select name="startmonth">
+					<option value=01>January</option>
+					<option value=02>February</option>
+					<option value=03>March</option>
+					<option value=04>April</option>
+					<option value=05>May</option>
+					<option value=06>June</option>
+					<option value=07>July</option>
+					<option value=08>August</option>
+					<option value=09>September</option>
+					<option value=10>October</option>
+					<option value=11>November</option>
+					<option value=12>December</option>
+				</select> Year: <select name="startyear">
+					<c:forEach var="year" begin="2014" end="2018">
+						<option ${startYear eq year ? 'selected' : ''}><c:out value="${year}" /></option>
+					</c:forEach>
+				</select>
+			</div>
+			<div id="checkout">
+				Discount End Date: <br> Date: <select name="endday">
+					<c:forEach var="date" begin="1" end="31">
+						<option ${endDate eq date ? 'selected' : ''}><c:out value="${date}" /></option>
+					</c:forEach>
+				</select>
+				Month: <select name="endmonth">
+					<option value=1>January</option>
+					<option value=2>February</option>
+					<option value=3>March</option>
+					<option value=4>April</option>
+					<option value=5>May</option>
+					<option value=6>June</option>
+					<option value=7>July</option>
+					<option value=8>August</option>
+					<option value=9>September</option>
+					<option value=10>October</option>
+					<option value=11>November</option>
+					<option value=12>December</option>
+				</select> Year: <select name="endyear">
+					<c:forEach var="year" begin="2014" end="2018">
+						<option ${endYear eq year ? 'selected' : ''}><c:out value="${year}" /></option>
+					</c:forEach>
+				</select>
+			</div>
+				<input type="submit" value="Submit" />
+				<input type="hidden" name="action" value="submitDiscountPrice" />
+			</form>
+		</c:if>
+		<c:if test="${setDiscountStatus eq 'confirm'}">
+			<form action="owner" method="POST">
+				<div>
+					Hotel Location:
+					<input type="text" name="location" value="<c:out value="${location}" />" disabled />
+					<input type="hidden" name="location" value="<c:out value="${location}" />" />
+				</div>
+				<div>
+					Room Type:
+					<input type="text" name="roomType" value="<c:out value="${roomType}" />" disabled />
+					<input type="hidden" name="roomType" value="<c:out value="${roomType}" />" />
+				</div>
+				<div>
+					Current Price:
+					<input type="text" name="curPrice" value="<c:out value="${curPrice}" />" disabled />
+					<input type="hidden" name="curPrice" value="<c:out value="${curPrice}" />" />
+				</div>
+				<div>
+					Discounted Price:
+					<input type="text" name="discountPrice" value="<c:out value="${discountPrice}" />" disabled/>
+				</div>
+				<div>
+					Start Date:
+					<input type="text" name="startDate" value="<c:out value="${startDate}" />" disabled />
+				</div>
+				<div>
+					End Date:
+					<input type="text" name="endDate" value="<c:out value="${endDate}" />" disabled />
+				</div>
+				<input type="submit" name="action" value="Back" />
+				<input type="hidden" name="action" value="backToDiscountForm" />
+				<input type="submit" name="action" value="Confirm" />
+			</form>
+		</c:if>
 	</div>
 </div>
 </body>

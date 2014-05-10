@@ -1,6 +1,6 @@
 
 <div id="searchForm">
-	<form action="search">
+	<form action="search" method="POST">
 		<div id="checkin">
 			Check In Date: <br> Date: <select name="startday">
 				<option>1</option>
