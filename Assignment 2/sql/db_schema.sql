@@ -81,10 +81,12 @@ create table customer_booking (
 	customer_id int not null,
 	start_date date not null,
 	end_date date not null,
+	hotel_id int not null,
 	primary key (id),
 	foreign key (customer_id) references customer(id),
 	constraint chk_date_range check
-	(start_date <= end_date)
+	(start_date <= end_date),
+	foreign key (hotel_id) references hotel(id)
 	--additional constraint added in DAO, check date ranges do not overlap
 	--for any particular customer
 );
@@ -92,11 +94,13 @@ create table customer_booking (
 --link between room and booking
 create table room_schedule (
 	id int not null generated always as identity,
-	room_id int not null,
+	room_id int,
 	customer_booking_id int not null,
+	room_type_id int not null,
 	primary key (id),
 	foreign key (room_id) references room(id),
-	foreign key (customer_booking_id) references customer_booking(id)
+	foreign key (customer_booking_id) references customer_booking(id),
+	foreign key (room_type_id) references room_type(id)
 );
 
 --################################################################################
@@ -120,6 +124,8 @@ create table booking_unique (
 	primary key(id),
 	foreign key (customer_booking_id) references customer_booking(id)
 );
+
+select * from booking_unique
 
 select rt.room_type from room r join hotel h on (r.hotel_id=h.id) join room_type rt on (rt.id=r.room_type_id) where h.location='Sydney' and rt.room_type='SINGLE' and r.id not in 
 (select rt.room_type from room_schedule rs join customer_booking cb on (rs.customer_booking_id=cb.id) join room r on (r.id=rs.room_id) join room_type rt on (rt.id=r.room_type_id) where (cb.start_date between '2014-05-01' and '2014-05-10') or (cb.end_date between '2014-05-01' and '2014-05-10')) 
