@@ -239,15 +239,8 @@ public class Command {
 		HashMap<String, List<OwnerPriceBean>> allPrices = new HashMap<String, List<OwnerPriceBean>>();
 		
 		for (HotelDTO hotel : hotels) {
-			List<OwnerPriceBean> discounted = dao.getRoomPrices(hotel.getLocation(),
-					Command.getCurrentDay(), Command.getCurrentMonth(), Command.getCurrentYear());
-			List<OwnerPriceBean> original = dao.getRoomPrices(hotel.getLocation());
-			
-			for (OwnerPriceBean p : discounted) {
-				original.add(p);
-			}
+			List<OwnerPriceBean> original = getRoomPrices(hotel.getLocation(), dao);
 			allPrices.put(hotel.getLocation(), original);
-			System.out.println(original.size());
 		}
 		
 		request.setAttribute("roomPrices", allPrices);
@@ -259,30 +252,37 @@ public class Command {
 		String location = request.getParameter("hotelLocation");
 		String roomType = request.getParameter("roomType");
 		
-		if (location.isEmpty()) {
-			displayAllBookings(request, dao);
-			return nextPage;
-		}
-		
 		HashMap<String, List<OwnerPriceBean>> allPrices = new HashMap<String, List<OwnerPriceBean>>();
 		
-		List<OwnerPriceBean> discounted = dao.getRoomPrices(location, Command.getCurrentDay(),
-				Command.getCurrentMonth(), Command.getCurrentYear());
-		List<OwnerPriceBean> original = dao.getRoomPrices(location);
-		for (OwnerPriceBean p : discounted) {
-			original.add(p);
-		}
+		List<OwnerPriceBean> original = getRoomPrices(location, dao);
 		
-		if (roomType.equalsIgnoreCase("all")) {
+		if (location.isEmpty()) {
+			List<HotelDTO> hotels = dao.getAllHotelLocations();
+			for (HotelDTO hotel : hotels) {
+				original = getRoomPrices(hotel.getLocation(), dao);
+				if (!roomType.equalsIgnoreCase("all")) {
+					for (OwnerPriceBean o : original) {
+						if (o.getRoomType().equalsIgnoreCase(roomType)) {
+							List<OwnerPriceBean> result = new ArrayList<OwnerPriceBean>();
+							result.add(o);
+							allPrices.put(o.getLocation(), result);
+						}
+					}
+				} else {
+					allPrices.put(hotel.getLocation(), original);
+				}
+			}
+		} else if (roomType.equalsIgnoreCase("all")) {
 			allPrices.put(location, original);
 		} else {
-			List<OwnerPriceBean> result = new ArrayList<OwnerPriceBean>(); 
+			 
 			for (OwnerPriceBean o : original) {
-				if (o.getRoomType().equalsIgnoreCase(roomType))
+				if (o.getRoomType().equalsIgnoreCase(roomType)) {
+					List<OwnerPriceBean> result = new ArrayList<OwnerPriceBean>();
 					result.add(o);
+					allPrices.put(o.getLocation(), result);
+				}
 			}
-			
-			allPrices.put(location, result);
 		}
 		
 		request.setAttribute("roomPrices", allPrices);
@@ -322,6 +322,17 @@ public class Command {
 			return true;
 		
 		return false;
+	}
+	
+	public static List<OwnerPriceBean> getRoomPrices(String location, DAO dao) {
+		List<OwnerPriceBean> discounted = dao.getRoomPrices(location, Command.getCurrentDay(),
+				Command.getCurrentMonth(), Command.getCurrentYear());
+		List<OwnerPriceBean> original = dao.getRoomPrices(location);
+		for (OwnerPriceBean p : discounted) {
+			original.add(p);
+		}
+		
+		return original;
 	}
 	
 	public static int getCurrentYear() {
