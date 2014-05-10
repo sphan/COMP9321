@@ -19,6 +19,7 @@ import edu.unsw.comp9321.bean.BookingSelection;
 import edu.unsw.comp9321.bean.OccupancyBean;
 import edu.unsw.comp9321.bean.OwnerPriceBean;
 import edu.unsw.comp9321.bean.SearchDetailsBean;
+import edu.unsw.comp9321.exception.EmptyResultException;
 import edu.unsw.comp9321.exception.ServiceLocatorException;
 import edu.unsw.comp9321.logic.Command;
 import edu.unsw.comp9321.logic.PassByRef;
@@ -307,13 +308,47 @@ public class DAO {
 
 		return bookings;
 	}
+	
+	public int getRoomTypeIDByName(String roomType) {
+		PreparedStatement ps = null;
+		ResultSet result = null;
+		int id = 0;
+		try {
+			ps = connection.prepareStatement("SELECT id FROM ROOM_TYPE WHERE room_type=?");
+			ps.setString(1, roomType);
+			result = ps.executeQuery();
+			if (result.next()) {
+				id = result.getInt("id");
+			} else {
+				throw new EmptyResultException();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id;
+	}
 
-	public RoomDTO addRoomSchedule(int custBookingID, String roomType, String location, String startDate, String endDate) {
-		RoomDTO room = null;
+	public void addRoomSchedule(int custBookingID, String roomType, String location, String startDate, String endDate) {
+		PreparedStatement ps = null;
 		ResultSet result = null;
 		ResultSet generatedKeys = null;
-
+		
 		try {
+			ps = connection.prepareStatement("INSERT INTO ROOM_SCHEDULE VALUES(DEFAULT, null, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, custBookingID);
+			ps.setInt(2, getRoomTypeIDByName(roomType));
+			result = ps.executeQuery();
+			
+			generatedKeys = ps.getGeneratedKeys();
+			if (!generatedKeys.next()) {
+				throw new EmptyResultException();
+			}
+		} catch (Exception e) {
+			
+		}
+
+		/*try {
 			PreparedStatement ps = connection.prepareStatement(
 					"select "
 							+ "r.id "
@@ -358,7 +393,7 @@ public class DAO {
 						"INSERT "
 								+ "INTO "
 								+ "ROOM_SCHEDULE "
-								+ "VALUES(DEFAULT,?,?)", 
+								+ "VALUES(DEFAULT,?,?,?)", 
 								Statement.RETURN_GENERATED_KEYS);
 				ps.setInt(1, result.getInt("id"));
 				ps.setInt(2, custBookingID);
@@ -373,19 +408,28 @@ public class DAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		return room;
+		}*/
 	}
 
 	public BookingDTO addCustomerBooking(int custID, BookingListBean blb) {
 		BookingDTO booking = null;
 		ResultSet generatedKeys = null;
-
+		List<HotelDTO> hotels = getAllHotels();
+		HotelDTO hotel = null;
+		for (HotelDTO h : hotels) {
+			//find the current hotel
+			if (h.getLocation().equals(blb.getLocation())) {
+				hotel = h;
+			}
+		}
 		try {
-			PreparedStatement ps = connection.prepareStatement("INSERT INTO CUSTOMER_BOOKING VALUES(DEFAULT,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			
+			
+			PreparedStatement ps = connection.prepareStatement("INSERT INTO CUSTOMER_BOOKING VALUES(DEFAULT,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, custID);
 			ps.setString(2, blb.getStartYear()+"-"+blb.getStartMonth()+"-"+blb.getStartDay());
 			ps.setString(3, blb.getEndYear()+"-"+blb.getEndMonth()+"-"+blb.getEndDay());
+			ps.setInt(4, hotel.getId());
 			ps.executeUpdate();//create booking entry
 			generatedKeys = ps.getGeneratedKeys();
 
@@ -762,6 +806,9 @@ public class DAO {
 		if (getCustomerBookingFromCode(code) != null) {
 			code = createBookingCode(custBookingID);
 		}
+		
+		
+		
 		return code;
 	}
 
