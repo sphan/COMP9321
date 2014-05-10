@@ -25,11 +25,25 @@ public class Command {
 		
 		String hotelLocation = request.getParameter("hotelLocation");
 		String roomAvail = request.getParameter("roomAvail").toLowerCase().replaceAll("\\W", "");
+		HashMap<String, List<OccupancyBean>> results = new HashMap<String, List<OccupancyBean>>();
 		
 		List<OccupancyBean> occupancies = null;
 		
 		if (hotelLocation.isEmpty()) {
-			displayAllOccupancies(request, dao);
+			List<HotelDTO> hotels = dao.getAllHotelLocations();
+			if (roomAvail.equalsIgnoreCase("all")) {
+				for (HotelDTO hotel : hotels) {
+					occupancies = dao.getRoomsOccupancyByLocation(hotel.getLocation());
+					results.put(hotel.getLocation(), occupancies);
+				}
+			} else {
+				for (HotelDTO hotel : hotels) {
+					occupancies = dao.getRoomsOccupancyByLocation(hotel.getLocation(), roomAvail);
+					if (!occupancies.isEmpty())
+						results.put(hotel.getLocation(), occupancies);
+				}
+			}
+			request.setAttribute("occupancies", results);
 			return nextPage;
 		}
 		
@@ -39,7 +53,6 @@ public class Command {
 			occupancies = dao.getRoomsOccupancyByLocation(hotelLocation, roomAvail);
 		}
 		
-		HashMap<String, List<OccupancyBean>> results = new HashMap<String, List<OccupancyBean>>();
 		results.put(hotelLocation, occupancies);
 		
 		request.setAttribute("occupancies", results);
@@ -134,6 +147,11 @@ public class Command {
 		String searchType = request.getParameter("search-type");
 		String searchString = request.getParameter("searchString");
 		List<BookingDTO> bookings = new LinkedList<BookingDTO>();
+		
+		if (searchString.isEmpty()) {
+			displayAllBookings(request, dao);
+			return nextPage;
+		}
 		
 		if (searchType.equalsIgnoreCase("bookingNumber")) {
 			int bookingID;
