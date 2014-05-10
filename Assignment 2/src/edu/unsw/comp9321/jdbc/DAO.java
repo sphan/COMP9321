@@ -18,6 +18,7 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 import edu.unsw.comp9321.bean.BookingListBean;
+import edu.unsw.comp9321.bean.BookingRoomDetailBean;
 import edu.unsw.comp9321.bean.BookingSelection;
 import edu.unsw.comp9321.bean.OccupancyBean;
 import edu.unsw.comp9321.bean.OwnerPriceBean;
@@ -190,6 +191,42 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return roomTypeList;
+	}
+	
+	/**
+	 * Get list of available rooms by the given room type and hotel location.
+	 * @param roomType The room type for which rooms should be of.
+	 * @param location The locations where the rooms should belong.
+	 * @return A list of room details for the booking.
+	 */
+	public List<BookingRoomDetailBean> getAvailableRooms(int bookingID) {
+		List<BookingRoomDetailBean> availableRooms = new ArrayList<BookingRoomDetailBean>();
+		List<BookingRoomDetailBean> requestDetail = getBookingRoomDetails(bookingID);
+		ResultSet results = null;
+		
+		try {
+			for (BookingRoomDetailBean rd : requestDetail) {
+				PreparedStatement ps = connection.prepareStatement("" +
+						"select r.id as room_id, h.id as hotel_id from room r " +
+						"join room_type rt on (rt.id = r.room_type_id) " +
+						"join hotel h on (h.id = r.hotel_id) " +
+						"where r.availability = 'available' " +
+						"and rt.room_type = ? and h.location = ?");
+				ps.setString(1, rd.getRoomType());
+				ps.setString(2, rd.getHotel().getLocation());
+				results = ps.executeQuery();
+				
+				while (results.next()) {
+					int room_id = results.getInt("room_id");
+					int hotel_id = results.getInt("hotel_id");
+					availableRooms.add(new BookingRoomDetailBean(rd.getRoomType(), getHotelByID(hotel_id), getRoomByID(room_id)));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return availableRooms;
 	}
 
 	/**
@@ -380,10 +417,39 @@ public class DAO {
 		}
 		return id;
 	}
+	
+	public void updateRoomSchedule(int custBookingID, int roomID, String room_type) {
+		PreparedStatement ps = null;
+		ResultSet results = null;
+		
+		try {
+			
+			ps = connection.prepareStatement("" +
+					"select rs.id from room_schedule rs " +
+					"join room_type rt on (rt.id = rs.room_type_id) " +
+					"where rt.room_type = ? and room_id is NULL and rs.customer_booking_id = ?");
+			System.out.println("roomType: " + room_type);
+			System.out.println("roomID: " + roomID);
+			ps.setString(1, room_type);
+			ps.setInt(2, custBookingID);
+			results = ps.executeQuery();
+			
+			
+			if (results.next()) {
+				System.out.println("Updatng");
+				ps = connection.prepareStatement("update room_schedule set room_id = ? " +
+						"where id = ?");
+				ps.setInt(1, roomID);
+				ps.setInt(2, results.getInt("id"));
+				ps.executeUpdate();
+			}
+		} catch (Exception e) {
+			
+		}
+	}
 
 	public void addRoomSchedule(int custBookingID, String roomType, String location, String startDate, String endDate) {
 		PreparedStatement ps = null;
-		ResultSet result = null;
 		ResultSet generatedKeys = null;
 
 		try {
@@ -491,7 +557,7 @@ public class DAO {
 
 	public RoomDTO getRoomByID(int room_id) {
 		RoomDTO room = null;
-
+		
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = "select r.id, r.room_number, r.availability, rt.room_type, r.hotel_id " +
@@ -735,12 +801,14 @@ public class DAO {
 			System.out.println(query_cast);
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
-
-			int id = res.getInt("id");
-			String first_name = res.getString("first_name");
-			String last_name = res.getString("last_name");
-
-			customer = new CustomerDTO(id, first_name, last_name);
+			
+			if (res.next()) {
+				int id = res.getInt("id");
+				String first_name = res.getString("first_name");
+				String last_name = res.getString("last_name");
+				customer = new CustomerDTO(id, first_name, last_name);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -844,6 +912,34 @@ public class DAO {
 
 		}
 		return rooms;
+	}
+	
+	public List<BookingRoomDetailBean> getBookingRoomDetails(int bookingID) {
+		ResultSet result = null;
+		List<BookingRoomDetailBean> roomDetails = new ArrayList<BookingRoomDetailBean>();
+		
+		try {
+			PreparedStatement ps = connection.prepareStatement(
+					"select rs.room_id, rt.room_type, h.id, h.name, h.location from room_type rt " + 
+					"join room_schedule rs on (rs.room_type_id = rt.id) " + 
+					"join customer_booking cb on (cb.id = rs.customer_booking_id) " +
+					"join hotel h on (h.id = cb.hotel_id) " +
+					"where rs.customer_booking_id = ?");
+			ps.setInt(1, bookingID);
+			result = ps.executeQuery();
+			
+			while (result.next()) {
+				int room_id = result.getInt("room_id");
+				String room_type = result.getString("room_type");
+				int hotel_id = result.getInt("id");
+				
+				roomDetails.add(new BookingRoomDetailBean(room_type, getHotelByID(hotel_id), getRoomByID(room_id)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return roomDetails;
 	}
 
 	public BookingDTO getCustomerBookingFromCode(String code) {

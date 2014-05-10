@@ -36,6 +36,7 @@
 								<tr id="result-table-header">
 									<td>Booking Number</td>
 									<td>Customer</td>
+									<td>Hotel Location</td>
 									<td>Booking Status</td>
 									<td>Select</td>
 								</tr>
@@ -45,6 +46,7 @@
 									<tr>
 										<td><c:out value="${booking.id}" /></td>
 										<td><c:out value="${booking.customer.firstName}" /> <c:out value="${booking.customer.lastName}" /></td>
+										<td><c:out value="${booking.hotel.location}" /></td>
 										<td>BOOKED</td>
 										<td><input type="hidden" name="bookingStatus" value="BOOKED" />
 										<input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />
@@ -61,6 +63,7 @@
 								<tr id="result-table-header">
 									<td>Booking Number</td>
 									<td>Customer</td>
+									<td>Hotel Location</td>
 									<td>Booking Status</td>
 									<td>Select</td>
 								</tr>
@@ -70,6 +73,7 @@
 									<tr>
 										<td><c:out value="${booking.id}" /></td>
 										<td><c:out value="${booking.customer.firstName}" /> <c:out value="${booking.customer.lastName}" /></td>
+										<td><c:out value="${booking.hotel.location}" /></td>
 										<td>CHECKED IN</td>
 										<td><input type="hidden" name="bookingStatus" value="CHECKEDIN" />
 										<input type="radio" name="bookingID" value="<c:out value="${booking.id}" />" />

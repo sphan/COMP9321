@@ -8,6 +8,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import sun.security.action.GetBooleanAction;
+
+import edu.unsw.comp9321.bean.BookingRoomDetailBean;
 import edu.unsw.comp9321.bean.OccupancyBean;
 import edu.unsw.comp9321.bean.OwnerPriceBean;
 import edu.unsw.comp9321.jdbc.Availability;
@@ -89,7 +92,6 @@ public class Command {
 		for (BookingDTO booking : allBookings) {
 			if (booking.getEndDate().after(Calendar.getInstance())) {
 				pendingBookings.add(booking);
-				System.out.println("booking: " + booking.getId());
 			}
 		}
 		
@@ -98,12 +100,11 @@ public class Command {
 		List<BookingDTO> booked = new LinkedList<BookingDTO>();
 		List<BookingDTO> checkedin = new LinkedList<BookingDTO>();
 		for (BookingDTO booking : pendingBookings) {
-			List<RoomDTO> rooms = dao.getRoomsByBookingID(booking.getId());
-			System.out.println(booking.getId());
-			if (bookingAllCheckedIn(rooms)) {
-				checkedin.add(booking);
-			} else {
+			List<BookingRoomDetailBean> roomDetails = dao.getBookingRoomDetails(booking.getId());
+			if (!bookingAllCheckedIn(roomDetails)) {
 				booked.add(booking);
+			} else if (!bookingCompleted(roomDetails) && bookingAllCheckedIn(roomDetails)) {
+				checkedin.add(booking);
 			}
 		}
 		results.put(Availability.CHECKEDIN.name(), checkedin);
@@ -129,16 +130,29 @@ public class Command {
 			}
 		}
 		
-		if (bookingAllCheckedIn(dao.getRoomsByBookingID(bookingID)))
+		List<BookingRoomDetailBean> requestedRooms = dao.getBookingRoomDetails(bookingID);
+		HashMap<String, Integer> roomCount = requestRoomCount(requestedRooms);
+		
+		if (bookingAllCheckedIn(requestedRooms))
 			checkedIn = true;
 		
-		List<RoomDTO> rooms = dao.getRoomsByBookingID(bookingID);
+		List<BookingRoomDetailBean> availableRooms = new ArrayList<BookingRoomDetailBean>();
+		
+		if (checkedIn) {
+			List<RoomDTO> rooms = dao.getRoomScheduleByCustomerBookingID(bookingID);
+			for (RoomDTO room : rooms) {
+				availableRooms.add(new BookingRoomDetailBean(room.getRoomType().name(), dao.getHotelByID(room.getHotel()), room));
+			}
+		} else {
+			availableRooms = dao.getAvailableRooms(bookingID);
+		}
 		CustomerDTO customer = dao.getCustomerByBookingID(bookingID);
 				
 		request.setAttribute("checkedIn", checkedIn);
 		request.setAttribute("customer", customer);
-		request.setAttribute("rooms", rooms);
-		request.setAttribute("bookingID", bookingID);
+		request.setAttribute("requestedRooms", roomCount);
+		request.setAttribute("availableRooms", availableRooms);
+		request.getSession().setAttribute("bookingID", bookingID);
 		return nextPage;
 	}
 	
@@ -177,27 +191,38 @@ public class Command {
 		boolean checkedIn = false;
 		
 		String[] roomIDs = request.getParameterValues("checkInRooms");
+		int bookingID = (Integer) request.getSession().getAttribute("bookingID");
+		List<BookingRoomDetailBean> requestDetails = dao.getBookingRoomDetails(bookingID);
 		
-		if (roomIDs == null) {
-			displayAllBookings(request, dao);
-			pbr.addErrorMessage("Select a room to check in.");
-			return "staffPage.jsp";
+		if (roomIDs == null || roomIDs.length > requestDetails.size() ||
+			!correctRoomsSelected(requestDetails, roomIDs, dao)) {
+			List<BookingRoomDetailBean> availableRooms = dao.getAvailableRooms(bookingID);
+			CustomerDTO customer = dao.getCustomerByBookingID(bookingID);
+					
+			request.setAttribute("checkedIn", checkedIn);
+			request.setAttribute("customer", customer);
+			request.setAttribute("requestedRooms", requestRoomCount(dao.getBookingRoomDetails(bookingID)));
+			request.setAttribute("availableRooms", availableRooms);
+			request.getSession().setAttribute("bookingID", bookingID);
+			return nextPage;
 		}
 		
-		List<RoomDTO> rooms = new ArrayList<RoomDTO>();
+		List<BookingRoomDetailBean> rooms = new ArrayList<BookingRoomDetailBean>();
 		
 		for (String roomID : roomIDs) {
 			try {
 				int room_id = Integer.parseInt(roomID);
+				RoomDTO room = dao.getRoomByID(room_id);
 				dao.updateRoomAvailability(room_id, "checkedin");
-				rooms.add(dao.getRoomByID(room_id));
+				dao.updateRoomSchedule(bookingID, room_id, room.getRoomType().name());
+				rooms.add(new BookingRoomDetailBean(room.getRoomType().name(), dao.getHotelByID(room.getHotel()), room));
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		checkedIn = true;
-		request.setAttribute("rooms", rooms);
+		request.setAttribute("availableRooms", rooms);
 		request.setAttribute("checkedIn", checkedIn);
 		
 		return nextPage;
@@ -215,20 +240,21 @@ public class Command {
 			return "staffPage.jsp";
 		}
 		
-		List<RoomDTO> rooms = new ArrayList<RoomDTO>();
+		List<BookingRoomDetailBean> rooms = new ArrayList<BookingRoomDetailBean>();
 		
 		for (String roomID : roomIDs) {
 			try {
 				int room_id = Integer.parseInt(roomID);
 				dao.updateRoomAvailability(room_id, "available");
-				rooms.add(dao.getRoomByID(room_id));
+				RoomDTO room = dao.getRoomByID(room_id);
+				rooms.add(new BookingRoomDetailBean(room.getRoomType().name(), dao.getHotelByID(room.getHotel()), room));
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		checkedIn = false;
-		request.setAttribute("rooms", rooms);
+		request.setAttribute("availableRooms", rooms);
 		request.setAttribute("checkedIn", checkedIn);
 		
 		return nextPage;
@@ -445,20 +471,71 @@ public class Command {
 		}
 	}
 	
-	public static boolean bookingAllCheckedIn(List<RoomDTO> rooms) {
+	public static boolean bookingAllCheckedIn(List<BookingRoomDetailBean> roomDetails) {
 		int checkedInCnt = 0;
-		for (RoomDTO room : rooms) {
-			if (room.getAvailability() == Availability.BOOKED) {
-				return false;
-			} else if (room.getAvailability() == Availability.CHECKEDIN) {
+		
+		for (BookingRoomDetailBean rd : roomDetails) {
+			if (rd.getRoom() != null) {
 				checkedInCnt++;
 			}
 		}
 		
-		if (checkedInCnt == rooms.size())
+		if (checkedInCnt == roomDetails.size())
 			return true;
 		
 		return false;
+	}
+	
+	public static boolean bookingCompleted(List<BookingRoomDetailBean> roomDetails) {
+		int checkedOutCnt = 0;
+		if (bookingAllCheckedIn(roomDetails)) {
+			for (BookingRoomDetailBean rd : roomDetails) {
+				if (rd.getRoom().getAvailability() == Availability.AVAILABLE)
+					checkedOutCnt++;
+			}
+		}
+		if (checkedOutCnt == roomDetails.size()) {
+			System.out.println("checkedOutCnt: " + checkedOutCnt);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public static boolean correctRoomsSelected(List<BookingRoomDetailBean> roomDetails, String[] roomIDs, DAO dao) {
+		HashMap<String, Integer> roomTypeCount = requestRoomCount(roomDetails);
+		int zeroCount = 0;
+		
+		for (String room_id : roomIDs) {
+			int id = Integer.parseInt(room_id);
+			RoomDTO room = dao.getRoomByID(id);
+			roomTypeCount.put(room.getRoomType().name(), roomTypeCount.get(room.getRoomType().name()) - 1);
+			if (roomTypeCount.get(room.getRoomType().name()) < 0)
+				return false;
+		}
+		
+		for (String roomType : roomTypeCount.keySet()) {
+			if (roomTypeCount.get(roomType) == 0)
+				zeroCount++;
+		}
+		
+		if (zeroCount == roomTypeCount.size())
+			return true;
+		
+		return false;
+	}
+	
+	public static HashMap<String, Integer> requestRoomCount(List<BookingRoomDetailBean> roomDetails) {
+		HashMap<String, Integer> roomTypeCount = new HashMap<String, Integer>();
+		for (BookingRoomDetailBean rd : roomDetails) {
+			if (roomTypeCount.containsKey(rd.getRoomType())) {
+				roomTypeCount.put(rd.getRoomType(), roomTypeCount.get(rd.getRoomType()) + 1);
+			} else {
+				roomTypeCount.put(rd.getRoomType(), 1);
+			}
+		}
+		
+		return roomTypeCount;
 	}
 	
 	public static List<OwnerPriceBean> getRoomPrices(String location, DAO dao) {
