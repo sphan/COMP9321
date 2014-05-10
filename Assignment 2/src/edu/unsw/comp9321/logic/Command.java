@@ -317,6 +317,12 @@ public class Command {
 		
 		request.setAttribute("location", location);
 		request.setAttribute("roomType", room_type);
+		request.setAttribute("startDate", getCurrentDay());
+		request.setAttribute("startMonth", getCurrentMonth());
+		request.setAttribute("startYear", getCurrentYear());
+		request.setAttribute("endDate", getCurrentDay() + 1);
+		request.setAttribute("endMonth", getCurrentMonth());
+		request.setAttribute("endYear", getCurrentYear());
 		request.getSession().setAttribute("setDiscountStatus", "displayForm");
 		
 		OwnerPriceBean defaultPrice = dao.getDefaultRoomPrice(location, room_type);
@@ -332,13 +338,19 @@ public class Command {
 		String discountPrice = request.getParameter("discountPrice");
 		
 		try {
+			if (discountPrice.isEmpty()) {
+				dao.getPbr().addErrorMessage("Invalid input.");
+				presetDiscountForm(request, getCurrentDay(), getCurrentMonth(), getCurrentYear(),
+						getCurrentDay() + 1, getCurrentMonth(), getCurrentYear());
+				return nextPage;
+			}
 			int d_price = Integer.parseInt(discountPrice);
 			
-			if (d_price > Integer.parseInt(request.getParameter("curPrice"))) {
+			if ( d_price > Integer.parseInt(request.getParameter("curPrice"))) {
 				dao.getPbr().addErrorMessage("Invalid input.");
-				request.setAttribute("location", hotelLocation);
-				request.setAttribute("roomType", roomType);
-				request.setAttribute("curPrice", request.getParameter("curPrice"));
+				presetDiscountForm(request, getCurrentDay(), getCurrentMonth(), getCurrentYear(),
+						getCurrentDay() + 1, getCurrentMonth(), getCurrentYear());
+				return nextPage;
 			}
 			
 			int startDay = Integer.parseInt(request.getParameter("startday"));
@@ -351,20 +363,15 @@ public class Command {
 			if (!Command.isPresentFutureDate(startYear, startMonth, startDay) || 
 				!Command.isPresentFutureDate(endYear,  endMonth,  endDay)) {
 				dao.getPbr().addErrorMessage("You cannot book in the past");
-				request.setAttribute("location", hotelLocation);
-				request.setAttribute("roomType", roomType);
-				request.setAttribute("curPrice", request.getParameter("curPrice"));
+				presetDiscountForm(request, getCurrentDay(), getCurrentMonth(), getCurrentYear(),
+						getCurrentDay() + 1, getCurrentMonth(), getCurrentYear());
 			} else if (!Command.isValidDateRange(startYear, startMonth, startDay, endYear, endMonth, endDay)) {
 				dao.getPbr().addErrorMessage("Date range is invalid");
-				request.setAttribute("location", hotelLocation);
-				request.setAttribute("roomType", roomType);
-				request.setAttribute("curPrice", request.getParameter("curPrice"));
+				presetDiscountForm(request, getCurrentDay(), getCurrentMonth(), getCurrentYear(),
+						getCurrentDay() + 1, getCurrentMonth(), getCurrentYear());
 			} else {
 				String start_date = startYear + "-" + startMonth + "-" + startDay;
 				String end_date = endYear + "-" + endMonth + "-" + endDay;
-//				OwnerPriceBean priceBean = new OwnerPriceBean(Integer.parseInt(request.getParameter("curPrice")), roomType, d_price,
-//						start_date, end_date, hotelLocation);
-//				dao.addDiscount(priceBean);
 				
 				request.setAttribute("location", hotelLocation);
 				request.setAttribute("roomType", roomType);
@@ -377,9 +384,8 @@ public class Command {
 			}
 		} catch (Exception e) {
 			dao.getPbr().addErrorMessage("Invalid input.");
-			request.setAttribute("location", hotelLocation);
-			request.setAttribute("roomType", roomType);
-			request.setAttribute("curPrice", request.getParameter("curPrice"));
+			presetDiscountForm(request, getCurrentDay(), getCurrentMonth(), getCurrentYear(),
+					getCurrentDay() + 1, getCurrentMonth(), getCurrentYear());
 			e.printStackTrace();
 		}
 		
@@ -389,21 +395,13 @@ public class Command {
 	public static String backToDiscountForm(HttpServletRequest request, DAO dao) {
 		String nextPage = "setDiscountPrice.jsp";
 		
-		System.out.println("going back to discount form");
-		
 		String[] startDate = request.getParameter("startDate").split("-");
 		String[] endDate = request.getParameter("endDate").split("-");
 		
-		request.setAttribute("location", request.getParameter("location"));
-		request.setAttribute("roomType", request.getParameter("roomType"));
-		request.setAttribute("curPrice", request.getParameter("curPrice"));
-		request.setAttribute("discountPrice", request.getParameter("discountPrice"));
-		request.setAttribute("startDate", startDate[0]);
-		request.setAttribute("startMonth", startDate[1]);
-		request.setAttribute("startYear", startDate[2]);
-		request.setAttribute("endDate", endDate[0]);
-		request.setAttribute("endMonth", endDate[1]);
-		request.setAttribute("endYear", endDate[2]);
+		presetDiscountForm(request, Integer.parseInt(startDate[2]), Integer.parseInt(startDate[1]), Integer.parseInt(startDate[0]),
+				Integer.parseInt(endDate[2]), Integer.parseInt(endDate[1]), Integer.parseInt(endDate[0]));
+		
+		request.getSession().setAttribute("setDiscountStatus", "displayForm");
 		
 		return nextPage;
 	}
@@ -416,11 +414,15 @@ public class Command {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		
-	
-		
 		OwnerPriceBean priceBean = new OwnerPriceBean(Integer.parseInt(curPrice), roomType, Integer.parseInt(discountPrice),
 				startDate, endDate, hotelLocation);
 		dao.addDiscount(priceBean);
+		
+		HashMap<String, List<OwnerPriceBean>> allPrices = new HashMap<String, List<OwnerPriceBean>>();
+		
+		List<OwnerPriceBean> original = getRoomPrices(hotelLocation, dao);
+		allPrices.put(hotelLocation, original);
+		request.setAttribute("roomPrices", allPrices);
 		
 		return "viewDiscountPrice.jsp";
 	}
@@ -468,6 +470,20 @@ public class Command {
 		}
 		
 		return original;
+	}
+	
+	public static void presetDiscountForm(HttpServletRequest request, int startday, int startmonth, int startyear,
+			int endday, int endmonth, int endyear) {
+		request.setAttribute("location", request.getParameter("location"));
+		request.setAttribute("roomType", request.getParameter("roomType"));
+		request.setAttribute("curPrice", request.getParameter("curPrice"));
+		request.setAttribute("discountPrice", request.getParameter("discountPrice"));
+		request.setAttribute("startDate", startday);
+		request.setAttribute("startMonth", startmonth);
+		request.setAttribute("startYear", startyear);
+		request.setAttribute("endDate", endday);
+		request.setAttribute("endMonth", endmonth);
+		request.setAttribute("endYear", endyear);
 	}
 	
 	public static int getCurrentYear() {

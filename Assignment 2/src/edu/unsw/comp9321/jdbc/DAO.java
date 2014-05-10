@@ -638,13 +638,14 @@ public class DAO {
 			}
 			
 			PreparedStatement prepStatement = connection.prepareStatement("" +
-					"INSERT INTO DISCOUNT" +
-					"VALUES(DEFAULT, ?, ?, ?, ?, ?");
+					"INSERT INTO DISCOUNT " +
+					"VALUES(DEFAULT, ?, ?, ?, ?, ?)");
 			prepStatement.setInt(1, room_type_id);
 			prepStatement.setString(2, newPrice.getDiscountStartDate());
 			prepStatement.setString(3, newPrice.getDiscountEndDate());
 			prepStatement.setInt(4, newPrice.getDiscountPrice());
 			prepStatement.setInt(5, hotel_id);
+			prepStatement.executeUpdate();
 			
 		} catch (SQLException SQLe) {
 			SQLe.printStackTrace();

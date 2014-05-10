@@ -20,7 +20,6 @@ public class OwnerServlet extends HttpServlet {
      */
     public OwnerServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -52,8 +51,10 @@ public class OwnerServlet extends HttpServlet {
 			nextPage = Command.displayDiscountForm(request, dao);
 		} else if (action.equalsIgnoreCase("submitDiscountPrice")) {
 			nextPage = Command.setDiscountPrice(request, dao);
-		} else if (action.equalsIgnoreCase("backToDiscountForm")) {
+		} else if (action.equalsIgnoreCase("back to form")) {
 			nextPage = Command.backToDiscountForm(request, dao);
+		} else if (action.equalsIgnoreCase("confirm")) {
+			nextPage = Command.confirmDiscountPrice(request, dao);
 		}
 		
 		pbr.postErrorMessage(request);
