@@ -5,13 +5,12 @@
     <welcome-file>customerMain.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-    <description></description>
-    <display-name>SearchServlet</display-name>
-    <servlet-name>SearchServlet</servlet-name>
-    <servlet-class>edu.unsw.comp9321.SearchServlet</servlet-class>
+  <servlet-name>URL</servlet-name>
+  <servlet-class>edu.unsw.comp9321.logic.URLServlet</servlet-class>
   </servlet>
+  
   <servlet-mapping>
-    <servlet-name>SearchServlet</servlet-name>
-    <url-pattern>/Control</url-pattern>
+  <servlet-name>URL</servlet-name>
+  <url-pattern>/URL/*</url-pattern>
   </servlet-mapping>
 </web-app>
