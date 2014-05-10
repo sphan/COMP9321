@@ -1,5 +1,7 @@
 package edu.unsw.comp9321.bean;
 
+import edu.unsw.comp9321.logic.Command;
+
 public class SearchDetailsBean {
 	
 	private int startDay;
@@ -12,6 +14,15 @@ public class SearchDetailsBean {
 	
 	private String location;
 	private int maxPrice;
+	
+	public SearchDetailsBean() {
+		this.setStartDay(Command.getCurrentDay());
+		this.setStartMonth(Command.getCurrentMonth());
+		this.setStartYear(Command.getCurrentYear());
+		this.setEndDay(Command.getCurrentDay()+1);
+		this.setEndMonth(Command.getCurrentMonth());
+		this.setEndYear(Command.getCurrentYear());
+	}
 	
 	public int getStartDay() {
 		return startDay;

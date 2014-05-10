@@ -36,18 +36,7 @@ public class DefaultServlet extends HttpServlet {
 			//session expired, create new sdb
 			sdb = new SearchDetailsBean();
 		}
-		System.out.println("hello");
-		
-		pbr.addErrorMessage("hello"+String.valueOf(Command.getCurrentDay()));
-		sdb.setStartDay(Command.getCurrentDay());
-		sdb.setStartMonth(Command.getCurrentMonth());
-		sdb.setStartYear(Command.getCurrentYear());
-		sdb.setEndDay(Command.getCurrentDay()+1);
-		sdb.setEndMonth(Command.getCurrentMonth());
-		sdb.setEndYear(Command.getCurrentYear());
-		System.out.println(sdb.getStartDay());
-		
-		request.getSession().setAttribute("searchDetails", sdb);
+
 		
 		pbr.postErrorMessage(request);
 		RequestDispatcher rd = request.getRequestDispatcher("/" + "customerMain.jsp");

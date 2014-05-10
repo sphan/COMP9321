@@ -37,18 +37,18 @@
 				<option>31</option>
 			</select> Month: <select name="startmonth">
 				<option selected>${searchDetails.startMonth}</option>
-				<option value=01>January</option>
-				<option value=02>February</option>
-				<option value=03>March</option>
-				<option value=04>April</option>
-				<option value=05>May</option>
-				<option value=06>June</option>
-				<option value=07>July</option>
-				<option value=08>August</option>
-				<option value=09>September</option>
-				<option value=10>October</option>
-				<option value=11>November</option>
-				<option value=12>December</option>
+				<option>01</option>
+				<option>02</option>
+				<option>03</option>
+				<option>04</option>
+				<option>05</option>
+				<option>06</option>
+				<option>07</option>
+				<option>08</option>
+				<option>09</option>
+				<option>10</option>
+				<option>11</option>
+				<option>12</option>
 			</select> Year: <select name="startyear">
 			<option selected>${searchDetails.startYear}</option>
 				<option>2014</option>
@@ -92,18 +92,18 @@
 				<option>31</option>
 			</select> Month: <select name="endmonth">
 			<option selected>${searchDetails.endMonth}</option>
-				<option value=1>January</option>
-				<option value=2>February</option>
-				<option value=3>March</option>
-				<option value=4>April</option>
-				<option value=5>May</option>
-				<option value=6>June</option>
-				<option value=7>July</option>
-				<option value=8>August</option>
-				<option value=9>September</option>
-				<option value=10>October</option>
-				<option value=11>November</option>
-				<option value=12>December</option>
+				<option>01</option>
+				<option>02</option>
+				<option>03</option>
+				<option>04</option>
+				<option>05</option>
+				<option>06</option>
+				<option>07</option>
+				<option>08</option>
+				<option>09</option>
+				<option>10</option>
+				<option>11</option>
+				<option>12</option>
 			</select> Year: <select name="endyear">
 			<option selected>${searchDetails.endYear}</option>
 				<option>2014</option>
@@ -113,6 +113,7 @@
 		</div>
 		<div>
 			City: <select name="location">
+			<option selected>${searchDetails.location}</option>
 				<option>Sydney</option>
 				<option>Melbourne</option>
 				<option>Brisbane</option>
