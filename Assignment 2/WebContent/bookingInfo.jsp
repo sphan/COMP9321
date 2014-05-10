@@ -8,15 +8,18 @@
 <title>Hotels</title>
 </head>
 <body>
-<h1 align="center">Order for ${bookingDetails.customer.firstName} ${bookingDetails.customer.lastName}</h1>
+	<h1 align="center">Order for ${bookingDetails.customer.firstName}
+		${bookingDetails.customer.lastName}</h1>
 
-<h2 align="center">Your bookings for ${bookingDetails.startDateString} to ${bookingDetails.endDateString}</h2>
+	<h2 align="center">Your bookings for
+		${bookingDetails.startDateString} to ${bookingDetails.endDateString}</h2>
 
-<h2 align="center">at ${bookingDetails.hotel.location}</h2>
+	<h2 align="center">at ${bookingDetails.hotel.location}</h2>
 
-<h3 align="center">Your Booking Details:</h3>
-
-
+	<h3 align="center">Your Booking Details:</h3>
+	<c:forEach items="${bookingDetails.roomSchedules}" var="roomSchedule">
+		<div align="center">${roomSchedule.extraBed}</div>
+	</c:forEach>
 
 </body>
 </html>

@@ -40,7 +40,6 @@ public class URLServlet extends HttpServlet {
 		
 		if (booking != null) {
 			request.setAttribute("bookingDetails", booking);
-			System.out.println(booking.getRooms().size());
 			nextPage = "bookingInfo.jsp";
 		} else {
 			pbr.addErrorMessage("The URL entered is invalid");

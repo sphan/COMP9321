@@ -11,15 +11,15 @@ public class BookingDTO {
 	private CustomerDTO customer;
 	private Calendar startDate;
 	private Calendar endDate;
-	private List<RoomDTO> rooms;
+	private List<RoomScheduleDTO> roomSchedules;
 	private HotelDTO hotel;
 
-	public BookingDTO(int id, CustomerDTO customer, Calendar startDate, Calendar endDate, List<RoomDTO> rooms, HotelDTO hotel) {
+	public BookingDTO(int id, CustomerDTO customer, Calendar startDate, Calendar endDate, List<RoomScheduleDTO> rooms, HotelDTO hotel) {
 		this.id = id;
 		this.customer = customer;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.rooms = rooms;
+		this.roomSchedules = rooms;
 		this.hotel = hotel;
 	}
 
@@ -62,12 +62,12 @@ public class BookingDTO {
 		this.endDate = endDate;
 	}
 
-	public List<RoomDTO> getRooms() {
-		return rooms;
+	public List<RoomScheduleDTO> getRoomSchedules() {
+		return roomSchedules;
 	}
 
-	public void setRooms(List<RoomDTO> rooms) {
-		this.rooms = rooms;
+	public void setRooms(List<RoomScheduleDTO> roomSchedules) {
+		this.roomSchedules = roomSchedules;
 	}
 
 	public HotelDTO getHotel() {

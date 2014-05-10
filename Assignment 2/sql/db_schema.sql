@@ -97,10 +97,13 @@ create table room_schedule (
 	room_id int,
 	customer_booking_id int not null,
 	room_type_id int not null,
+	extra_bed int not null,
 	primary key (id),
 	foreign key (room_id) references room(id),
 	foreign key (customer_booking_id) references customer_booking(id),
-	foreign key (room_type_id) references room_type(id)
+	foreign key (room_type_id) references room_type(id),
+	constraint chk_boolean_extra_bed check
+	(extra_bed=0 or extra_bed=1)
 );
 
 --################################################################################
@@ -124,8 +127,15 @@ create table booking_unique (
 	primary key(id),
 	foreign key (customer_booking_id) references customer_booking(id)
 );
+insert into customer_booking values (default, 1, '2014-05-09','2014-05-11')
+select * from customer_booking;
+select * from customer;
 
-select * from booking_unique
+select * from booking_unique;
+
+(select rt1.room_type, rt1.price, count(rt1.room_type) as count from room_type rt1 join room r on (r.room_type_id=rt1.id) join hotel h on (h.id=r.hotel_id) where h.id=1 group by rt1.room_type, rt1.price)
+(select rt2.room_type, rt2.price, count(rt2.room_type) as count from room_schedule rs join room_type rt2 on (rs.room_type_id=rt2.id) join customer_booking cb on (cb.id=rs.customer_booking_id) where (cb.hotel_id=2) or ((cb.start_date between'2014-04-01' and '2016-04-02') or (cb.end_date between'2014-04-01' and '2016-04-02')) group by rt2.room_type, rt2.price)
+
 
 select rt.room_type from room r join hotel h on (r.hotel_id=h.id) join room_type rt on (rt.id=r.room_type_id) where h.location='Sydney' and rt.room_type='SINGLE' and r.id not in 
 (select rt.room_type from room_schedule rs join customer_booking cb on (rs.customer_booking_id=cb.id) join room r on (r.id=rs.room_id) join room_type rt on (rt.id=r.room_type_id) where (cb.start_date between '2014-05-01' and '2014-05-10') or (cb.end_date between '2014-05-01' and '2014-05-10')) 
