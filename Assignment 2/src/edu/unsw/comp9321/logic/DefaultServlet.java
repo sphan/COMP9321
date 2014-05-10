@@ -1,6 +1,9 @@
 package edu.unsw.comp9321.logic;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.unsw.comp9321.bean.SearchDetailsBean;
+import edu.unsw.comp9321.jdbc.PeakPeriodDTO;
 
 /**
  * Servlet implementation class Default
@@ -36,6 +40,14 @@ public class DefaultServlet extends HttpServlet {
 			//session expired, create new sdb
 			sdb = new SearchDetailsBean();
 		}
+		
+		List<PeakPeriodDTO> peakPeriods = new ArrayList<PeakPeriodDTO>();
+		peakPeriods.add(new PeakPeriodDTO(15, Calendar.DECEMBER, 15, Calendar.FEBRUARY));
+		peakPeriods.add(new PeakPeriodDTO(25, Calendar.MARCH, 14, Calendar.APRIL));
+		peakPeriods.add(new PeakPeriodDTO(1, Calendar.JULY, 20, Calendar.JULY));
+		peakPeriods.add(new PeakPeriodDTO(20, Calendar.SEPTEMBER, 10, Calendar.OCTOBER));
+		
+		request.getSession().setAttribute("peakPeriods", peakPeriods);
 		
 		pbr.postErrorMessage(request);
 		RequestDispatcher rd = request.getRequestDispatcher("/" + "customerMain.jsp");

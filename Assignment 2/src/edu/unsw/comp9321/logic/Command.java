@@ -213,8 +213,8 @@ public class Command {
 		for (String roomID : roomIDs) {
 			try {
 				int room_id = Integer.parseInt(roomID);
-				RoomDTO room = dao.getRoomByID(room_id);
 				dao.updateRoomAvailability(room_id, "checkedin");
+				RoomDTO room = dao.getRoomByID(room_id);
 				dao.updateRoomSchedule(bookingID, room_id, room.getRoomType().name());
 				rooms.add(new BookingRoomDetailBean(room.getRoomType().name(), dao.getHotelByID(room.getHotel()), room));
 				
