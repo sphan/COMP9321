@@ -136,7 +136,7 @@ select * from room_schedule rs join customer_booking cb on (rs.customer_booking_
 select * from booking_unique;
 
 (select rt1.room_type, rt1.price, count(rt1.room_type) as count from room_type rt1 join room r on (r.room_type_id=rt1.id) join hotel h on (h.id=r.hotel_id) where h.id=1 group by rt1.room_type, rt1.price)
-(select rt2.room_type, rt2.price, count(rt2.room_type) as count from room_schedule rs join room_type rt2 on (rs.room_type_id=rt2.id) join customer_booking cb on (cb.id=rs.customer_booking_id) where (cb.hotel_id=1) or ((cb.start_date between'2014-04-01' and '2016-04-02') or (cb.end_date between'2014-04-01' and '2016-06-02')) group by rt2.room_type, rt2.price)
+(select rt2.room_type, rt2.price, count(rt2.room_type) as count from room_schedule rs join room_type rt2 on (rs.room_type_id=rt2.id) join customer_booking cb on (cb.id=rs.customer_booking_id) where (cb.hotel_id=1) and ((cb.start_date between'2014-04-01' and '2016-04-02') or (cb.end_date between'2014-04-01' and '2016-06-02')) group by rt2.room_type, rt2.price)
 
 
 select rt.room_type from room r join hotel h on (r.hotel_id=h.id) join room_type rt on (rt.id=r.room_type_id) where h.location='Sydney' and rt.room_type='SINGLE' and r.id not in 

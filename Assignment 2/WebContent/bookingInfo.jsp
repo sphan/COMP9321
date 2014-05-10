@@ -17,9 +17,34 @@
 	<h2 align="center">at ${bookingDetails.hotel.location}</h2>
 
 	<h3 align="center">Your Booking Details:</h3>
-	<c:forEach items="${bookingDetails.roomSchedules}" var="roomSchedule">
-		<div align="center">${roomSchedule.extraBed}</div>
-	</c:forEach>
-
+	<table id="result-table" align="center">
+		<thead>
+			<tr id="result-table-header">
+				<td>Room</td>
+				<td>Room Type</td>
+				<td>Price per night</td>
+				<td>Extra bed?</td>
+			</tr>
+		</thead>
+		<tbody>
+			<%
+				int i = 0;
+			%>
+			<c:forEach items="${bookingDetails.roomSchedules}" var="roomSchedule">
+				<tr>
+					<td>
+						<%
+							out.println(i++);
+						%>
+					</td>
+					<td>${roomSchedule.roomType}</td>
+					<td>price</td>
+					<c:set value="${roomSchedule.extraBed ?'checked':''}"
+						var="check" />
+					<td><input type="checkbox" disabled ${check}></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 </body>
 </html>

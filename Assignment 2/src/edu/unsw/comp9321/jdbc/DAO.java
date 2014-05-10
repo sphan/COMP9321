@@ -133,14 +133,14 @@ public class DAO {
 
 			ps = connection.prepareStatement(
 					"select "
-							+ "rt2.room_type, "
-							+ "rt2.price, "
-							+ "count(rt2.room_type) as count "
+							+ "rt.room_type, "
+							+ "rt.price, "
+							+ "count(rt.room_type) as count "
 							+ "from room_schedule rs "
 							+ "join "
-							+ "room_type rt2 "
+							+ "room_type rt "
 							+ "on "
-							+ "(rs.room_type_id=rt2.id) "
+							+ "(rs.room_type_id=rt.id) "
 							+ "join "
 							+ "customer_booking cb "
 							+ "on "
@@ -151,13 +151,13 @@ public class DAO {
 							+ "(cb.hotel_id=h.id) "
 							+ "where "
 							+ "(h.location=?) "
-							+ " "
+							+ "and "
 							+ "((cb.start_date between ? and ?) "
 							+ "or "
 							+ "(cb.end_date between ? and ?)) "
 							+ "group by "
-							+ "rt2.room_type, "
-							+ "rt2.price");
+							+ "rt.room_type, "
+							+ "rt.price");
 			ps.setString(1, sdb.getLocation());
 			ps.setString(2, sdb.getStartYear()+"-"+sdb.getStartMonth()+"-"+sdb.getStartDay());
 			ps.setString(3, sdb.getEndYear()+"-"+sdb.getEndMonth()+"-"+sdb.getEndDay());
@@ -381,7 +381,7 @@ public class DAO {
 		return id;
 	}
 
-	public void addRoomSchedule(int custBookingID, String roomType, String location, String startDate, String endDate) {
+	public void addRoomSchedule(int custBookingID, String roomType, String location, String startDate, String endDate, boolean extraBed) {
 		PreparedStatement ps = null;
 		ResultSet result = null;
 		ResultSet generatedKeys = null;
@@ -390,7 +390,7 @@ public class DAO {
 			ps = connection.prepareStatement("INSERT INTO ROOM_SCHEDULE VALUES(DEFAULT, null,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, custBookingID);
 			ps.setInt(2, getRoomTypeIDByName(roomType));
-			ps.setInt(3, 0);
+			ps.setInt(3, (extraBed) ? 1 : 0);
 			ps.executeUpdate();
 
 			generatedKeys = ps.getGeneratedKeys();
@@ -435,7 +435,7 @@ public class DAO {
 							bs.getRoomType(), 
 							blb.getLocation(), 
 							blb.getStartYear()+"-"+blb.getStartMonth()+"-"+blb.getStartDay(), 
-							blb.getEndYear()+"-"+blb.getEndMonth()+"-"+blb.getEndDay()
+							blb.getEndYear()+"-"+blb.getEndMonth()+"-"+blb.getEndDay(), bs.isExtraBed()
 							);
 				}
 				//after adding room schedules, getting booking would include room schedules
@@ -861,7 +861,7 @@ public class DAO {
 				int customerBookingID = result.getInt("customer_booking_id");
 				String roomType = result.getString("room_type");
 				int extraBed = result.getInt("extra_bed");
-				roomSchedule = new RoomScheduleDTO(id, getRoomByID(roomID), roomType, extraBed, customerBookingID);
+				roomSchedule = new RoomScheduleDTO(id, getRoomByID(roomID), roomType, ((extraBed == 0) ? false : true), customerBookingID);
 				
 			}
 		} catch (SQLException e) {

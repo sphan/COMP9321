@@ -5,10 +5,10 @@ public class RoomScheduleDTO {
 	private int id;
 	private RoomDTO room;
 	private String roomType;
-	private final int extraBed;
+	private final boolean extraBed;
 	private int customerID;
 	
-	public RoomScheduleDTO (int id, RoomDTO room, String roomType, int extraBed, int customerID) {
+	public RoomScheduleDTO (int id, RoomDTO room, String roomType, boolean extraBed, int customerID) {
 		this.setId(id);
 		this.setRoom(room);
 		this.setRoomType(roomType);
@@ -32,7 +32,7 @@ public class RoomScheduleDTO {
 		this.roomType = roomType;
 	}
 
-	public int getExtraBed() {
+	public boolean getExtraBed() {
 		return extraBed;
 	}
 
