@@ -510,18 +510,23 @@ public class DAO {
 		int today_month = Command.getCurrentMonth();
 		int today_year = Command.getCurrentYear();
 
+		String loc_query = "";
+
+		if (!location.isEmpty()) {
+			loc_query = "h.location = '" + location + "' and ";
+		}
 		try {
 			Statement stmnt = connection.createStatement();
 			String query_cast = "select rt.room_type, rt.price from room_type rt " +
 					"join room r on (r.room_type_id = rt.id) " +
 					"join hotel h on (h.id = r.hotel_id) " +
-					"where h.location = '" + location + "' " +
-					"and rt.id not in " +
+					"where " + loc_query +
+					"rt.id not in " +
 					"(select rt2.id from room_type rt2 " +
 					"join discount d on (d.room_type_id = rt2.id) " +
 					"join hotel h on (h.id = d.hotel_id) " +
-					"where h.location = '" + location + "' " +
-					"and '" + today_year + "-" + today_month + "-" + today_day + "' " +
+					"where " + loc_query +
+					"'" + today_year + "-" + today_month + "-" + today_day + "' " +
 					"between d.start_date and d.end_date) " +
 					"group by rt.room_type, rt.price";
 			ResultSet res = stmnt.executeQuery(query_cast);
@@ -539,38 +544,7 @@ public class DAO {
 		return roomPrices;		
 	}
 
-	public List<OwnerPriceBean> getRoomPrices(String location, int today_day, int today_month, int today_year) {
-		List<OwnerPriceBean> roomPrices = new ArrayList<OwnerPriceBean>();
 
-		try {
-			Statement stmnt = connection.createStatement();
-			String query_cast = "select rt.room_type, rt.price, d.start_date, d.end_date, " +
-					"d.discounted_price, h.location from room_type rt " +
-					"join discount d on (d.room_type_id = rt.id) " +
-					"join hotel h on (h.id = d.hotel_id) " +
-					"where h.location = '" + location + "' " +
-					"and '" + today_year + "-" + today_month + "-" + today_day + "' " +
-					"between d.start_date and d.end_date " +
-					"group by rt.room_type, rt.price, d.start_date, d.end_date, d.discounted_price, h.location";
-			ResultSet res = stmnt.executeQuery(query_cast);
-
-			while (res.next()) {
-				String room_type = res.getString("room_type");
-				int price = res.getInt("price");
-				String start_date = res.getString("start_date");
-				String end_date = res.getString("end_date");
-				int discounted_price = res.getInt("discounted_price");
-				String loc = res.getString("location");
-
-				roomPrices.add(new OwnerPriceBean(price, room_type, discounted_price, start_date, end_date, loc));
-			}
-		} catch (SQLException SQLe) {
-			SQLe.printStackTrace();
-			pbr.addErrorMessage("SQLException in getRoomPrices");
-		}
-
-		return roomPrices;		
-	}
 
 	public CustomerDTO addCustomer(String firstName, String lastName) {
 		firstName = firstName.toUpperCase();

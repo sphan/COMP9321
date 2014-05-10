@@ -71,7 +71,15 @@
 										<c:out value="${prices.discountEndDate}" />
 									</c:if>
 									</td>
-									<td><input type="radio" name="roomType" value="<c:out value="${prices.roomType}" />" /></td>
+									<td>
+									<c:if test="${prices.discountPrice eq 0}">
+										<input type="radio" name="roomType" value="<c:out value="${prices.roomType}" />" />
+									</c:if>
+									<c:if test="${prices.discountPrice ne 0}">
+										<input type="radio" name="roomType" value="<c:out value="${prices.roomType}" />" disabled/>
+									</c:if>
+									
+									</td>
 								</tr>
 						</c:forEach>
 					</tbody>
