@@ -25,7 +25,7 @@
 	<form action="owner" method="POST">
 		<input type="submit" name="action" value="Back to Main">
 	</form>
-	<div id="set-price-form">
+	<div id="set-price-form" align="center">
 		<c:if test="${setDiscountStatus eq 'displayForm'}">
 			<form action="owner" method="POST">
 				<div>
@@ -53,18 +53,13 @@
 						<option ${startDate eq date ? 'selected' : ''}><c:out value="${date}" /></option>
 					</c:forEach>
 				</select> Month: <select name="startmonth">
-					<option value=01>January</option>
-					<option value=02>February</option>
-					<option value=03>March</option>
-					<option value=04>April</option>
-					<option value=05>May</option>
-					<option value=06>June</option>
-					<option value=07>July</option>
-					<option value=08>August</option>
-					<option value=09>September</option>
-					<option value=10>October</option>
-					<option value=11>November</option>
-					<option value=12>December</option>
+					<c:set var="monthVal" value="1" />
+					<c:forTokens items="January,February,March,April,May,June,July,August,September,October,November,December" delims="," var="month">
+						<option value=<c:out value="${monthVal}" /> ${startMonth eq monthVal ? 'selected' : ''}>
+							<c:out value="${month}" />
+						</option>
+						<c:set var="monthVal" value="${monthVal + 1}" />
+					</c:forTokens>
 				</select> Year: <select name="startyear">
 					<c:forEach var="year" begin="2014" end="2018">
 						<option ${startYear eq year ? 'selected' : ''}><c:out value="${year}" /></option>
@@ -78,18 +73,13 @@
 					</c:forEach>
 				</select>
 				Month: <select name="endmonth">
-					<option value=1>January</option>
-					<option value=2>February</option>
-					<option value=3>March</option>
-					<option value=4>April</option>
-					<option value=5>May</option>
-					<option value=6>June</option>
-					<option value=7>July</option>
-					<option value=8>August</option>
-					<option value=9>September</option>
-					<option value=10>October</option>
-					<option value=11>November</option>
-					<option value=12>December</option>
+					<c:set var="monthVal" value="1" />
+					<c:forTokens items="January,February,March,April,May,June,July,August,September,October,November,December" delims="," var="month">
+						<option value=<c:out value="${monthVal}" /> ${startMonth eq monthVal ? 'selected' : ''}>
+							<c:out value="${month}" />
+						</option>
+						<c:set var="monthVal" value="${monthVal + 1}" />
+					</c:forTokens>
 				</select> Year: <select name="endyear">
 					<c:forEach var="year" begin="2014" end="2018">
 						<option ${endYear eq year ? 'selected' : ''}><c:out value="${year}" /></option>
@@ -120,17 +110,19 @@
 				<div>
 					Discounted Price:
 					<input type="text" name="discountPrice" value="<c:out value="${discountPrice}" />" disabled/>
+					<input type="hidden" name="discountPrice" value="<c:out value="${discountPrice}" />" />
 				</div>
 				<div>
 					Start Date:
 					<input type="text" name="startDate" value="<c:out value="${startDate}" />" disabled />
+					<input type="hidden" name="startDate" value="<c:out value="${startDate}" />" />
 				</div>
 				<div>
 					End Date:
 					<input type="text" name="endDate" value="<c:out value="${endDate}" />" disabled />
+					<input type="hidden" name="endDate" value="<c:out value="${endDate}" />" />
 				</div>
-				<input type="submit" name="action" value="Back" />
-				<input type="hidden" name="action" value="backToDiscountForm" />
+				<input type="submit" name="action" value="Back to Form" />
 				<input type="submit" name="action" value="Confirm" />
 			</form>
 		</c:if>
