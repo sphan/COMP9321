@@ -230,15 +230,6 @@ insert into ROOM values (default, 4, 140, 'available', 5);
 insert into ROOM values (default, 5, 141, 'available', 5);
 insert into ROOM values (default, 5, 142, 'available', 5);
 
-insert into CUSTOMER values (default, 'Andrew', 'Anderson');
-insert into CUSTOMER values (default, 'Bill', 'Bite');
-insert into CUSTOMER values (default, 'Claire', 'Eclair');
-insert into CUSTOMER values (default, 'Daniel', 'Danish');
-insert into CUSTOMER values (default, 'Ethan', 'Ether');
-insert into CUSTOMER values (default, 'Frank', 'Fryer');
-insert into CUSTOMER values (default, 'Gary', 'Grey');
-insert into CUSTOMER values (default, 'Harold', 'Haroldson');
-
 insert into STAFF values (default, 'Sandy', 'Sandy', 'password', 'manager');
 insert into STAFF values (default, 'Jason', 'Jason', 'password', 'manager');
 insert into STAFF values (default, 'Kate', 'Kate', 'password', 'owner');
