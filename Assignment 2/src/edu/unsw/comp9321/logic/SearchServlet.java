@@ -60,15 +60,17 @@ public class SearchServlet extends HttpServlet {
 		sdb.setEndMonth(Integer.parseInt(request.getParameter("endmonth")));
 		sdb.setEndYear(Integer.parseInt(request.getParameter("endyear")));
 		sdb.setLocation(request.getParameter("location"));
-		if (!Command.isPresentFutureDate(sdb.getStartYear(), sdb.getStartMonth(), sdb.getStartDay()) || !Command.isPresentFutureDate(sdb.getEndYear(),  sdb.getEndMonth(),  sdb.getEndDay())) {
+		System.out.println(sdb.getLocation());
+		if (sdb.getLocation().equals("Select") || sdb.getLocation() == null) {
+			pbr.addErrorMessage("Please select a city");
+		}
+		else if (!Command.isPresentFutureDate(sdb.getStartYear(), sdb.getStartMonth(), sdb.getStartDay()) || !Command.isPresentFutureDate(sdb.getEndYear(),  sdb.getEndMonth(),  sdb.getEndDay())) {
 			pbr.addErrorMessage("You cannot book in the past");
 		}
 		else if (!Command.isValidDateRange(sdb.getStartYear(), sdb.getStartMonth(), sdb.getStartDay(), sdb.getEndYear(), sdb.getEndMonth(), sdb.getEndDay())) {
 			pbr.addErrorMessage("Date range is invalid");
 		}
 		else {
-			
-			sdb.setMaxPrice(Integer.MAX_VALUE);
 			try {
 				sdb.setMaxPrice(Integer.parseInt(request.getParameter("maxPrice")));
 			} catch (NumberFormatException nfe) {/*catch exception and do nothing*/}

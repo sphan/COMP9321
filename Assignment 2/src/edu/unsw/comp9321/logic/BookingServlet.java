@@ -79,7 +79,7 @@ public class BookingServlet extends HttpServlet {
 				for (int i = 0; i < roomTypeName.length; i++) {
 					if (Integer.parseInt(roomTypeCount[i]) != 0) {
 						for (int j = 0; j < Integer.parseInt(roomTypeCount[i]); j++) {
-							blb.addBookingSelection(new BookingSelection(index++, roomTypeName[i], roomTypePrice[i]));
+							blb.addBookingSelection(new BookingSelection(index++, roomTypeName[i], roomTypePrice[i], false));
 						}
 					}
 				}

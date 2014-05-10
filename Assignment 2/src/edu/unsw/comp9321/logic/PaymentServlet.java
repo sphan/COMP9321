@@ -24,14 +24,14 @@ import edu.unsw.comp9321.jdbc.RoomTypeDTO;
 @WebServlet(urlPatterns="/payment",displayName="PaymentServlet")
 public class PaymentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PaymentServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public PaymentServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -48,30 +48,55 @@ public class PaymentServlet extends HttpServlet {
 		PassByRef pbr = new PassByRef();
 		DAO dao = new DAO(pbr);
 		String nextPage = "";
-		
-		String firstName = request.getParameter("fname");
-		String lastName = request.getParameter("lname");
-		String email = request.getParameter("email");
-		String creditCardNumber = request.getParameter("creditcard");
-		String expirationMonth = request.getParameter("expireMM");
-		String expirationYear = request.getParameter("expireYY");
-		
-		if (firstName.equals("")||lastName.equals("")||email.equals("")||creditCardNumber.equals("")||expirationMonth.equals("")||expirationYear.equals("")||
-				firstName==null||lastName==null||email==null||creditCardNumber==null||expirationMonth==null||expirationYear==null) {
-			nextPage = "booking.jsp";
-			pbr.addErrorMessage("one of the fields are invalid or incomplete");
-		} else {
-			BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
-			CustomerDTO cust = dao.addCustomer(firstName, lastName);
-			BookingDTO booking = dao.addCustomerBooking(
-					cust.getId(), blb
-					);
-			String code = dao.createBookingCode(booking.getId());
-			System.out.println(code);
-			pbr.addErrorMessage(code);
-			nextPage = "confirmation.jsp";
+
+		BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
+		String[] extraBed = request.getParameterValues("extrabed");
+
+		for (BookingSelection bs : blb.getList()) {
+			bs.setExtraBed(false);	//set all to false as the correct ones will be set to true to ensure no trues are carried over
 		}
-		
+		if (extraBed != null) {//if all checkboxes are unticked, then extraBed is null
+			for (BookingSelection bs : blb.getList()) {
+				for(String s : extraBed) {
+					if (bs.getIndex() == Integer.parseInt(s)) {
+						bs.setExtraBed(true);
+					}
+				}
+			}
+		}
+		System.out.println(request.getParameter("action"));
+		if (request.getParameter("action").equals("update total")) {
+			System.out.println("hello");
+			nextPage = "booking.jsp";
+		}
+		else if (request.getParameter("action").equals("confirm")) {
+
+			String firstName = request.getParameter("fname");
+			String lastName = request.getParameter("lname");
+			String email = request.getParameter("email");
+			String creditCardNumber = request.getParameter("creditcard");
+			String expirationMonth = request.getParameter("expireMM");
+			String expirationYear = request.getParameter("expireYY");
+
+			if (firstName.equals("")||lastName.equals("")||email.equals("")||creditCardNumber.equals("")||expirationMonth.equals("")||expirationYear.equals("")||
+					firstName==null||lastName==null||email==null||creditCardNumber==null||expirationMonth==null||expirationYear==null) {
+				nextPage = "booking.jsp";
+				pbr.addErrorMessage("one of the fields are invalid or incomplete");
+			} else {
+
+				CustomerDTO cust = dao.addCustomer(firstName, lastName);
+				BookingDTO booking = dao.addCustomerBooking(
+						cust.getId(), blb
+						);
+				String code = dao.createBookingCode(booking.getId());
+				System.out.println(code);
+				pbr.addErrorMessage(code);
+				nextPage = "confirmation.jsp";
+			}
+		} else {
+			System.out.println("ELSE");
+		}
+
 		pbr.postErrorMessage(request);
 		RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
 		rd.forward(request, response);

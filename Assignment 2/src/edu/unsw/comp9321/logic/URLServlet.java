@@ -36,13 +36,14 @@ public class URLServlet extends HttpServlet {
 		DAO dao = new DAO(pbr);
 		String nextPage;
 		
-		BookingDTO booking = null;
+		BookingDTO booking=dao.getCustomerBookingFromCode(code);
 		
-		if ((booking=dao.getCustomerBookingFromCode(code)) != null) {
-			
+		if (booking != null) {
+			request.setAttribute("bookingDetails", booking);
 			nextPage = "bookingInfo.jsp";
 		} else {
 			pbr.addErrorMessage("The URL entered is invalid");
+			System.out.println("not book");
 			nextPage = "customerMain.jsp";
 		}
 		

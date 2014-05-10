@@ -43,6 +43,9 @@ public class BookingListBean {
 	public int getTotalPrice() {
 		int total = 0;
 		for (BookingSelection bs : list) {
+			if (bs.isExtraBed()) {
+				total += 35;
+			}
 			total += bs.getPrice();
 		}
 		return total;

@@ -19,6 +19,7 @@ import edu.unsw.comp9321.jdbc.CustomerDTO;
 import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.HotelDTO;
 import edu.unsw.comp9321.jdbc.RoomDTO;
+import edu.unsw.comp9321.jdbc.RoomScheduleDTO;
 import edu.unsw.comp9321.jdbc.StaffDTO;
 import edu.unsw.comp9321.jdbc.StaffType;
 
@@ -139,9 +140,9 @@ public class Command {
 		List<BookingRoomDetailBean> availableRooms = new ArrayList<BookingRoomDetailBean>();
 		
 		if (checkedIn) {
-			List<RoomDTO> rooms = dao.getRoomScheduleByCustomerBookingID(bookingID);
-			for (RoomDTO room : rooms) {
-				availableRooms.add(new BookingRoomDetailBean(room.getRoomType().name(), dao.getHotelByID(room.getHotel()), room));
+			List<RoomScheduleDTO> rooms = dao.getRoomScheduleByCustomerBookingID(bookingID);
+			for (RoomScheduleDTO room : rooms) {
+				availableRooms.add(new BookingRoomDetailBean(room.getRoomType(), dao.getHotelByID(room.getRoom().getHotel()), room.getRoom()));
 			}
 		} else {
 			availableRooms = dao.getAvailableRooms(bookingID);
