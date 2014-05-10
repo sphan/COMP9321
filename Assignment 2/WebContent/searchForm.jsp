@@ -122,7 +122,7 @@
 			</select>
 		</div>
 		<div>
-			Max. Price per night: <input type="number" name="maxPrice" min="0">
+			Max. Price per night: <input type="number" name="maxPrice" min="0" value="${searchDetails.maxPrice}">
 		</div>
 		<div>
 			<input type="submit" name="action" value="Search">

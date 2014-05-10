@@ -22,6 +22,8 @@ public class SearchDetailsBean {
 		this.setEndDay(Command.getCurrentDay()+1);
 		this.setEndMonth(Command.getCurrentMonth());
 		this.setEndYear(Command.getCurrentYear());
+		this.setLocation("Select");
+		this.setMaxPrice(500);
 	}
 	
 	public int getStartDay() {

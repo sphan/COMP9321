@@ -36,7 +36,6 @@ public class DefaultServlet extends HttpServlet {
 			//session expired, create new sdb
 			sdb = new SearchDetailsBean();
 		}
-
 		
 		pbr.postErrorMessage(request);
 		RequestDispatcher rd = request.getRequestDispatcher("/" + "customerMain.jsp");
