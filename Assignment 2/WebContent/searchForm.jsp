@@ -3,6 +3,7 @@
 	<form action="search" method="POST">
 		<div id="checkin">
 			Check In Date: <br> Date: <select name="startday">
+				<option selected>${searchDetails.startDay}</option>
 				<option>1</option>
 				<option>2</option>
 				<option>3</option>
@@ -35,6 +36,7 @@
 				<option>30</option>
 				<option>31</option>
 			</select> Month: <select name="startmonth">
+				<option selected>${searchDetails.startMonth}</option>
 				<option value=01>January</option>
 				<option value=02>February</option>
 				<option value=03>March</option>
@@ -48,6 +50,7 @@
 				<option value=11>November</option>
 				<option value=12>December</option>
 			</select> Year: <select name="startyear">
+			<option selected>${searchDetails.startYear}</option>
 				<option>2014</option>
 				<option>2015</option>
 				<option>2016</option>
@@ -55,6 +58,7 @@
 		</div>
 		<div id="checkout">
 			Check Out Date: <br> Date: <select name="endday">
+				<option selected>${searchDetails.endDay}</option>
 				<option>1</option>
 				<option>2</option>
 				<option>3</option>
@@ -86,8 +90,8 @@
 				<option>29</option>
 				<option>30</option>
 				<option>31</option>
-			</select>
-			Month: <select name="endmonth">
+			</select> Month: <select name="endmonth">
+			<option selected>${searchDetails.endMonth}</option>
 				<option value=1>January</option>
 				<option value=2>February</option>
 				<option value=3>March</option>
@@ -101,6 +105,7 @@
 				<option value=11>November</option>
 				<option value=12>December</option>
 			</select> Year: <select name="endyear">
+			<option selected>${searchDetails.endYear}</option>
 				<option>2014</option>
 				<option>2015</option>
 				<option>2016</option>
