@@ -805,11 +805,31 @@ public class DAO {
 		if (getCustomerBookingFromCode(code) != null) {
 			code = createBookingCode(custBookingID);
 		}
-
-
+		
+		try {
+			ResultSet generatedKeys = null;
+			PreparedStatement ps = connection.prepareStatement("insert into booking_unique values(default,?,?)", Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, code);
+			ps.setInt(2, custBookingID);
+			ps.executeUpdate();
+			
+			generatedKeys = ps.getGeneratedKeys();
+			
+			if (generatedKeys.next()) {
+				
+			} else {
+				throw new Exception("Key was not generated");
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 		return code;
 	}
+	
 
 	public HotelDTO getHotelByID(int hotel_id) {
 		HotelDTO hotel = null;
