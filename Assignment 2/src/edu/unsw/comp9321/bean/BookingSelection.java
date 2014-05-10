@@ -5,14 +5,16 @@ public class BookingSelection {
 	private int index;
 	private String roomType;
 	private int price;
+	private boolean extraBed;
 	
-	public BookingSelection(int index, String roomType, int price) {
+	public BookingSelection(int index, String roomType, int price, boolean extraBed) {
 		this.index = index;
 		this.roomType = roomType;
 		this.price = price;
+		this.extraBed = extraBed;
 	}
-	public BookingSelection(int index, String roomType, String price) {
-		this(index, roomType, Integer.parseInt(price));
+	public BookingSelection(int index, String roomType, String price, boolean extraBed) {
+		this(index, roomType, Integer.parseInt(price), extraBed);
 	}
 	
 	public String getRoomType() {
@@ -32,6 +34,12 @@ public class BookingSelection {
 	}
 	public void setIndex(int index) {
 		this.index = index;
+	}
+	public boolean isExtraBed() {
+		return extraBed;
+	}
+	public void setExtraBed(boolean extraBed) {
+		this.extraBed = extraBed;
 	}
 
 }

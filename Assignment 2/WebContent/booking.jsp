@@ -30,10 +30,14 @@
 								<td>${bookingSelection.index}</td>
 								<td>${bookingSelection.roomType}</td>
 								<td>${bookingSelection.price}</td>
-								<td><c:set
+								<td>
+								<c:set
+										value="${bookingSelection.extraBed ?'checked':''}"
+										var="check" />
+								<c:set
 										value="${bookingSelection.roomType=='SINGLE'?'disabled':''}"
 										var="disable" /> <input type="checkbox" name="extrabed"
-									${disable} value="false"></td>
+									${disable} ${check} value="${bookingSelection.index}">
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -79,7 +83,8 @@
 						</div>
 					</div>
 				</div>
-				<input type="submit" value="confirm">
+				<input type="submit" name="action" value="confirm">
+				<input type="submit" name="action" value="update total">
 			</c:when>
 			<c:otherwise>
 				nothing selected

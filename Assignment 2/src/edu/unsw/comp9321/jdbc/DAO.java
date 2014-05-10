@@ -151,7 +151,7 @@ public class DAO {
 							+ "(cb.hotel_id=h.id) "
 							+ "where "
 							+ "(h.location=?) "
-							+ "or "
+							+ " "
 							+ "((cb.start_date between ? and ?) "
 							+ "or "
 							+ "(cb.end_date between ? and ?)) "
