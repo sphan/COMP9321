@@ -45,57 +45,69 @@ public class URLServlet extends HttpServlet {
 		if (code == null || code.equals("")) {
 			code = request.getRequestURI().replaceAll(".*\\/", ""); // get the code from url
 		}
-
 		if (code.length() < 30) {
-			doPost(request, response);
+			nextPage = "message.jsp";
+			request.setAttribute("message", "The URL that has been entered is invalid");
 		} else {
+			request.setAttribute("URLhidden", code);
 			BookingDTO booking=dao.getCustomerBookingFromCode(code);
-			if (Command.hoursFromNow(booking.getStartDay(), booking.getStartMonth(), booking.getStartYear()) <= 48) {
-				System.out.println("TOO CLOSE");
-				request.setAttribute("message", "You cannot access this page within 48 hours of your check in time");
-				nextPage = "message.jsp";
-			} else {
-
-				SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
-				if (sdb == null) {
-					//session expired, create new sdb
-					sdb = new SearchDetailsBean();
-					request.getSession().setAttribute("searchDetails", sdb);
-				}
-
-				sdb.setStartDay(booking.getStartDay());
-				sdb.setStartMonth(booking.getStartMonth());
-				sdb.setStartYear(booking.getStartYear());
-				sdb.setEndDay(booking.getEndDay());
-				sdb.setEndMonth(booking.getEndMonth());
-				sdb.setEndYear(booking.getEndYear());
-				sdb.setLocation(booking.getHotel().getLocation());
-
-				if (booking != null) {
-					//ubb.setBooking(booking);
-					List<PeakPeriodDTO> peakPeriods = new ArrayList<PeakPeriodDTO>();
-					peakPeriods.add(new PeakPeriodDTO(15, Calendar.DECEMBER, 15, Calendar.FEBRUARY));
-					peakPeriods.add(new PeakPeriodDTO(25, Calendar.MARCH, 14, Calendar.APRIL));
-					peakPeriods.add(new PeakPeriodDTO(1, Calendar.JULY, 20, Calendar.JULY));
-					peakPeriods.add(new PeakPeriodDTO(20, Calendar.SEPTEMBER, 10, Calendar.OCTOBER));
-
-					request.getSession().setAttribute("peakPeriods", peakPeriods);
-					//ubb.setCode(code);
-
-					request.setAttribute("bookingDetails", booking);
-					nextPage = "bookingInfo.jsp";
-				} else {
-					pbr.addErrorMessage("The URL entered is invalid");
-					nextPage = "";
-				}
-				request.setAttribute("URLhidden", code);
+			String pin = request.getParameter("pin");
+			try {
+				Integer.parseInt(pin);//test for format
+			} catch (NumberFormatException nfe) {
+				pin = null;
+			}
+			if (pin == null) {
+				nextPage = "urlpin.jsp";
 				
+			} else if (Command.createPinFromCode(code) == Integer.parseInt(pin)) {
+				if (Command.hoursFromNow(booking.getStartDay(), booking.getStartMonth(), booking.getStartYear()) <= 48) {
+					System.out.println("TOO CLOSE");
+					request.setAttribute("message", "You cannot access this page within 48 hours of your check in time");
+					nextPage = "message.jsp";
+				} else {
+
+					SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
+					if (sdb == null) {
+						//session expired, create new sdb
+						sdb = new SearchDetailsBean();
+						request.getSession().setAttribute("searchDetails", sdb);
+					}
+
+					sdb.setStartDay(booking.getStartDay());
+					sdb.setStartMonth(booking.getStartMonth());
+					sdb.setStartYear(booking.getStartYear());
+					sdb.setEndDay(booking.getEndDay());
+					sdb.setEndMonth(booking.getEndMonth());
+					sdb.setEndYear(booking.getEndYear());
+					sdb.setLocation(booking.getHotel().getLocation());
+
+					if (booking != null) {
+						List<PeakPeriodDTO> peakPeriods = new ArrayList<PeakPeriodDTO>();
+						peakPeriods.add(new PeakPeriodDTO(15, Calendar.DECEMBER, 15, Calendar.FEBRUARY));
+						peakPeriods.add(new PeakPeriodDTO(25, Calendar.MARCH, 14, Calendar.APRIL));
+						peakPeriods.add(new PeakPeriodDTO(1, Calendar.JULY, 20, Calendar.JULY));
+						peakPeriods.add(new PeakPeriodDTO(20, Calendar.SEPTEMBER, 10, Calendar.OCTOBER));
+
+						request.getSession().setAttribute("peakPeriods", peakPeriods);
+
+						request.setAttribute("bookingDetails", booking);
+						nextPage = "bookingInfo.jsp";
+					} else {
+						pbr.addErrorMessage("The URL entered is invalid");
+						nextPage = "";
+					}
+					
+
+				}
+			} else {
+				nextPage = "urlpin.jsp";
 			}
 			pbr.postErrorMessage(request);
 			RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
 			rd.forward(request, response);
 		}
-		
+
 	}
 
 	/**
@@ -103,13 +115,13 @@ public class URLServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PassByRef pbr = new PassByRef();
-		pbr.addURLMessage("Existing Booking");
-
-		String uri = request.getRequestURI().replaceAll(".*\\/", "");
-
-		RequestDispatcher rd = request.getRequestDispatcher("/" + uri);
-		pbr.postURLMessage(request);
-		rd.forward(request, response);
+		System.out.println("POST");
+		String code = request.getParameter("URLhidden");
+		if (code == null || code.equals("")) {
+			code = request.getRequestURI().replaceAll(".*\\/", ""); // get the code from url
+		}
+		String pin = request.getParameter("pin");
+		doGet(request, response);
 	}
 
 }
