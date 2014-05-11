@@ -482,7 +482,6 @@ public class DAO {
 
 			generatedKeys = ps.getGeneratedKeys();
 			if (!generatedKeys.next()) {
-				System.out.println("FIALED");
 				throw new EmptyResultException();
 			}
 		} catch (Exception e) {
@@ -517,7 +516,6 @@ public class DAO {
 				int customerBookingID = generatedKeys.getInt(1);
 				//now that entry has been made, make room_schedule entries
 				for (BookingSelection bs : blb.getList()) {
-					System.out.println("inserting roomSchedule");
 					addRoomSchedule(customerBookingID, 
 							bs.getRoomType(), 
 							blb.getLocation(), 
@@ -944,7 +942,6 @@ public class DAO {
 			result = ps.executeQuery();
 			
 			if (result.next()) {
-				System.out.println("room entered");
 				int id = result.getInt("id");
 				int roomID = result.getObject("room_id") != null ? result.getInt("room_id") : -1;
 				int customerBookingID = result.getInt("customer_booking_id");
@@ -974,7 +971,6 @@ public class DAO {
 			ps.setInt(1, custBookingID);
 			result = ps.executeQuery();
 			while (result.next()) {
-				System.out.println("room schedules");
 				roomSchedules.add(getRoomScheduleByID(result.getInt("id")));
 			}
 		} catch (Exception e) {

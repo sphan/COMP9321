@@ -34,7 +34,10 @@ public class DefaultServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.getSession().setAttribute("URL", null);
 		PassByRef pbr = new PassByRef();
+		pbr.addErrorMessage("test");
 		SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
 		if (sdb == null) {
 			//session expired, create new sdb

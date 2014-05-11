@@ -19,6 +19,7 @@ import edu.unsw.comp9321.bean.BookingListBean;
 import edu.unsw.comp9321.bean.BookingSelection;
 import edu.unsw.comp9321.bean.SearchDetailsBean;
 import edu.unsw.comp9321.exception.ServiceLocatorException;
+import edu.unsw.comp9321.jdbc.BookingDTO;
 import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.RoomTypeDTO;
 
@@ -49,12 +50,17 @@ public class BookingServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PassByRef pbr = new PassByRef();
+		DAO dao = new DAO(pbr);
 		String nextPage;
 		String[] roomTypeName = request.getParameterValues("roomTypeName[]");
 		String[] roomTypePrice = request.getParameterValues("roomTypePrice[]");
 		String[] roomTypeCount = request.getParameterValues("roomTypeCount[]");
 		assert(roomTypeName.length==roomTypePrice.length && roomTypePrice.length==roomTypeCount.length);
 		//###############################################################
+		String code = request.getParameter("URLhidden");
+		request.setAttribute("URLhidden", code);
+		pbr.addErrorMessage(code);
+		
 		SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
 		if (sdb == null) {
 			pbr.addErrorMessage("session expired, please try again");
@@ -83,12 +89,17 @@ public class BookingServlet extends HttpServlet {
 						}
 					}
 				}
+				BookingDTO booking = dao.getCustomerBookingFromCode(code);
+				String fname = booking.getCustomer().getFirstName();
+				String lname = booking.getCustomer().getLastName();
+				request.setAttribute("firstName", fname);
+				request.setAttribute("lastName", lname);
 				nextPage = "booking.jsp";
 			}
 		}
 		//###############################################################
 		else if (request.getParameter("action").equals("calculate total")) {
-			DAO dao = new DAO(pbr);
+			
 
 			int totalPrice = 0;
 			for (int i = 0; i < roomTypeName.length; i++) {

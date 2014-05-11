@@ -5,6 +5,8 @@
 	scope="session" />
 <jsp:useBean id="searchDetails"
 	class="edu.unsw.comp9321.bean.SearchDetailsBean" scope="session" />
+<jsp:useBean id="URL" class="edu.unsw.comp9321.bean.URLBookingBean"
+	scope="session" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -28,6 +30,9 @@
 			</c:when>
 				<c:otherwise>
 					<form action="booking" method="POST">
+						<c:if test="${URLhidden != null}">
+							<input type="hidden" name="URLhidden" value="${URLhidden}">
+						</c:if>
 						<table id="result-table">
 							<thead>
 								<tr id="result-table-header">
@@ -43,16 +48,20 @@
 									<tr>
 										<td>${roomType.roomType}</td>
 										<td>${roomType.price}</td>
-										<c:if test="${roomType.discounted eq true and roomType.peaked eq false}">
+										<c:if
+											test="${roomType.discounted eq true and roomType.peaked eq false}">
 											<td>Discounted</td>
 										</c:if>
-										<c:if test="${roomType.peaked eq true and roomType.discounted eq false}">
+										<c:if
+											test="${roomType.peaked eq true and roomType.discounted eq false}">
 											<td>Peaked</td>
 										</c:if>
-										<c:if test="${roomType.peaked eq true and roomType.discounted eq true}">
+										<c:if
+											test="${roomType.peaked eq true and roomType.discounted eq true}">
 											<td>Peaked and Discounted</td>
 										</c:if>
-										<c:if test="${roomType.peaked eq false and roomType.discounted eq false}">
+										<c:if
+											test="${roomType.peaked eq false and roomType.discounted eq false}">
 											<td>N/A</td>
 										</c:if>
 										<td>${roomType.count}</td>

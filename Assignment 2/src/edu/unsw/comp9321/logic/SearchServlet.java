@@ -15,9 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.unsw.comp9321.bean.BookingListBean;
 import edu.unsw.comp9321.bean.SearchDetailsBean;
+import edu.unsw.comp9321.bean.URLBookingBean;
 import edu.unsw.comp9321.exception.ServiceLocatorException;
-import edu.unsw.comp9321.jdbc.DAO;
-import edu.unsw.comp9321.jdbc.DBConnectionFactory;
 import edu.unsw.comp9321.jdbc.*;
 
 /**
@@ -60,6 +59,12 @@ public class SearchServlet extends HttpServlet {
 			//session expired, create new sdb
 			sdb = new SearchDetailsBean();
 		}
+		String code = request.getParameter("URLhidden");
+		request.setAttribute("URLhidden", code);
+		pbr.addErrorMessage(code);
+		//URLBookingBean ubb = (URLBookingBean) request.getSession().getAttribute("URL");
+		//System.out.println(ubb);
+		//request.getSession().setAttribute("URL", ubb);
 		//######################################
 		sdb.setStartDay(Integer.parseInt(request.getParameter("startday")));
 		sdb.setStartMonth(Integer.parseInt(request.getParameter("startmonth")));
@@ -68,7 +73,6 @@ public class SearchServlet extends HttpServlet {
 		sdb.setEndMonth(Integer.parseInt(request.getParameter("endmonth")));
 		sdb.setEndYear(Integer.parseInt(request.getParameter("endyear")));
 		sdb.setLocation(request.getParameter("location"));
-		System.out.println(sdb.getLocation());
 		if (sdb.getLocation().equals("Select") || sdb.getLocation() == null) {
 			pbr.addErrorMessage("Please select a city");
 		}
