@@ -200,7 +200,9 @@ public class DAO {
 				discountPrice = ps.executeQuery();
 				
 				if (discountPrice.next()) {
-					roomTypeList.add(new RoomTypeDTO(roomType, discountPrice.getInt("discounted_price"), count));
+					RoomTypeDTO roomTypeDTO = new RoomTypeDTO(roomType, discountPrice.getInt("discounted_price"), count);
+					roomTypeDTO.setDiscounted(true);
+					roomTypeList.add(roomTypeDTO);
 				} else {
 					roomTypeList.add(new RoomTypeDTO(roomType, price, count));
 				}

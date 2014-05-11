@@ -6,12 +6,32 @@ public class RoomTypeDTO {
 	private int price;
 	private int count;
 	private int selectValue;//selectValue used only for passing on count values on jsp page
+	private boolean discounted;
+	private boolean peaked;
 	
 	public RoomTypeDTO(String roomType, int price, int count, int selectValue) {
 		this.roomType = roomType;
 		this.price = price;
 		this.count = count;
+		discounted = false;
+		peaked = false;
 	}
+	public boolean isDiscounted() {
+		return discounted;
+	}
+	
+	public void setDiscounted(boolean discounted) {
+		this.discounted = discounted;
+	}
+	
+	public boolean isPeaked() {
+		return peaked;
+	}
+	
+	public void setPeaked(boolean peaked) {
+		this.peaked = peaked;
+	}
+	
 	public RoomTypeDTO(String roomType, int price, int count) {
 		this(roomType, price, count, 0);
 	}
