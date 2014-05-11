@@ -113,13 +113,10 @@ public class URLServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PassByRef pbr = new PassByRef();
-		System.out.println("POST");
 		String code = request.getParameter("URLhidden");
 		if (code == null || code.equals("")) {
 			code = request.getRequestURI().replaceAll(".*\\/", ""); // get the code from url
 		}
-		String pin = request.getParameter("pin");
 		doGet(request, response);
 	}
 

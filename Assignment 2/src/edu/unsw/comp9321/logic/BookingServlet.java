@@ -59,7 +59,6 @@ public class BookingServlet extends HttpServlet {
 		//###############################################################
 		String code = request.getParameter("URLhidden");
 		request.setAttribute("URLhidden", code);
-		pbr.addErrorMessage(code);
 
 		SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
 		if (sdb == null) {
@@ -83,7 +82,13 @@ public class BookingServlet extends HttpServlet {
 				blb.setLocation(sdb.getLocation());
 				int index = 1;
 				for (int i = 0; i < roomTypeName.length; i++) {
-					if (Integer.parseInt(roomTypeCount[i]) != 0) {
+					int integer = 0;
+					try {
+						integer = Integer.parseInt(roomTypeCount[i]);
+					} catch (NumberFormatException nfe) {
+
+					}
+					if (integer != 0) {
 						for (int j = 0; j < Integer.parseInt(roomTypeCount[i]); j++) {
 							blb.addBookingSelection(new BookingSelection(index++, roomTypeName[i], roomTypePrice[i], false));
 						}
@@ -106,15 +111,28 @@ public class BookingServlet extends HttpServlet {
 
 			int totalPrice = 0;
 			for (int i = 0; i < roomTypeName.length; i++) {
-				totalPrice += Integer.parseInt(roomTypeCount[i]) * Integer.parseInt(roomTypePrice[i]);
+				try {
+					totalPrice += Integer.parseInt(roomTypeCount[i]) * Integer.parseInt(roomTypePrice[i]);
+				} catch (NumberFormatException nfe) {	
+				}
 			}
 			request.setAttribute("totalPrice", totalPrice);
 			List<RoomTypeDTO> roomTypeList = dao.getHotelRoomSelection(sdb);
 
 			if (roomTypeCount != null) {
 				for (int i = 0; i < roomTypeCount.length; i++) {
-					if (Integer.parseInt(roomTypeCount[i]) != 0) {
-						roomTypeList.get(i).setSelectValue(Integer.parseInt(roomTypeCount[i]));
+					int integer = 0;
+					try {
+						integer = Integer.parseInt(roomTypeCount[i]);
+					} catch (NumberFormatException nfe) {
+
+					}
+					if (integer != 0) {
+						try {
+							roomTypeList.get(i).setSelectValue(Integer.parseInt(roomTypeCount[i]));
+						} catch (Exception e) {
+
+						}
 					}
 				}
 			}

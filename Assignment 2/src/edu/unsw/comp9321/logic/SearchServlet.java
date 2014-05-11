@@ -61,10 +61,6 @@ public class SearchServlet extends HttpServlet {
 		}
 		String code = request.getParameter("URLhidden");
 		request.setAttribute("URLhidden", code);
-		pbr.addErrorMessage(code);
-		//URLBookingBean ubb = (URLBookingBean) request.getSession().getAttribute("URL");
-		//System.out.println(ubb);
-		//request.getSession().setAttribute("URL", ubb);
 		//######################################
 		sdb.setStartDay(Integer.parseInt(request.getParameter("startday")));
 		sdb.setStartMonth(Integer.parseInt(request.getParameter("startmonth")));

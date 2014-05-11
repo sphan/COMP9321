@@ -52,7 +52,6 @@ public class PaymentServlet extends HttpServlet {
 
 		String codehidden = request.getParameter("URLhidden");
 		request.setAttribute("URLhidden", codehidden);
-		pbr.addErrorMessage(codehidden);
 
 		BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
 		if (blb == null) {
@@ -81,7 +80,6 @@ public class PaymentServlet extends HttpServlet {
 					request.setAttribute("lastName", lname);
 				}
 				nextPage = "booking.jsp";
-				pbr.addErrorMessage("one of the fields are invalid or incomplete");
 			}
 			else if (request.getParameter("action").equals("confirm")) {
 				String firstName = request.getParameter("fname");
@@ -108,7 +106,6 @@ public class PaymentServlet extends HttpServlet {
 						int pin = Command.createPinFromCode(code);
 						MailSender ms = new MailSender();
 						ms.sendMail(email, firstName, code, pin, request);
-						pbr.addErrorMessage(code);
 						nextPage = "confirmation.jsp";
 					} else {
 						BookingDTO booking=dao.getCustomerBookingFromCode(codehidden);
