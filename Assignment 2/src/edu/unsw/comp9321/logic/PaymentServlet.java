@@ -2,6 +2,7 @@ package edu.unsw.comp9321.logic;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -105,14 +106,15 @@ public class PaymentServlet extends HttpServlet {
 
 					if (codehidden == null || codehidden.equals("")) {
 						CustomerDTO cust = dao.addCustomer(firstName, lastName);
-						System.out.println(cust);
 						BookingDTO booking = dao.addCustomerBooking(
 								cust.getId(), blb
 								);
 						String code = dao.createBookingCode(booking.getId());
 						int pin = Command.createPinFromCode(code);
-						MailSender ms = new MailSender();
-						ms.sendMail(email, firstName, code, pin, request);
+						Timer emailThread = new Timer();
+						emailThread.schedule(new MailSender(email, firstName, code, pin, request), 0);
+						
+						
 						nextPage = "confirmation.jsp";
 					} else {
 						BookingDTO booking=dao.getCustomerBookingFromCode(codehidden);
@@ -129,7 +131,6 @@ public class PaymentServlet extends HttpServlet {
 					}
 				}
 			} else {
-				System.out.println("ELSE");
 			}
 		}
 

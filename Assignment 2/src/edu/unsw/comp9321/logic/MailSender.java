@@ -1,16 +1,25 @@
 package edu.unsw.comp9321.logic;
 
 import java.util.Properties;
+import java.util.TimerTask;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.servlet.http.HttpServletRequest;
 
-public class MailSender {
+public class MailSender extends TimerTask {
 	private String host;
 	private String recipient;
 	private Session session;
 	private String username;
 	private String password;
+	
+	private String destEmail;
+	private String firstName;
+	private String code;
+	private int pin;
+	private HttpServletRequest request;
+	
 	
 	public MailSender() {
 		this.host = "smtp.gmail.com";
@@ -39,6 +48,16 @@ public class MailSender {
 		session.setDebug(true);
 	}
 	
+	public MailSender(String email, String firstName, String code, int pin,
+			HttpServletRequest request) {
+		this();
+		this.destEmail = email;
+		this.firstName = firstName;
+		this.code = code;
+		this.pin = pin;
+		this.request = request;
+	}
+
 	public void sendMail(String recipient, String custFirstName, String bookingCode, int pin, HttpServletRequest request) {
 		setRecipient(recipient);
 		
@@ -100,5 +119,10 @@ public class MailSender {
 
 	public String getHost() {
 		return host;
+	}
+
+	public void run() {
+		sendMail(this.destEmail, this.firstName, this.code, this.pin, this.request);
+		
 	}
 }

@@ -38,7 +38,6 @@ public class StaffServlet extends HttpServlet {
 		
 		if (action.equalsIgnoreCase("Search")) {
 			nextPage = Command.staffSearch(request, dao);
-			System.out.println("nextPage: " + nextPage);
 		} else if (action.equalsIgnoreCase("select booking")) {
 			nextPage = Command.staffSelectBooking(request, dao);
 			if (nextPage.equalsIgnoreCase("staffPage.jsp")) {
