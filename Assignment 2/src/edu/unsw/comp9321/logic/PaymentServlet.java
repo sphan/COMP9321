@@ -81,6 +81,7 @@ public class PaymentServlet extends HttpServlet {
 					request.setAttribute("lastName", lname);
 				}
 				nextPage = "booking.jsp";
+				pbr.addErrorMessage("one of the fields are invalid or incomplete");
 			}
 			else if (request.getParameter("action").equals("confirm")) {
 				System.out.println("in confirm");
