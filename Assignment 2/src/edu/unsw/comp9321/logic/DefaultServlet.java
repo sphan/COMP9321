@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.unsw.comp9321.bean.SearchDetailsBean;
-import edu.unsw.comp9321.jdbc.PeakPeriodDTO;
+import edu.unsw.comp9321.jdbc.*;
 
 /**
  * Servlet implementation class Default
@@ -39,6 +39,7 @@ public class DefaultServlet extends HttpServlet {
 		if (sdb == null) {
 			//session expired, create new sdb
 			sdb = new SearchDetailsBean();
+			request.getSession().setAttribute("searchDetails", sdb);
 		}
 		
 		List<PeakPeriodDTO> peakPeriods = new ArrayList<PeakPeriodDTO>();

@@ -18,8 +18,7 @@ import edu.unsw.comp9321.bean.SearchDetailsBean;
 import edu.unsw.comp9321.exception.ServiceLocatorException;
 import edu.unsw.comp9321.jdbc.DAO;
 import edu.unsw.comp9321.jdbc.DBConnectionFactory;
-import edu.unsw.comp9321.jdbc.PeakPeriodDTO;
-import edu.unsw.comp9321.jdbc.RoomTypeDTO;
+import edu.unsw.comp9321.jdbc.*;
 
 /**
  * Servlet implementation class ControlServlet

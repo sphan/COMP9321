@@ -9,5 +9,9 @@
 			<h4 align="center">${errorMessage}</h4>
 		</c:when>
 	</c:choose>
+	<c:if test="${URLMessage != null}">
+	<h4 align="center">${URLMessage}</h4>
+	</c:if>
+	
 	<hr>
 </div>
