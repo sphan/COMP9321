@@ -105,7 +105,7 @@ public class PaymentServlet extends HttpServlet {
 						String code = dao.createBookingCode(booking.getId());
 						int pin = Command.createPinFromCode(code);
 						MailSender ms = new MailSender();
-						ms.sendMail(email, firstName, code, request);
+						ms.sendMail(email, firstName, code, pin, request);
 						pbr.addErrorMessage(code);
 						nextPage = "confirmation.jsp";
 					} else {

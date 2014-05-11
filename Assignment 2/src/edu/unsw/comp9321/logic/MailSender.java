@@ -39,7 +39,7 @@ public class MailSender {
 		session.setDebug(true);
 	}
 	
-	public void sendMail(String recipient, String custFirstName, String bookingCode, HttpServletRequest request) {
+	public void sendMail(String recipient, String custFirstName, String bookingCode, int pin, HttpServletRequest request) {
 		setRecipient(recipient);
 		
 		try {
@@ -56,8 +56,10 @@ public class MailSender {
 			trimmed_url += "/URL/" + bookingCode;
 			
 			String emailContent = "Dear " + custFirstName + " ,\n\n" +
-					"\tThank you for booking with us.\n\n" +
-					"\tPlease visit " + trimmed_url + " for your booking details.\n\n" +
+					"Thank you for booking with us.\n\n" +
+					"Please visit " + trimmed_url + " for your booking details.\n\n" +
+					"You will require a pin number to login.\n\n" +
+					"Your pin number is: " + pin + "\n\n" + 
 					"\tPlease take note that, you are allowed to visit the page unlimited number of times " +
 					"48 hours prior to your booking date. You are free to add any bookings " +
 					"but you are not allowed to remove any bookings.";
