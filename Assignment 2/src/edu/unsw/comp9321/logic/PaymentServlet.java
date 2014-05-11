@@ -89,7 +89,9 @@ public class PaymentServlet extends HttpServlet {
 						cust.getId(), blb
 						);
 				String code = dao.createBookingCode(booking.getId());
-				System.out.println(code);
+				MailSender ms = new MailSender();
+				ms.sendMail(email, firstName, code, request);
+
 				pbr.addErrorMessage(code);
 				nextPage = "confirmation.jsp";
 			}
