@@ -391,11 +391,11 @@ public class Command {
 				!Command.isPresentFutureDate(endYear,  endMonth,  endDay)) {
 				dao.getPbr().addErrorMessage("You cannot book in the past");
 				presetDiscountForm(request, getCurrentDay(), getCurrentMonth(), getCurrentYear(),
-						getCurrentDay() + 1, getCurrentMonth(), getCurrentYear());
+						getCurrentDayPlus(), getCurrentDayPlus(), getCurrentYearPlus());
 			} else if (!Command.isValidDateRange(startYear, startMonth, startDay, endYear, endMonth, endDay)) {
 				dao.getPbr().addErrorMessage("Date range is invalid");
 				presetDiscountForm(request, getCurrentDay(), getCurrentMonth(), getCurrentYear(),
-						getCurrentDay() + 1, getCurrentMonth(), getCurrentYear());
+						getCurrentDayPlus(), getCurrentMonthPlus(), getCurrentYearPlus());
 			} else {
 				String start_date = startYear + "-" + startMonth + "-" + startDay;
 				String end_date = endYear + "-" + endMonth + "-" + endDay;
@@ -412,7 +412,7 @@ public class Command {
 		} catch (Exception e) {
 			dao.getPbr().addErrorMessage("Invalid input.");
 			presetDiscountForm(request, getCurrentDay(), getCurrentMonth(), getCurrentYear(),
-					getCurrentDay() + 1, getCurrentMonth(), getCurrentYear());
+					getCurrentDayPlus(), getCurrentMonthPlus(), getCurrentYearPlus());
 			e.printStackTrace();
 		}
 		
