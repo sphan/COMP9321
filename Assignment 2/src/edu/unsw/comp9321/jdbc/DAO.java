@@ -292,8 +292,6 @@ public class DAO {
 	 */
 	public List<OccupancyBean> getRoomsOccupancyByLocation(String location, String availability) {
 		List<OccupancyBean> roomOccupancy = new ArrayList<OccupancyBean>();
-		System.out.println(location);
-		System.out.println(availability);
 
 		try {
 			Statement stmnt = connection.createStatement();
@@ -399,14 +397,14 @@ public class DAO {
 					+ "cb.end_date, "
 					+ "c.id as cid, "
 					+ "c.first_name, "
-					+ "c.lastname, "
+					+ "c.last_name, "
 					+ "h.id as hid "
 					+ "FROM CUSTOMER_BOOKING cb "
 					+ "JOIN CUSTOMER c "
 					+ "ON (cb.CUSTOMER_ID=c.ID) "
 					+ "JOIN HOTEL h "
 					+ "ON (h.id=cb.hotel_id) "
-					+ "WHERE c.first_name = '" + customerName + "'";
+					+ "WHERE c.first_name = '" + customerName.toUpperCase() + "'";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+ res.getFetchSize());
 			while (res.next()) {
