@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean id="booking" class="edu.unsw.comp9321.bean.BookingListBean"
 	scope="session" />
+<jsp:useBean id="URL" class="edu.unsw.comp9321.bean.URLBookingBean"
+	scope="session" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +14,10 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<form action="payment" method="post">
+	<form action="payment" method="POST">
+		<c:if test="${URLhidden != null}">
+			<input type="hidden" name="URLhidden" value="${URLhidden}">
+		</c:if>
 		<c:choose>
 			<c:when test="${booking.size != 0}">
 				<table id="result-table" align="center">
@@ -30,11 +35,9 @@
 								<td>${bookingSelection.index}</td>
 								<td>${bookingSelection.roomType}</td>
 								<td>${bookingSelection.price}</td>
-								<td>
-								<c:set
-										value="${bookingSelection.extraBed ?'checked':''}"
-										var="check" />
-								<c:set
+								<td><c:set
+										value="${bookingSelection.extraBed ?'checked':''}" var="check" />
+									<c:set
 										value="${bookingSelection.roomType=='SINGLE'?'disabled':''}"
 										var="disable" /> <input type="checkbox" name="extrabed"
 									${disable} ${check} value="${bookingSelection.index}">
@@ -47,11 +50,18 @@
 				<div align="center">
 					Please enter your information:
 					<div>
+						<c:set value="${URLhidden==null?'':'disabled'}" var="disable" />
 						<div>
-							First Name:<input type="text" name="fname"><br>
+							<c:set value="${URLhidden==null?'': firstName}"
+								var="fname" />
+							First Name:<input type="text" name="fname" value="${fname}"
+								${disable}><br>
 						</div>
 						<div>
-							Last Name:<input type="text" name="lname"><br>
+							<c:set value="${URLhidden==null?'': lastName}"
+								var="lname" />
+							Last Name:<input type="text" name="lname" value="${lname}"
+								${disable}><br>
 						</div>
 						<div>
 							Email:<input type="text" name="email"><br>
@@ -83,6 +93,11 @@
 						</div>
 					</div>
 				</div>
+
+				<c:if test="${disable eq 'disabled'}">
+					<input type="hidden" name="fname" value="${fname}">
+					<input type="hidden" name="lname" value="${lname}">
+				</c:if>
 				<input type="submit" name="action" value="confirm">
 				<input type="submit" name="action" value="update total">
 			</c:when>

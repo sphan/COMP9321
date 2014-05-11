@@ -2,7 +2,11 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="header">
-	<h1><a href="<%out.println(request.getContextPath());%>/">Hotels</a></h1>
+	<jsp:useBean id="URL" class="edu.unsw.comp9321.bean.URLBookingBean"
+		scope="session" />
+	<h1>
+		<a href="<%out.println(request.getContextPath());%>/">Hotels</a>
+	</h1>
 	<%@ include file="loginForm.html"%>
 	<c:choose>
 		<c:when test="${errorMessage != null}">
@@ -10,8 +14,9 @@
 		</c:when>
 	</c:choose>
 	<c:if test="${URLMessage != null}">
-	<h4 align="center">${URLMessage}</h4>
+		<h4 align="center">${URLMessage}</h4>
 	</c:if>
-	
+	<div>URL${URL}URL</div>
+	<div>${URL.booking.customer.firstName}</div>
 	<hr>
 </div>

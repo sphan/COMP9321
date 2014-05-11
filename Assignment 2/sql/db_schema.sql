@@ -106,6 +106,14 @@ create table room_schedule (
 	(extra_bed=0 or extra_bed=1)
 );
 
+create table booking_unique (
+	id int not null generated always as identity,
+	code varchar(30) not null unique,
+	customer_booking_id int not null unique,
+	primary key(id),
+	foreign key (customer_booking_id) references customer_booking(id)
+);
+
 --################################################################################
 --staff related sql
 
@@ -120,18 +128,15 @@ create table staff (
 	primary key (id)
 );
 
-create table booking_unique (
-	id int not null generated always as identity,
-	code varchar(30) not null unique,
-	customer_booking_id int not null unique,
-	primary key(id),
-	foreign key (customer_booking_id) references customer_booking(id)
-);
+
+
+select customer_booking_id from booking_unique where code='1u1IM00grODNUGb60dOlDBjXhTy7JV'
+
 insert into customer_booking values (default, 1, '2014-05-09','2014-05-11')
 select * from customer_booking;
 select * from customer;
 insert into room_schedule values(default, null, 1, 1)
-select * from room_schedule rs join customer_booking cb on (rs.customer_booking_id=cb.id) join hotel h on (cb.hotel_id=h.id)
+select * from room_schedule rs join customer_booking cb on (rs.customer_booking_id=cb.id) join hotel h on (cb.hotel_id=h.id) join customer c on (c.id=cb.customer_id)
 
 select * from booking_unique;
 

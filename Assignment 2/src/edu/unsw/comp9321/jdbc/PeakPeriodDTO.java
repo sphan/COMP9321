@@ -1,8 +1,13 @@
 package edu.unsw.comp9321.jdbc;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class PeakPeriodDTO {
+public class PeakPeriodDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Calendar startDate;
 	private Calendar endDate;
 	

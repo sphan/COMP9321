@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.unsw.comp9321.bean.BookingListBean;
 import edu.unsw.comp9321.bean.BookingSelection;
+import edu.unsw.comp9321.bean.URLBookingBean;
 import edu.unsw.comp9321.jdbc.BookingDTO;
 import edu.unsw.comp9321.jdbc.CustomerDTO;
 import edu.unsw.comp9321.jdbc.DAO;
@@ -48,53 +49,76 @@ public class PaymentServlet extends HttpServlet {
 		PassByRef pbr = new PassByRef();
 		DAO dao = new DAO(pbr);
 		String nextPage = "";
+		
+		String codehidden = request.getParameter("URLhidden");
+		request.setAttribute("URLhidden", codehidden);
+		pbr.addErrorMessage(codehidden);
 
 		BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
-		String[] extraBed = request.getParameterValues("extrabed");
+		if (blb == null) {
+			pbr.addErrorMessage("Session Expired Try again");
+		} else {
+			String[] extraBed = request.getParameterValues("extrabed");
 
-		for (BookingSelection bs : blb.getList()) {
-			bs.setExtraBed(false);	//set all to false as the correct ones will be set to true to ensure no trues are carried over
-		}
-		if (extraBed != null) {//if all checkboxes are unticked, then extraBed is null
 			for (BookingSelection bs : blb.getList()) {
-				for(String s : extraBed) {
-					if (bs.getIndex() == Integer.parseInt(s)) {
-						bs.setExtraBed(true);
+				bs.setExtraBed(false);	//set all to false as the correct ones will be set to true to ensure no trues are carried over
+			}
+			if (extraBed != null) {//if all checkboxes are unticked, then extraBed is null
+				for (BookingSelection bs : blb.getList()) {
+					for(String s : extraBed) {
+						if (bs.getIndex() == Integer.parseInt(s)) {
+							bs.setExtraBed(true);
+						}
 					}
 				}
 			}
-		}
-		System.out.println(request.getParameter("action"));
-		if (request.getParameter("action").equals("update total")) {
-			System.out.println("hello");
-			nextPage = "booking.jsp";
-		}
-		else if (request.getParameter("action").equals("confirm")) {
-
-			String firstName = request.getParameter("fname");
-			String lastName = request.getParameter("lname");
-			String email = request.getParameter("email");
-			String creditCardNumber = request.getParameter("creditcard");
-			String expirationMonth = request.getParameter("expireMM");
-			String expirationYear = request.getParameter("expireYY");
-
-			if (firstName.equals("")||lastName.equals("")||email.equals("")||creditCardNumber.equals("")||expirationMonth.equals("")||expirationYear.equals("")||
-					firstName==null||lastName==null||email==null||creditCardNumber==null||expirationMonth==null||expirationYear==null) {
+			System.out.println(request.getParameter("action"));
+			if (request.getParameter("action").equals("update total")) {
 				nextPage = "booking.jsp";
-				pbr.addErrorMessage("one of the fields are invalid or incomplete");
-			} else {
-
-				CustomerDTO cust = dao.addCustomer(firstName, lastName);
-				BookingDTO booking = dao.addCustomerBooking(
-						cust.getId(), blb
-						);
-				String code = dao.createBookingCode(booking.getId());
-				System.out.println(code);
-				pbr.addErrorMessage(code);
-				nextPage = "confirmation.jsp";
 			}
-		} else {
-			System.out.println("ELSE");
+			else if (request.getParameter("action").equals("confirm")) {
+				System.out.println("in confirm");
+				String firstName = request.getParameter("fname");
+				String lastName = request.getParameter("lname");
+				String email = request.getParameter("email");
+				String creditCardNumber = request.getParameter("creditcard");
+				String expirationMonth = request.getParameter("expireMM");
+				String expirationYear = request.getParameter("expireYY");
+
+				if (firstName==null||lastName==null||email==null||creditCardNumber==null||expirationMonth==null||
+						expirationYear==null||firstName.equals("")||lastName.equals("")||email.equals("")||creditCardNumber.equals("")||expirationMonth.equals("")||expirationYear.equals("")) {
+					nextPage = "booking.jsp";
+					pbr.addErrorMessage("one of the fields are invalid or incomplete");
+				} else {
+					//URLBookingBean ubb = (URLBookingBean) request.getSession().getAttribute("URL");
+					//System.out.println(ubb);
+					if (codehidden == null || codehidden.equals("")) {
+						CustomerDTO cust = dao.addCustomer(firstName, lastName);
+						BookingDTO booking = dao.addCustomerBooking(
+								cust.getId(), blb
+								);
+						String code = dao.createBookingCode(booking.getId());
+						System.out.println(code);
+						pbr.addErrorMessage(code);
+						nextPage = "confirmation.jsp";
+					} else {
+						//CustomerDTO cust = dao.getCustomerByBookingID(ubb.getBooking().getId());
+						BookingDTO booking=dao.getCustomerBookingFromCode(codehidden);
+						for (BookingSelection bs : blb.getList()) {
+							dao.addRoomSchedule(booking.getId(), 
+									bs.getRoomType(), 
+									blb.getLocation(), 
+									blb.getStartYear()+"-"+blb.getStartMonth()+"-"+blb.getStartDay(), 
+									blb.getEndYear()+"-"+blb.getEndMonth()+"-"+blb.getEndDay(), bs.isExtraBed()
+									);
+						}
+						request.setAttribute("URLhidden", codehidden);
+						nextPage = "confirmation.jsp";
+					}
+				}
+			} else {
+				System.out.println("ELSE");
+			}
 		}
 
 		pbr.postErrorMessage(request);
