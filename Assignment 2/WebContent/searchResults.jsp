@@ -33,6 +33,7 @@
 								<tr id="result-table-header">
 									<td>Room Type</td>
 									<td>Price per night</td>
+									<td>Peaked or Discounted</td>
 									<td>Count</td>
 									<td>Select</td>
 								</tr>
@@ -42,6 +43,18 @@
 									<tr>
 										<td>${roomType.roomType}</td>
 										<td>${roomType.price}</td>
+										<c:if test="${roomType.discounted eq true and roomType.peaked eq false}">
+											<td>Discounted</td>
+										</c:if>
+										<c:if test="${roomType.peaked eq true and roomType.discounted eq false}">
+											<td>Peaked</td>
+										</c:if>
+										<c:if test="${roomType.peaked eq true and roomType.discounted eq true}">
+											<td>Peaked and Discounted</td>
+										</c:if>
+										<c:if test="${roomType.peaked eq false and roomType.discounted eq false}">
+											<td>N/A</td>
+										</c:if>
 										<td>${roomType.count}</td>
 										<td><input type="hidden" name="roomTypeName[]"
 											value="${roomType.roomType}"><input type="hidden"

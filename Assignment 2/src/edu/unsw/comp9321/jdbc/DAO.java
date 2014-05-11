@@ -104,6 +104,7 @@ public class DAO {
 		PreparedStatement ps = null;
 		ResultSet allSelection = null;
 		ResultSet bookedSelection = null;
+		ResultSet discountPrice = null;
 
 		try {
 			ps = connection.prepareStatement(
@@ -177,12 +178,34 @@ public class DAO {
 					allSelectCount.put(bookedSelection.getString("room_type"), (allSelectCount.get(bookedSelection.getString("room_type")) - bookedSelection.getInt("count")));
 				}
 			}
+					
 			Iterator<String> iter = allSelectCount.keySet().iterator();
 			while (iter.hasNext()) {
 				String roomType = (String)iter.next();
 				int price = allSelectPrice.get(roomType);
 				int count = allSelectCount.get(roomType);
-				roomTypeList.add(new RoomTypeDTO(roomType, price, count));
+				
+				ps = connection.prepareStatement("" +
+						"select d.discounted_price from discount d " +
+						"join room_type rt on (rt.id = d.room_type_id) " +
+						"join hotel h on (h.id = d.hotel_id) " +
+						"where h.location = ? " +
+						"and rt.room_type = ? " +
+						"and ((? between d.start_date and d.end_date )" +
+						"or (? between d.start_date and d.end_date))");
+				ps.setString(1, sdb.getLocation());
+				ps.setString(2, roomType);
+				ps.setString(3, sdb.getStartYear()+"-"+sdb.getStartMonth()+"-"+sdb.getStartDay());
+				ps.setString(4, sdb.getEndYear()+"-"+sdb.getEndMonth()+"-"+sdb.getEndDay());
+				discountPrice = ps.executeQuery();
+				
+				if (discountPrice.next()) {
+					RoomTypeDTO roomTypeDTO = new RoomTypeDTO(roomType, discountPrice.getInt("discounted_price"), count);
+					roomTypeDTO.setDiscounted(true);
+					roomTypeList.add(roomTypeDTO);
+				} else {
+					roomTypeList.add(new RoomTypeDTO(roomType, price, count));
+				}
 			}
 
 
@@ -269,8 +292,6 @@ public class DAO {
 	 */
 	public List<OccupancyBean> getRoomsOccupancyByLocation(String location, String availability) {
 		List<OccupancyBean> roomOccupancy = new ArrayList<OccupancyBean>();
-		System.out.println(location);
-		System.out.println(availability);
 
 		try {
 			Statement stmnt = connection.createStatement();
@@ -376,14 +397,14 @@ public class DAO {
 					+ "cb.end_date, "
 					+ "c.id as cid, "
 					+ "c.first_name, "
-					+ "c.lastname, "
+					+ "c.last_name, "
 					+ "h.id as hid "
 					+ "FROM CUSTOMER_BOOKING cb "
 					+ "JOIN CUSTOMER c "
 					+ "ON (cb.CUSTOMER_ID=c.ID) "
 					+ "JOIN HOTEL h "
 					+ "ON (h.id=cb.hotel_id) "
-					+ "WHERE c.first_name = '" + customerName + "'";
+					+ "WHERE c.first_name = '" + customerName.toUpperCase() + "'";
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+ res.getFetchSize());
 			while (res.next()) {

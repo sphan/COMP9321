@@ -38,6 +38,7 @@ public class SearchServlet extends HttpServlet {
 	public void updatePeakPeriodPrice(List<RoomTypeDTO> roomTypeList) {
 		for (RoomTypeDTO rtl : roomTypeList) {
 			rtl.setPrice(rtl.getPrice() + (40 * rtl.getPrice() / 100));
+			rtl.setPeaked(true);
 		}
 	}
 

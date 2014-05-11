@@ -112,8 +112,6 @@ public class Command {
 		results.put(Availability.BOOKED.name(), booked);
 		
 		request.setAttribute("results", results);
-		request.setAttribute("bookedNum", booked.size());
-		request.setAttribute("checkedinNum", checkedin.size());
 	}
 	
 	public static String staffSelectBooking(HttpServletRequest request, DAO dao) {
@@ -179,11 +177,27 @@ public class Command {
 		} else if (searchType.equalsIgnoreCase("customerName")) {
 			bookings = dao.getBookingsByCustomerName(searchString);
 		}
+		HashMap<String, List<BookingDTO>> results = new HashMap<String, List<BookingDTO>>(); 
 		
-		request.setAttribute("booked", bookings);
-		request.setAttribute("resultNum", bookings.size());
-		request.setAttribute("staffName", request.getParameter("staffName"));
+		List<BookingDTO> booked = new LinkedList<BookingDTO>();
+		List<BookingDTO> checkedin = new LinkedList<BookingDTO>();
+		List<BookingDTO> completed = new LinkedList<BookingDTO>();
+		for (BookingDTO booking : bookings) {
+			List<BookingRoomDetailBean> roomDetails = dao.getBookingRoomDetails(booking.getId());
+			if (!bookingAllCheckedIn(roomDetails)) {
+				booked.add(booking);
+			} else if (!bookingCompleted(roomDetails) && bookingAllCheckedIn(roomDetails)) {
+				checkedin.add(booking);
+			} else if (bookingCompleted(roomDetails)) {
+				completed.add(booking);
+			}
+		}
 		
+		results.put(Availability.CHECKEDIN.name(), checkedin);
+		results.put(Availability.BOOKED.name(), booked);
+		results.put("COMPLETED", completed);
+		
+		request.setAttribute("results", results);
 		return nextPage;
 	}
 	
@@ -230,7 +244,7 @@ public class Command {
 	}
 	
 	public static String checkOut(HttpServletRequest request, DAO dao, PassByRef pbr) {
-		String nextPage = "checkInPage.jsp";
+		String nextPage = "staffPage.jsp";
 		boolean checkedIn = false;
 		
 		String[] roomIDs = request.getParameterValues("checkOutRooms");
@@ -247,6 +261,7 @@ public class Command {
 			try {
 				int room_id = Integer.parseInt(roomID);
 				dao.updateRoomAvailability(room_id, "available");
+				pbr.addErrorMessage("Booking has been checked out");
 				RoomDTO room = dao.getRoomByID(room_id);
 				rooms.add(new BookingRoomDetailBean(room.getRoomType().name(), dao.getHotelByID(room.getHotel()), room));
 				
@@ -391,11 +406,11 @@ public class Command {
 				!Command.isPresentFutureDate(endYear,  endMonth,  endDay)) {
 				dao.getPbr().addErrorMessage("You cannot book in the past");
 				presetDiscountForm(request, getCurrentDay(), getCurrentMonth(), getCurrentYear(),
-						getCurrentDay() + 1, getCurrentMonth(), getCurrentYear());
+						getCurrentDayPlus(), getCurrentDayPlus(), getCurrentYearPlus());
 			} else if (!Command.isValidDateRange(startYear, startMonth, startDay, endYear, endMonth, endDay)) {
 				dao.getPbr().addErrorMessage("Date range is invalid");
 				presetDiscountForm(request, getCurrentDay(), getCurrentMonth(), getCurrentYear(),
-						getCurrentDay() + 1, getCurrentMonth(), getCurrentYear());
+						getCurrentDayPlus(), getCurrentMonthPlus(), getCurrentYearPlus());
 			} else {
 				String start_date = startYear + "-" + startMonth + "-" + startDay;
 				String end_date = endYear + "-" + endMonth + "-" + endDay;
@@ -412,7 +427,7 @@ public class Command {
 		} catch (Exception e) {
 			dao.getPbr().addErrorMessage("Invalid input.");
 			presetDiscountForm(request, getCurrentDay(), getCurrentMonth(), getCurrentYear(),
-					getCurrentDay() + 1, getCurrentMonth(), getCurrentYear());
+					getCurrentDayPlus(), getCurrentMonthPlus(), getCurrentYearPlus());
 			e.printStackTrace();
 		}
 		
@@ -496,7 +511,6 @@ public class Command {
 			}
 		}
 		if (checkedOutCnt == roomDetails.size()) {
-			System.out.println("checkedOutCnt: " + checkedOutCnt);
 			return true;
 		}
 		

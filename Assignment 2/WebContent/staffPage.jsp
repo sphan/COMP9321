@@ -24,12 +24,12 @@
 	<%@ include file="staffSearchForm.html"%>
 	<div id="main-content">
 		<c:choose>
-			<c:when test="${(bookedNum eq 0) && (checkedinNum eq 0)}">
+			<c:when test="${empty results['BOOKED'] && empty results['CHECKEDIN'] && empty results['COMPLETED']}">
 				<p>There currently are no pending bookings.</p>
 			</c:when>
-			<c:when test="${(bookedNum ne 0) || (checkedinNum ne 0)}">
+			<c:when test="${not empty results['BOOKED'] || not empty results['CHECKEDIN'] || not empty results['COMPLETED']}">
 				<form action="staff" method="POST">
-					<c:if test="${bookedNum ne 0}">
+					<c:if test="${not empty results['BOOKED']}">
 						<p>All pending customer bookings:</p>
 						<table id="result-table">
 							<thead>
@@ -56,7 +56,7 @@
 							</tbody>
 						</table>
 					</c:if>
-					<c:if test="${checkedinNum ne 0}">
+					<c:if test="${not empty results['CHECKEDIN']}">
 						<p>All checked in bookings:</p>
 						<table id="result-table">
 							<thead>
@@ -86,6 +86,29 @@
 						<input type="submit" name="action" value="Select Booking">
 						<input type="hidden" name="action" value="selectBooking">
 					</div>
+					<c:if test="${not empty results['COMPLETED']}">
+						<p>All completed bookings:</p>
+						<table id="result-table">
+							<thead>
+								<tr id="result-table-header">
+									<td>Booking Number</td>
+									<td>Customer</td>
+									<td>Hotel Location</td>
+									<td>Booking Status</td>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="booking" items="${results['COMPLETED']}">
+									<tr>
+										<td><c:out value="${booking.id}" /></td>
+										<td><c:out value="${booking.customer.firstName}" /> <c:out value="${booking.customer.lastName}" /></td>
+										<td><c:out value="${booking.hotel.location}" /></td>
+										<td>COMPLETED</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:if>
 				</form>
 			</c:when>
 		</c:choose>
