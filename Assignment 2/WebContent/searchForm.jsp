@@ -1,8 +1,9 @@
 
 <div id="searchForm">
+	<c:set value="${URL==null?'':'disabled'}" var="disable" />
 	<form action="search" method="POST">
 		<div id="checkin">
-			Check In Date: <br> Date: <select name="startday">
+			Check In Date: <br> Date: <select ${disable} name="startday">
 				<option selected>${searchDetails.startDay}</option>
 				<option>1</option>
 				<option>2</option>
@@ -35,7 +36,7 @@
 				<option>29</option>
 				<option>30</option>
 				<option>31</option>
-			</select> Month: <select name="startmonth">
+			</select> Month: <select ${disable} name="startmonth">
 				<option selected>${searchDetails.startMonth}</option>
 				<option>01</option>
 				<option>02</option>
@@ -49,15 +50,15 @@
 				<option>10</option>
 				<option>11</option>
 				<option>12</option>
-			</select> Year: <select name="startyear">
-			<option selected>${searchDetails.startYear}</option>
+			</select> Year: <select ${disable} name="startyear">
+				<option selected>${searchDetails.startYear}</option>
 				<option>2014</option>
 				<option>2015</option>
 				<option>2016</option>
 			</select>
 		</div>
 		<div id="checkout">
-			Check Out Date: <br> Date: <select name="endday">
+			Check Out Date: <br> Date: <select ${disable} name="endday">
 				<option selected>${searchDetails.endDay}</option>
 				<option>1</option>
 				<option>2</option>
@@ -90,8 +91,8 @@
 				<option>29</option>
 				<option>30</option>
 				<option>31</option>
-			</select> Month: <select name="endmonth">
-			<option selected>${searchDetails.endMonth}</option>
+			</select> Month: <select ${disable} name="endmonth">
+				<option selected>${searchDetails.endMonth}</option>
 				<option>01</option>
 				<option>02</option>
 				<option>03</option>
@@ -104,16 +105,16 @@
 				<option>10</option>
 				<option>11</option>
 				<option>12</option>
-			</select> Year: <select name="endyear">
-			<option selected>${searchDetails.endYear}</option>
+			</select> Year: <select ${disable} name="endyear">
+				<option selected>${searchDetails.endYear}</option>
 				<option>2014</option>
 				<option>2015</option>
 				<option>2016</option>
 			</select>
 		</div>
 		<div>
-			City: <select name="location">
-			<option selected>${searchDetails.location}</option>
+			City: <select ${disable} name="location">
+				<option selected>${searchDetails.location}</option>
 				<option>Sydney</option>
 				<option>Melbourne</option>
 				<option>Brisbane</option>
@@ -122,8 +123,24 @@
 			</select>
 		</div>
 		<div>
-			Max. Price per night: <input type="number" name="maxPrice" min="0" value="${searchDetails.maxPrice}">
+			Max. Price per night: <input type="number" name="maxPrice" min="0"
+				value="${searchDetails.maxPrice}">
 		</div>
+		
+		<c:if test="${disable eq 'disabled'}">
+			<input type="hidden" name="startday"
+				value="${searchDetails.startDay}">
+			<input type="hidden" name="startmonth"
+				value="${searchDetails.startMonth}">
+			<input type="hidden" name="startyear"
+				value="${searchDetails.startYear}">
+			<input type="hidden" name="endday" value="${searchDetails.endDay}">
+			<input type="hidden" name="endmonth" value="${searchDetails.endMonth}">
+			<input type="hidden" name="endyear" value="${searchDetails.endYear}">
+			<input type="hidden" name="location"
+				value="${searchDetails.location}">
+		</c:if>
+		
 		<div>
 			<input type="submit" name="action" value="Search">
 		</div>
