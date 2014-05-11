@@ -2,8 +2,6 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="header">
-	<jsp:useBean id="URL" class="edu.unsw.comp9321.bean.URLBookingBean"
-		scope="session" />
 	<h1>
 		<a href="<%out.println(request.getContextPath());%>/">Hotels</a>
 	</h1>

@@ -67,9 +67,6 @@ public class URLServlet extends HttpServlet {
 				request.getSession().setAttribute("searchDetails", sdb);
 			}
 
-
-
-
 			BookingDTO booking=dao.getCustomerBookingFromCode(code);
 			sdb.setStartDay(booking.getStartDay());
 			sdb.setStartMonth(booking.getStartMonth());

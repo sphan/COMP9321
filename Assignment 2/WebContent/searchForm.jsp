@@ -1,6 +1,6 @@
 
 <div id="searchForm">
-	<c:set value="${URL==null?'':'disabled'}" var="disable" />
+	<c:set value="${URLhidden==null?'':'disabled'}" var="disable" />
 	<form action="<%out.println(request.getContextPath());%>/search" method="POST">
 	<c:if test="${URLhidden != null}">
 		<input type="hidden" name="URLhidden" value="${URLhidden}">

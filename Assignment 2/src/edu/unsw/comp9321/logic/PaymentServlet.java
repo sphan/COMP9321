@@ -74,6 +74,11 @@ public class PaymentServlet extends HttpServlet {
 			}
 			System.out.println(request.getParameter("action"));
 			if (request.getParameter("action").equals("update total")) {
+				BookingDTO booking = dao.getCustomerBookingFromCode(codehidden);
+				String fname = booking.getCustomer().getFirstName();
+				String lname = booking.getCustomer().getLastName();
+				request.setAttribute("firstName", fname);
+				request.setAttribute("lastName", lname);
 				nextPage = "booking.jsp";
 			}
 			else if (request.getParameter("action").equals("confirm")) {
