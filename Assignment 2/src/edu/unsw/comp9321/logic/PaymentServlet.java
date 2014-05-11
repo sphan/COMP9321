@@ -92,6 +92,13 @@ public class PaymentServlet extends HttpServlet {
 				if (!Command.validateEmail(email) || !Command.validateCreditCard(creditCardNumber)||
 						firstName==null||lastName==null||email==null||creditCardNumber==null||expirationMonth==null||
 						expirationYear==null||firstName.equals("")||lastName.equals("")||email.equals("")||creditCardNumber.equals("")||expirationMonth.equals("")||expirationYear.equals("")) {
+					if (codehidden != null && !codehidden.equals("")) {
+						BookingDTO booking = dao.getCustomerBookingFromCode(codehidden);
+						String fname = booking.getCustomer().getFirstName();
+						String lname = booking.getCustomer().getLastName();
+						request.setAttribute("firstName", fname);
+						request.setAttribute("lastName", lname);
+					}
 					nextPage = "booking.jsp";
 					pbr.addErrorMessage("one of the fields are invalid or incomplete");
 				} else {
