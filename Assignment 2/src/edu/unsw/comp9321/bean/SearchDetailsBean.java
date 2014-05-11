@@ -19,9 +19,9 @@ public class SearchDetailsBean {
 		this.setStartDay(Command.getCurrentDay());
 		this.setStartMonth(Command.getCurrentMonth());
 		this.setStartYear(Command.getCurrentYear());
-		this.setEndDay(Command.getCurrentDay()+1);
-		this.setEndMonth(Command.getCurrentMonth());
-		this.setEndYear(Command.getCurrentYear());
+		this.setEndDay(Command.getCurrentDayPlus());
+		this.setEndMonth(Command.getCurrentMonthPlus());
+		this.setEndYear(Command.getCurrentYearPlus());
 		this.setLocation("Select");
 		this.setMaxPrice(500);
 	}

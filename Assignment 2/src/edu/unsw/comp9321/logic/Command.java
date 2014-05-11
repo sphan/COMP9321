@@ -347,9 +347,9 @@ public class Command {
 		request.setAttribute("startDate", getCurrentDay());
 		request.setAttribute("startMonth", getCurrentMonth());
 		request.setAttribute("startYear", getCurrentYear());
-		request.setAttribute("endDate", getCurrentDay() + 1);
-		request.setAttribute("endMonth", getCurrentMonth());
-		request.setAttribute("endYear", getCurrentYear());
+		request.setAttribute("endDate", getCurrentDayPlus());
+		request.setAttribute("endMonth", getCurrentMonthPlus());
+		request.setAttribute("endYear", getCurrentYearPlus());
 		request.getSession().setAttribute("setDiscountStatus", "displayForm");
 		
 		OwnerPriceBean defaultPrice = dao.getDefaultRoomPrice(location, room_type);
@@ -575,6 +575,69 @@ public class Command {
 	public static int getCurrentDay() {
 		return Calendar.getInstance().get(Calendar.DATE);
 	}
+	
+	public static int getCurrentDayPlus() {
+		if (!isValidDate(getCurrentDay()+1, getCurrentMonth(), getCurrentYear())) {
+			return 1;
+		}
+		return getCurrentDay()+1;
+	}
+
+	public static int getCurrentMonthPlus() {
+		if (!isValidDate(getCurrentDay()+1, getCurrentMonth(), getCurrentYear())) {
+			if (!isValidDate(1, getCurrentMonth()+1, getCurrentYear())) {
+				if (!isValidDate(1, 1, getCurrentYear()+1)) {
+					return 0;
+				}
+				return 1;
+			}
+			return getCurrentMonth()+1;
+		}
+		return getCurrentMonth();
+	}
+
+	
+	public static int getCurrentYearPlus() {
+		if (!isValidDate(getCurrentDay()+1, getCurrentMonth(), getCurrentYear())) {
+			if (!isValidDate(1, getCurrentMonth()+1, getCurrentYear())) {
+				if (!isValidDate(1, 1, getCurrentYear()+1)) {
+					return 0;
+				}
+				return getCurrentYear() + 1;
+			}
+		}
+		return getCurrentYear();
+	}
+
+	
+	private static boolean isValidDate(int day, int month, int year) {
+		if (month==4||month==6||month==9||month==11) {
+			if (day<1||day>30) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (month==1||month==3||month==5||month==7||month==8||month==10||month==12) {
+			return true;
+		} else if (month==2) {
+			if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+				if (day<1||day>29) {
+					return false;
+				} else {
+					return true;
+				}
+			} else {
+				if (day<1||day>28) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+		} else {
+			return false;
+		}
+	}
+	
 	
 	public static boolean isValidDateRange(int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay) {
 		if (endYear < startYear) {
