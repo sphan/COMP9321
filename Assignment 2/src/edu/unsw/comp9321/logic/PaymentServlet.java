@@ -84,7 +84,6 @@ public class PaymentServlet extends HttpServlet {
 				pbr.addErrorMessage("one of the fields are invalid or incomplete");
 			}
 			else if (request.getParameter("action").equals("confirm")) {
-				System.out.println("in confirm");
 				String firstName = request.getParameter("fname");
 				String lastName = request.getParameter("lname");
 				String email = request.getParameter("email");
@@ -97,21 +96,19 @@ public class PaymentServlet extends HttpServlet {
 					nextPage = "booking.jsp";
 					pbr.addErrorMessage("one of the fields are invalid or incomplete");
 				} else {
-					//URLBookingBean ubb = (URLBookingBean) request.getSession().getAttribute("URL");
-					//System.out.println(ubb);
 					if (codehidden == null || codehidden.equals("")) {
 						CustomerDTO cust = dao.addCustomer(firstName, lastName);
+						System.out.println(cust);
 						BookingDTO booking = dao.addCustomerBooking(
 								cust.getId(), blb
 								);
 						String code = dao.createBookingCode(booking.getId());
+						int pin = Command.createPinFromCode(code);
 						MailSender ms = new MailSender();
 						ms.sendMail(email, firstName, code, request);
-						System.out.println(code);
 						pbr.addErrorMessage(code);
 						nextPage = "confirmation.jsp";
 					} else {
-						//CustomerDTO cust = dao.getCustomerByBookingID(ubb.getBooking().getId());
 						BookingDTO booking=dao.getCustomerBookingFromCode(codehidden);
 						for (BookingSelection bs : blb.getList()) {
 							dao.addRoomSchedule(booking.getId(), 

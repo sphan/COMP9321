@@ -627,6 +627,10 @@ public class Command {
 		return original;
 	}
 	
+	public static int createPinFromCode(String code) {
+		return code.hashCode();
+	}
+	
 	public static void presetDiscountForm(HttpServletRequest request, int startday, int startmonth, int startyear,
 			int endday, int endmonth, int endyear) {
 		request.setAttribute("location", request.getParameter("location"));
