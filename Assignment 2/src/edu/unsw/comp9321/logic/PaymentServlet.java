@@ -91,11 +91,13 @@ public class PaymentServlet extends HttpServlet {
 				String expirationMonth = request.getParameter("expireMM");
 				String expirationYear = request.getParameter("expireYY");
 
-				if (firstName==null||lastName==null||email==null||creditCardNumber==null||expirationMonth==null||
+				if (!Command.validateEmail(email) || !Command.validateCreditCard(creditCardNumber)||
+						firstName==null||lastName==null||email==null||creditCardNumber==null||expirationMonth==null||
 						expirationYear==null||firstName.equals("")||lastName.equals("")||email.equals("")||creditCardNumber.equals("")||expirationMonth.equals("")||expirationYear.equals("")) {
 					nextPage = "booking.jsp";
 					pbr.addErrorMessage("one of the fields are invalid or incomplete");
 				} else {
+
 					if (codehidden == null || codehidden.equals("")) {
 						CustomerDTO cust = dao.addCustomer(firstName, lastName);
 						System.out.println(cust);

@@ -62,7 +62,6 @@ public class URLServlet extends HttpServlet {
 				
 			} else if (Command.createPinFromCode(code) == Integer.parseInt(pin)) {
 				if (Command.hoursFromNow(booking.getStartDay(), booking.getStartMonth(), booking.getStartYear()) <= 48) {
-					System.out.println("TOO CLOSE");
 					request.setAttribute("message", "You cannot access this page within 48 hours of your check in time");
 					nextPage = "message.jsp";
 				} else {
