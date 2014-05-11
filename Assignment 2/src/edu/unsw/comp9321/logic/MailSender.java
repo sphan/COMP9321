@@ -22,10 +22,10 @@ public class MailSender extends TimerTask {
 	
 	
 	public MailSender() {
-		this.host = "smtp.gmail.com";
+		this.host = "smtp.cse.unsw.edu.au";
 		this.recipient = "";
-		this.username = "com9321.test@gmail.com";
-		this.password = "admintest";
+		this.username = "jhua488";
+		this.password = "e35a844k";
 		
 		Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "smtp");
