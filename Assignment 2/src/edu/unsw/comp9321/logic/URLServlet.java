@@ -45,59 +45,57 @@ public class URLServlet extends HttpServlet {
 		if (code == null || code.equals("")) {
 			code = request.getRequestURI().replaceAll(".*\\/", ""); // get the code from url
 		}
-		System.out.println(request.getRequestURI());
 
-		/*URLBookingBean ubb = (URLBookingBean) request.getSession().getAttribute("URL");
-		if (ubb == null) {
-			ubb = new URLBookingBean();
-
-		}
-		request.getSession().setAttribute("URL", ubb);
-		System.out.println("URL:"+ubb+":URL");*/
 		if (code.length() < 30) {
 			doPost(request, response);
 		} else {
-
-
-
-			SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
-			if (sdb == null) {
-				//session expired, create new sdb
-				sdb = new SearchDetailsBean();
-				request.getSession().setAttribute("searchDetails", sdb);
-			}
-
 			BookingDTO booking=dao.getCustomerBookingFromCode(code);
-			sdb.setStartDay(booking.getStartDay());
-			sdb.setStartMonth(booking.getStartMonth());
-			sdb.setStartYear(booking.getStartYear());
-			sdb.setEndDay(booking.getEndDay());
-			sdb.setEndMonth(booking.getEndMonth());
-			sdb.setEndYear(booking.getEndYear());
-			sdb.setLocation(booking.getHotel().getLocation());
-
-			if (booking != null) {
-				//ubb.setBooking(booking);
-				List<PeakPeriodDTO> peakPeriods = new ArrayList<PeakPeriodDTO>();
-				peakPeriods.add(new PeakPeriodDTO(15, Calendar.DECEMBER, 15, Calendar.FEBRUARY));
-				peakPeriods.add(new PeakPeriodDTO(25, Calendar.MARCH, 14, Calendar.APRIL));
-				peakPeriods.add(new PeakPeriodDTO(1, Calendar.JULY, 20, Calendar.JULY));
-				peakPeriods.add(new PeakPeriodDTO(20, Calendar.SEPTEMBER, 10, Calendar.OCTOBER));
-
-				request.getSession().setAttribute("peakPeriods", peakPeriods);
-				//ubb.setCode(code);
-
-				request.setAttribute("bookingDetails", booking);
-				nextPage = "bookingInfo.jsp";
+			if (Command.hoursFromNow(booking.getStartDay(), booking.getStartMonth(), booking.getStartYear()) <= 48) {
+				System.out.println("TOO CLOSE");
+				request.setAttribute("message", "You cannot access this page within 48 hours of your check in time");
+				nextPage = "message.jsp";
 			} else {
-				pbr.addErrorMessage("The URL entered is invalid");
-				nextPage = "";
+
+				SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
+				if (sdb == null) {
+					//session expired, create new sdb
+					sdb = new SearchDetailsBean();
+					request.getSession().setAttribute("searchDetails", sdb);
+				}
+
+				sdb.setStartDay(booking.getStartDay());
+				sdb.setStartMonth(booking.getStartMonth());
+				sdb.setStartYear(booking.getStartYear());
+				sdb.setEndDay(booking.getEndDay());
+				sdb.setEndMonth(booking.getEndMonth());
+				sdb.setEndYear(booking.getEndYear());
+				sdb.setLocation(booking.getHotel().getLocation());
+
+				if (booking != null) {
+					//ubb.setBooking(booking);
+					List<PeakPeriodDTO> peakPeriods = new ArrayList<PeakPeriodDTO>();
+					peakPeriods.add(new PeakPeriodDTO(15, Calendar.DECEMBER, 15, Calendar.FEBRUARY));
+					peakPeriods.add(new PeakPeriodDTO(25, Calendar.MARCH, 14, Calendar.APRIL));
+					peakPeriods.add(new PeakPeriodDTO(1, Calendar.JULY, 20, Calendar.JULY));
+					peakPeriods.add(new PeakPeriodDTO(20, Calendar.SEPTEMBER, 10, Calendar.OCTOBER));
+
+					request.getSession().setAttribute("peakPeriods", peakPeriods);
+					//ubb.setCode(code);
+
+					request.setAttribute("bookingDetails", booking);
+					nextPage = "bookingInfo.jsp";
+				} else {
+					pbr.addErrorMessage("The URL entered is invalid");
+					nextPage = "";
+				}
+				request.setAttribute("URLhidden", code);
+				
 			}
-			request.setAttribute("URLhidden", code);
 			pbr.postErrorMessage(request);
 			RequestDispatcher rd = request.getRequestDispatcher("/" + nextPage);
 			rd.forward(request, response);
 		}
+		
 	}
 
 	/**

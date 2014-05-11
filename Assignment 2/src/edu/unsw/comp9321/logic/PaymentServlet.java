@@ -49,7 +49,7 @@ public class PaymentServlet extends HttpServlet {
 		PassByRef pbr = new PassByRef();
 		DAO dao = new DAO(pbr);
 		String nextPage = "";
-		
+
 		String codehidden = request.getParameter("URLhidden");
 		request.setAttribute("URLhidden", codehidden);
 		pbr.addErrorMessage(codehidden);
@@ -72,13 +72,14 @@ public class PaymentServlet extends HttpServlet {
 					}
 				}
 			}
-			System.out.println(request.getParameter("action"));
 			if (request.getParameter("action").equals("update total")) {
-				BookingDTO booking = dao.getCustomerBookingFromCode(codehidden);
-				String fname = booking.getCustomer().getFirstName();
-				String lname = booking.getCustomer().getLastName();
-				request.setAttribute("firstName", fname);
-				request.setAttribute("lastName", lname);
+				if (codehidden != null && !codehidden.equals("")) {
+					BookingDTO booking = dao.getCustomerBookingFromCode(codehidden);
+					String fname = booking.getCustomer().getFirstName();
+					String lname = booking.getCustomer().getLastName();
+					request.setAttribute("firstName", fname);
+					request.setAttribute("lastName", lname);
+				}
 				nextPage = "booking.jsp";
 			}
 			else if (request.getParameter("action").equals("confirm")) {
@@ -103,6 +104,8 @@ public class PaymentServlet extends HttpServlet {
 								cust.getId(), blb
 								);
 						String code = dao.createBookingCode(booking.getId());
+						MailSender ms = new MailSender();
+						ms.sendMail(email, firstName, code, request);
 						System.out.println(code);
 						pbr.addErrorMessage(code);
 						nextPage = "confirmation.jsp";

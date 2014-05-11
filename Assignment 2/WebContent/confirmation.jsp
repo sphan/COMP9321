@@ -13,7 +13,7 @@
 	Thank you for booking, your booking details has been sent to your email
 	and will arrive shortly
 	<c:if test="${URLhidden != null}">
-			Your Unique URL is the same as last time
+			<br>Your Unique URL is the same as last time
 		</c:if>
 	
 </body>

@@ -1,10 +1,15 @@
 package edu.unsw.comp9321.logic;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -634,6 +639,18 @@ public class Command {
 		request.setAttribute("endDate", endday);
 		request.setAttribute("endMonth", endmonth);
 		request.setAttribute("endYear", endyear);
+	}
+	
+	public static int hoursFromNow(int day, int month, int year) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		Date d1 = null;
+		try {
+			d1 = format.parse(year+"/"+month+"/"+day);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		long diff = d1.getTime() - System.currentTimeMillis();
+		return (int) TimeUnit.MILLISECONDS.toHours(diff);
 	}
 	
 	public static int getCurrentYear() {

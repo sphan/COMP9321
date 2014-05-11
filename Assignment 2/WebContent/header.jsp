@@ -14,7 +14,5 @@
 	<c:if test="${URLMessage != null}">
 		<h4 align="center">${URLMessage}</h4>
 	</c:if>
-	<div>URL${URL}URL</div>
-	<div>${URL.booking.customer.firstName}</div>
 	<hr>
 </div>

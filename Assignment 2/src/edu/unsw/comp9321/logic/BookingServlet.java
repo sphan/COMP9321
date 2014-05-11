@@ -60,7 +60,7 @@ public class BookingServlet extends HttpServlet {
 		String code = request.getParameter("URLhidden");
 		request.setAttribute("URLhidden", code);
 		pbr.addErrorMessage(code);
-		
+
 		SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
 		if (sdb == null) {
 			pbr.addErrorMessage("session expired, please try again");
@@ -68,7 +68,7 @@ public class BookingServlet extends HttpServlet {
 		}
 		else if (request.getParameter("action").equals("submit")) {
 			BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
-			
+
 			if (blb == null) {
 				pbr.addErrorMessage("session expired, please try again");
 				nextPage = "customerMain.jsp";
@@ -89,17 +89,20 @@ public class BookingServlet extends HttpServlet {
 						}
 					}
 				}
-				BookingDTO booking = dao.getCustomerBookingFromCode(code);
-				String fname = booking.getCustomer().getFirstName();
-				String lname = booking.getCustomer().getLastName();
-				request.setAttribute("firstName", fname);
-				request.setAttribute("lastName", lname);
+				if (code != null && !code.equals("")) {
+					BookingDTO booking = dao.getCustomerBookingFromCode(code);
+					String fname = booking.getCustomer().getFirstName();
+					String lname = booking.getCustomer().getLastName();
+					request.setAttribute("firstName", fname);
+					request.setAttribute("lastName", lname);
+				}
+
 				nextPage = "booking.jsp";
 			}
 		}
 		//###############################################################
 		else if (request.getParameter("action").equals("calculate total")) {
-			
+
 
 			int totalPrice = 0;
 			for (int i = 0; i < roomTypeName.length; i++) {
@@ -107,7 +110,7 @@ public class BookingServlet extends HttpServlet {
 			}
 			request.setAttribute("totalPrice", totalPrice);
 			List<RoomTypeDTO> roomTypeList = dao.getHotelRoomSelection(sdb);
-			
+
 			if (roomTypeCount != null) {
 				for (int i = 0; i < roomTypeCount.length; i++) {
 					if (Integer.parseInt(roomTypeCount[i]) != 0) {
