@@ -8,8 +8,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import sun.security.action.GetBooleanAction;
-
 import edu.unsw.comp9321.bean.BookingRoomDetailBean;
 import edu.unsw.comp9321.bean.OccupancyBean;
 import edu.unsw.comp9321.bean.OwnerPriceBean;
@@ -115,6 +113,11 @@ public class Command {
 	}
 	
 	public static String staffSelectBooking(HttpServletRequest request, DAO dao) {
+		if (!isValidStaffSession(request)) {
+			dao.getPbr().addErrorMessage("Session expired.");
+			return "customerMain.jsp";
+		}
+		
 		String nextPage = "checkInPage.jsp";
 		boolean checkedIn = false;
 		
@@ -156,11 +159,21 @@ public class Command {
 	}
 	
 	public static String staffSearch(HttpServletRequest request, DAO dao) {
+		if (!isValidStaffSession(request)) {
+			dao.getPbr().addErrorMessage("Session expired.");
+			return "customerMain.jsp";
+		}
+		
 		String nextPage = "staffPage.jsp";
 		String searchType = request.getParameter("search-type");
 		String searchString = request.getParameter("searchString");
 		List<BookingDTO> bookings = new LinkedList<BookingDTO>();
 		
+		if (searchType == null) {
+			displayAllBookings(request, dao);
+			dao.getPbr().addErrorMessage("Please select a search type.");
+			return nextPage;
+		}
 		if (searchString.isEmpty()) {
 			displayAllBookings(request, dao);
 			return nextPage;
@@ -172,10 +185,14 @@ public class Command {
 				bookingID = Integer.parseInt(searchString);
 				bookings.add(dao.getCustomerBookingByID(bookingID));
 			} catch (Exception e) {
-				e.printStackTrace();
+				dao.getPbr().addErrorMessage("Invalid input");
+				displayAllBookings(request, dao);
+				return nextPage;
 			}
 		} else if (searchType.equalsIgnoreCase("customerName")) {
 			bookings = dao.getBookingsByCustomerName(searchString);
+			if (bookings.size() == 0) 
+				dao.getPbr().addErrorMessage("No bookings for customer with name " + searchString + " found.");
 		}
 		HashMap<String, List<BookingDTO>> results = new HashMap<String, List<BookingDTO>>(); 
 		
@@ -202,6 +219,11 @@ public class Command {
 	}
 	
 	public static String checkIn(HttpServletRequest request, DAO dao, PassByRef pbr) {
+		if (!isValidStaffSession(request)) {
+			dao.getPbr().addErrorMessage("Session expired.");
+			return "customerMain.jsp";
+		}
+		
 		String nextPage = "checkInPage.jsp";
 		boolean checkedIn = false;
 		
@@ -244,8 +266,13 @@ public class Command {
 	}
 	
 	public static String checkOut(HttpServletRequest request, DAO dao, PassByRef pbr) {
+		if (!isValidStaffSession(request)) {
+			dao.getPbr().addErrorMessage("Session expired.");
+			return "customerMain.jsp";
+		}
+		
 		String nextPage = "staffPage.jsp";
-		boolean checkedIn = false;
+//		boolean checkedIn = false;
 		
 		String[] roomIDs = request.getParameterValues("checkOutRooms");
 		
@@ -255,28 +282,30 @@ public class Command {
 			return "staffPage.jsp";
 		}
 		
-		List<BookingRoomDetailBean> rooms = new ArrayList<BookingRoomDetailBean>();
-		
 		for (String roomID : roomIDs) {
 			try {
 				int room_id = Integer.parseInt(roomID);
 				dao.updateRoomAvailability(room_id, "available");
-				pbr.addErrorMessage("Booking has been checked out");
-				RoomDTO room = dao.getRoomByID(room_id);
-				rooms.add(new BookingRoomDetailBean(room.getRoomType().name(), dao.getHotelByID(room.getHotel()), room));
+				pbr.addErrorMessage("Booking has been checked out.");
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		checkedIn = false;
-		request.setAttribute("availableRooms", rooms);
-		request.setAttribute("checkedIn", checkedIn);
+		
+		displayAllBookings(request, dao);
+//		checkedIn = false;
+//		request.setAttribute("availableRooms", rooms);
+//		request.setAttribute("checkedIn", checkedIn);
 		
 		return nextPage;
 	}
 	
 	public static void displayAllOccupancies(HttpServletRequest request, DAO dao) {
+		if (!isValidStaffSession(request)) {
+			dao.getPbr().addErrorMessage("Session expired.");
+		}
+		
 		List<HotelDTO> hotels = dao.getAllHotelLocations();
 		HashMap<String, List<OccupancyBean>> results = new HashMap<String, List<OccupancyBean>>();
 		
@@ -295,6 +324,10 @@ public class Command {
 	}
 	
 	public static void displayAllRoomPrices(HttpServletRequest request, DAO dao) {
+		if (!isValidStaffSession(request)) {
+			dao.getPbr().addErrorMessage("Session expired.");
+		}
+		
 		List<HotelDTO> hotels = dao.getAllHotelLocations();
 		HashMap<String, List<OwnerPriceBean>> allPrices = new HashMap<String, List<OwnerPriceBean>>();
 		
@@ -307,6 +340,11 @@ public class Command {
 	}
 	
 	public static String staffSearchRoomPrice(HttpServletRequest request, DAO dao) {
+		if (!isValidStaffSession(request)) {
+			dao.getPbr().addErrorMessage("Session expired.");
+			return "customerMain.jsp";
+		}
+		
 		String nextPage = "viewDiscountPrice.jsp";
 		
 		String location = request.getParameter("hotelLocation");
@@ -351,6 +389,11 @@ public class Command {
 	}
 	
 	public static String displayDiscountForm(HttpServletRequest request, DAO dao) {
+		if (!isValidStaffSession(request)) {
+			dao.getPbr().addErrorMessage("Session expired.");
+			return "customerMain.jsp";
+		}
+		
 		String nextPage = "setDiscountPrice.jsp";
 		String[] roomTypeLocation = request.getParameter("roomTypeLocation").split("-");
 		
@@ -373,6 +416,11 @@ public class Command {
 	}
 	
 	public static String setDiscountPrice(HttpServletRequest request, DAO dao) {
+		if (!isValidStaffSession(request)) {
+			dao.getPbr().addErrorMessage("Session expired.");
+			return "customerMain.jsp";
+		}
+		
 		String nextPage = "setDiscountPrice.jsp";
 		
 		String hotelLocation = request.getParameter("location");
@@ -435,6 +483,11 @@ public class Command {
 	}
 	
 	public static String backToDiscountForm(HttpServletRequest request, DAO dao) {
+		if (!isValidStaffSession(request)) {
+			dao.getPbr().addErrorMessage("Session expired.");
+			return "customerMain.jsp";
+		}
+		
 		String nextPage = "setDiscountPrice.jsp";
 		
 		String[] startDate = request.getParameter("startDate").split("-");
@@ -449,6 +502,11 @@ public class Command {
 	}
 	
 	public static String confirmDiscountPrice(HttpServletRequest request, DAO dao) {
+		if (!isValidStaffSession(request)) {
+			dao.getPbr().addErrorMessage("Session expired.");
+			return "customerMain.jsp";
+		}
+		
 		String hotelLocation = request.getParameter("location");
 		String roomType = request.getParameter("roomType");
 		String curPrice = request.getParameter("curPrice");
@@ -623,6 +681,11 @@ public class Command {
 		return getCurrentYear();
 	}
 
+	private static boolean isValidStaffSession(HttpServletRequest request) {
+		if (request.getSession().getAttribute("loginName") == null)
+			return false;
+		return true;
+	}
 	
 	private static boolean isValidDate(int day, int month, int year) {
 		if (month==4||month==6||month==9||month==11) {

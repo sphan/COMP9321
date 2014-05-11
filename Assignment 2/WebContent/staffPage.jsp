@@ -11,15 +11,7 @@
 <link href="hotel.css" rel="stylesheet">
 </head>
 <body>
-<div id="header">
-<form action="login" method="POST">
-<div align="right"><input type="submit" name="action" value="Logout" /></div>
-</form>
-<center><h1>Hotels</h1></center>
-<div>Logged in as: <c:out value="${loginName}" />
-</div>
-<hr>
-</div>
+<jsp:include page="loggedinHeader.jsp"></jsp:include>
 <div id="content">
 	<%@ include file="staffSearchForm.html"%>
 	<div id="main-content">
