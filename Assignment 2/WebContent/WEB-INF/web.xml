@@ -16,6 +16,16 @@
 		<servlet-name>URL</servlet-name>
 		<servlet-class>edu.unsw.comp9321.logic.URLServlet</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>staff</servlet-name>
+		<servlet-class>edu.unsw.comp9321.logic.StaffServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>owner</servlet-name>
+		<servlet-class>edu.unsw.comp9321.logic.OwnerServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>URL</servlet-name>
@@ -25,5 +35,15 @@
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>staff</servlet-name>
+		<url-pattern>/staff/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>owner</servlet-name>
+		<url-pattern>/owner/*</url-pattern>
 	</servlet-mapping>
 </web-app>

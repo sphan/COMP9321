@@ -5,7 +5,6 @@
 	<h1>
 		<a href="<%out.println(request.getContextPath());%>/">Hotels</a>
 	</h1>
-	<%@ include file="loginForm.html"%>
 	<c:choose>
 		<c:when test="${errorMessage != null}">
 			<h4 align="center">${errorMessage}</h4>
