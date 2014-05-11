@@ -26,7 +26,8 @@ public class OwnerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("/" + "staffLogin.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

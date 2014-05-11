@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.unsw.comp9321.jdbc.DAO;
 
-@WebServlet(urlPatterns="/staff",displayName="StaffServlet")
+@WebServlet("/staff")
 public class StaffServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,8 @@ public class StaffServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("/" + "staffLogin.jsp");
+		rd.forward(request, response);
 	}
 	
 	/**
