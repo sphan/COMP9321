@@ -409,7 +409,6 @@ public class DAO {
 			logger.info("The result set size is "+ res.getFetchSize());
 			while (res.next()) {
 				bookings.add(rebuildBooking(res));
-				System.out.println("getting booking");
 			}
 		} catch (SQLException SQLe) {
 			SQLe.printStackTrace();
@@ -449,15 +448,12 @@ public class DAO {
 					"select rs.id from room_schedule rs " +
 					"join room_type rt on (rt.id = rs.room_type_id) " +
 					"where rt.room_type = ? and room_id is NULL and rs.customer_booking_id = ?");
-			System.out.println("roomType: " + room_type);
-			System.out.println("roomID: " + roomID);
 			ps.setString(1, room_type);
 			ps.setInt(2, custBookingID);
 			results = ps.executeQuery();
 			
 			
 			if (results.next()) {
-				System.out.println("Updatng");
 				ps = connection.prepareStatement("update room_schedule set room_id = ? " +
 						"where id = ?");
 				ps.setInt(1, roomID);
@@ -824,7 +820,6 @@ public class DAO {
 					"join customer_booking cb on " +
 					"(cb.customer_id = c.id) " +
 					"where cb.id = " + bookingID;
-			System.out.println(query_cast);
 			ResultSet res = stmnt.executeQuery(query_cast);
 			logger.info("The result set size is "+res.getFetchSize());
 			
@@ -855,7 +850,6 @@ public class DAO {
 			logger.info("The result set size is "+res.getFetchSize());
 
 			while (res.next()) {
-				System.out.println("test");
 				int id = res.getInt("id");
 				String name = res.getString("name");
 				String userName = res.getString("username");
@@ -1015,7 +1009,6 @@ public class DAO {
 			ResultSet result = ps.executeQuery();
 			if (result.next()) {
 				booking = getCustomerBookingByID(result.getInt("customer_booking_id"));
-				System.out.println(booking.getRoomSchedules().size());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

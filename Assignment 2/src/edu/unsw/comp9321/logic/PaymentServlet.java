@@ -2,6 +2,7 @@ package edu.unsw.comp9321.logic;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,7 +53,6 @@ public class PaymentServlet extends HttpServlet {
 
 		String codehidden = request.getParameter("URLhidden");
 		request.setAttribute("URLhidden", codehidden);
-		pbr.addErrorMessage(codehidden);
 
 		BookingListBean blb = (BookingListBean) request.getSession().getAttribute("booking");
 		if (blb == null) {
@@ -81,7 +81,6 @@ public class PaymentServlet extends HttpServlet {
 					request.setAttribute("lastName", lname);
 				}
 				nextPage = "booking.jsp";
-				pbr.addErrorMessage("one of the fields are invalid or incomplete");
 			}
 			else if (request.getParameter("action").equals("confirm")) {
 				String firstName = request.getParameter("fname");
@@ -91,22 +90,31 @@ public class PaymentServlet extends HttpServlet {
 				String expirationMonth = request.getParameter("expireMM");
 				String expirationYear = request.getParameter("expireYY");
 
-				if (firstName==null||lastName==null||email==null||creditCardNumber==null||expirationMonth==null||
+				if (!Command.validateEmail(email) || !Command.validateCreditCard(creditCardNumber)||
+						firstName==null||lastName==null||email==null||creditCardNumber==null||expirationMonth==null||
 						expirationYear==null||firstName.equals("")||lastName.equals("")||email.equals("")||creditCardNumber.equals("")||expirationMonth.equals("")||expirationYear.equals("")) {
+					if (codehidden != null && !codehidden.equals("")) {
+						BookingDTO booking = dao.getCustomerBookingFromCode(codehidden);
+						String fname = booking.getCustomer().getFirstName();
+						String lname = booking.getCustomer().getLastName();
+						request.setAttribute("firstName", fname);
+						request.setAttribute("lastName", lname);
+					}
 					nextPage = "booking.jsp";
 					pbr.addErrorMessage("one of the fields are invalid or incomplete");
 				} else {
+
 					if (codehidden == null || codehidden.equals("")) {
 						CustomerDTO cust = dao.addCustomer(firstName, lastName);
-						System.out.println(cust);
 						BookingDTO booking = dao.addCustomerBooking(
 								cust.getId(), blb
 								);
 						String code = dao.createBookingCode(booking.getId());
 						int pin = Command.createPinFromCode(code);
-						MailSender ms = new MailSender();
-						ms.sendMail(email, firstName, code, pin, request);
-						pbr.addErrorMessage(code);
+						Timer emailThread = new Timer();
+						emailThread.schedule(new MailSender(email, firstName, code, pin, request), 0);
+						
+						
 						nextPage = "confirmation.jsp";
 					} else {
 						BookingDTO booking=dao.getCustomerBookingFromCode(codehidden);
@@ -123,7 +131,6 @@ public class PaymentServlet extends HttpServlet {
 					}
 				}
 			} else {
-				System.out.println("ELSE");
 			}
 		}
 

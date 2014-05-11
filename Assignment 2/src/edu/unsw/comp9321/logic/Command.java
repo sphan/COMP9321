@@ -627,8 +627,18 @@ public class Command {
 		return original;
 	}
 	
+	public static boolean validateEmail(String email) {
+		String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+		return email.matches(EMAIL_REGEX);
+	}
+	
+	public static boolean validateCreditCard(String cc) {
+		String CC_REGEX = "^[0-9]{16}$";
+		return cc.matches(CC_REGEX);
+	}
+	
 	public static int createPinFromCode(String code) {
-		return code.hashCode();
+		return Math.abs(code.hashCode());
 	}
 	
 	public static void presetDiscountForm(HttpServletRequest request, int startday, int startmonth, int startyear,

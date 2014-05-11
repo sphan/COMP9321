@@ -37,7 +37,6 @@ public class DefaultServlet extends HttpServlet {
 		
 		request.getSession().setAttribute("URL", null);
 		PassByRef pbr = new PassByRef();
-		pbr.addErrorMessage("test");
 		SearchDetailsBean sdb = (SearchDetailsBean) request.getSession().getAttribute("searchDetails");
 		if (sdb == null) {
 			//session expired, create new sdb
